@@ -20,7 +20,6 @@ class PreState {
 
     public function __construct() {
         if (
-                PreState::checkSSL() &&
                 PreState::noOutput()
         ) {
             return true;
@@ -35,8 +34,8 @@ class PreState {
      * it will redirect the user to a SSLEnabled version
      */
     private function checkSSL() {
-        if (ID_APP_SSL && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "on") {
-            $url = sprintf('%s://%s%s',ID_APP_PROTOCOL,ID_APP_URI,ID_APP_MOUNT);
+        if (IKE_APP_SSL && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "on") {
+            $url = sprintf('%s://%s%s',IKE_APP_PROTOCOL,IKE_APP_URI,IKE_APP_MOUNT);
             header("Location: $url");
             PreState::quit(1001);
         }
@@ -50,10 +49,10 @@ class PreState {
      */
     private function noOutput() {
         $content = ob_get_contents();
-        if (ID_APP_ENV < ENV_PRODUCTION && $content != '') {
+        if (IKE_APP_ENV < ENV_PRODUCTION && $content != '') {
             echo 'WARNING: UNEXPECTED OUTPUT GENERATED' . CHAR_NL;
             return true;
-        } elseif (ID_APP_ENV < ENV_PRODUCTION) {
+        } elseif (IKE_APP_ENV < ENV_PRODUCTION) {
             return true;
         } elseif ($content != '') {
             PreState::quit(1002);
@@ -68,13 +67,13 @@ class PreState {
      */
     private function checkLoad() {
         $current = sys_getloadavg();
-        if ($current[0] > ID_BOUNDARY_LOAD) {
+        if ($current[0] > IKE_BOUNDARY_LOAD) {
             # An unacceptable load state was detected
-            if (ID_LOAD_ACTIVE) {
+            if (IKE_LOAD_ACTIVE) {
                 # Notify loadbalancer
-                CommLoadBal::send(ID_LOAD_IP, array('state' => 'max', 'app' => ID_APP_URI));
+                CommLoadBal::send(IKE_LOAD_IP, array('state' => 'max', 'app' => IKE_APP_URI));
                 # Redirect back to loadbalancer
-                header('Location: ' . ID_APP_PROTOCOL . ID_APP_URI . REQUEST_URI);
+                header('Location: ' . IKE_APP_PROTOCOL . IKE_APP_URI . REQUEST_URI);
                 header('HTTP/1.1 503 Too busy, redirecting back to loadbalancer');
                 exit();
             } else {
@@ -95,13 +94,13 @@ class PreState {
      */
     private static function quit($errCode = 1000) {
         # Clear the user buffer
-        if (ID_APP_ENV == ENV_PRODUCTION) {
+        if (IKE_APP_ENV == ENV_PRODUCTION) {
             ob_end_clean();
         }
 
-        include(ID_APP_DIR . '/views/general/header.inc.php');
-        include(ID_APP_DIR . '/views/failure/' . $errCode . '.inc.php');
-        include(ID_APP_DIR . '/views/general/footer.inc.php');
+        include(IKE_APP_DIR . '/views/general/header.inc.php');
+        include(IKE_APP_DIR . '/views/failure/' . $errCode . '.inc.php');
+        include(IKE_APP_DIR . '/views/general/footer.inc.php');
 
         # TODO
         # Trigger some sort of error to the DB

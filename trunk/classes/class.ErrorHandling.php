@@ -37,7 +37,7 @@ class errorHandling {
 
 }
 
-switch (ID_APP_ENV) {
+switch (IKE_APP_ENV) {
     case ENV_DEVELOPMENT:
         errorHandling::production();
         errorHandling::testing();

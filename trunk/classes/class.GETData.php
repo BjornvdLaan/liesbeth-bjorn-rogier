@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Environment
+ */
 class GETData {
 
     protected $data;

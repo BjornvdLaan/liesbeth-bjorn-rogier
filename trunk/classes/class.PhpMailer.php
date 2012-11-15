@@ -38,8 +38,8 @@
 if (version_compare(PHP_VERSION, '5.0.0', '<') ) exit("Sorry, this version of PHPMailer will only run on PHP version 5 or greater!\n");
 
 # Heeft de PHP postfix combi nodig. Zo sturen ze de mails goed naar hotmail, anders staat er localhost.localdomain
-$_SERVER['HTTP_HOST'] = 'in-ventid.nl';
-$_SERVER['SERVER_NAME'] = 'in-ventid.nl';
+$_SERVER['HTTP_HOST'] = 'ike.rogierslag.nl';
+$_SERVER['SERVER_NAME'] = 'ike.rogierslag.nl';
 
 class PhpMailer {
 
@@ -82,20 +82,20 @@ class PhpMailer {
    * Sets the From email address for the message.
    * @var string
    */
-  public $From              = 'shop@in-ventid.nl';
+  public $From              = 'noreply@ike.rogierslag.nl';
 
   /**
    * Sets the From name of the message.
    * @var string
    */
-  public $FromName          = 'in-ventID Webshop';
+  public $FromName          = 'IKE';
 
   /**
    * Sets the Sender email (Return-Path) of the message.  If not empty,
    * will be sent via -f to sendmail or as 'MAIL FROM' in smtp mode.
    * @var string
    */
-  public $Sender            = 'shop@in-ventid.nl';
+  public $Sender            = 'noreply@ike.rogierslag.nl';
 
   /**
    * Sets the Subject of the message.
@@ -334,7 +334,7 @@ class PhpMailer {
    * What to use in the X-Mailer header
    * @var string
    */
-  public $XMailer         = 'in-ventID mailer';
+  public $XMailer         = 'IKE mailer';
 
   /////////////////////////////////////////////////
   // PROPERTIES, PRIVATE AND PROTECTED
@@ -2248,7 +2248,7 @@ class PhpMailer {
   }
   
   public static function useView( $view , $aParams ) {
-		$message = file_get_contents(ID_APP_DIR.'/views/mails/'.$view.'.html');
+		$message = file_get_contents(IKE_APP_DIR.'/views/mails/'.$view.'.html');
 		return PHPMailer::useInternalView($message,$aParams);
   }
   

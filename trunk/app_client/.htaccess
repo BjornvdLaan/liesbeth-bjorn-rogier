@@ -1,0 +1,56 @@
+# Allereerst excuses aan iemand anders dan ik die door dit bestan heen moet ploegen. Het is wat omvangrijker geworden dan ooit gehoopt
+
+# Welk niveau bevindt de code zich?
+# 1 = development; 2= testing; 3=production
+SetEnv APPLICATION_ENV 1
+
+# In productie nooit indexpagina's laten zien
+Options -Indexes
+
+# Rewriten activeren
+RewriteEngine On
+
+# De volgende regels rewriten de code naar iets netjes. wordt vervolgens de boel gewoon geparsed als module en action
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^view/(.+)/(.+).html/$ 					bootstrap.php?action=$2&view=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^view/(.+)/(.+).html$ 					bootstrap.php?action=$2&view=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^view/(.+)/(.+)/$ 					bootstrap.php?action=$2&view=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^view/(.+)/(.+)$ 					bootstrap.php?action=$2&view=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+
+
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^(.+).html/$ 					bootstrap.php?action=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^(.+).html$ 					bootstrap.php?action=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^(.+)/$ 					bootstrap.php?action=$1 [L]
+RewriteCond %{REQUEST_URI} !(\.php$|content|favicon.ico$|robots.txt$)
+RewriteRule ^(.+)$ 					bootstrap.php?action=$1 [L]
+
+
+# Startbestand
+DirectoryIndex bootstrap.php
+
+# Caching
+# 1 YEAR
+<FilesMatch "\.(ico)$">
+Header set Cache-Control "max-age=29030400, public"
+</FilesMatch>
+# 1 WEEK
+<FilesMatch "\.(jpg|jpeg|png|gif|swf|GIF|js)$">
+Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+# 2 DAYS
+<FilesMatch "\.(xml|txt|css|js)$">
+Header set Cache-Control "max-age=172800, proxy-revalidate"
+</FilesMatch>
+# not
+<FilesMatch "\.(html|htm|php)$">
+Header unset ETag
+Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+Header set Pragma "no-cache"
+</FilesMatch>

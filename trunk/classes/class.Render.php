@@ -18,9 +18,9 @@
  */
 class Render {
 
-    private $header = '/views/shop/general/header.inc.php';
-    private $footer = '/views/shop/general/footer.inc.php';
-    private $views = array('general'/* , 'plain', 'iframe' */);
+    private $header = '/views/client/general/header.inc.php';
+    private $footer = '/views/client/general/footer.inc.php';
+    private $views = array('general', 'plain', /*'iframe' */);
 
     /**
      * This function masks an E-mailaddress from spammers by inserting random things between the user and domain part
@@ -29,7 +29,7 @@ class Render {
     public static function maskEmail($email) {
         $username = substr($email, 0, strpos($email, '@'));
         $domain = substr($email, strpos($email, '@'));
-        return sprintf('%s<span style="display:none;">%d</span><!--%d-->%s',$username,mt_rand(0,9999),mt_rand(0,9999),$domain);
+        return sprintf('%s<span style="display:none;">%d</span><!--%d-->%s', $username, mt_rand(0, 9999), mt_rand(0, 9999), $domain);
     }
 
     /**
@@ -38,10 +38,10 @@ class Render {
      */
     public function __construct() {
         $this->checkView();
-        if (!defined('PREFIX') && ID_RENDER_VIEW === $this->views[0]) {
+        if (!defined('PREFIX') && IKE_RENDER_VIEW === $this->views[0]) {
             define('PREFIX', '');
-        } elseif ( !defined('PREFIX')) {
-            define('PREFIX', '/view/' . ID_RENDER_VIEW);
+        } elseif (!defined('PREFIX')) {
+            define('PREFIX', '/view/' . IKE_RENDER_VIEW);
         }
     }
 
@@ -61,15 +61,12 @@ class Render {
      * Parts of the app may refer to the view
      */
     public function checkView() {
-        if (!defined('ID_RENDER_VIEW')) {
-            if (ID_VIEWGENERAL_ONLY) {
-                define('ID_RENDER_VIEW', $this->views[0]);
-            } elseif (isset($_GET['view']) && in_array($_GET['view'], $this->views)) {
-                define('ID_RENDER_VIEW', $_GET['view']);
-            } else {
-                define('ID_RENDER_VIEW', $this->views[0]);
-            }
+        if (isset($_GET['view']) && in_array($_GET['view'], $this->views)) {
+            define('IKE_RENDER_VIEW', $_GET['view']);
+        } else {
+            define('IKE_RENDER_VIEW', $this->views[0]);
         }
+
         return;
     }
 
@@ -78,9 +75,9 @@ class Render {
      * the HTML for the client
      */
     public function render() {
-        if (defined('ID_RENDER_VIEW')) {
-            $this->header = '/views/' . ID_RENDER_LAYOUT . '/' . ID_RENDER_VIEW . '/header.inc.php';
-            $this->footer = '/views/' . ID_RENDER_LAYOUT . '/' . ID_RENDER_VIEW .  '/footer.inc.php';
+        if (defined('IKE_RENDER_VIEW')) {
+            $this->header = '/views/' . IKE_RENDER_LAYOUT . '/' . IKE_RENDER_VIEW . '/header.inc.php';
+            $this->footer = '/views/' . IKE_RENDER_LAYOUT . '/' . IKE_RENDER_VIEW . '/footer.inc.php';
         }
         $this->doRender();
     }
@@ -90,14 +87,14 @@ class Render {
      */
     private function doRender() {
         # Get rid of any unneccasary output
-        if (ID_APP_ENV == ENV_PRODUCTION)
+        if (IKE_APP_ENV == ENV_PRODUCTION)
             ob_end_clean();
 
         global $oModuleData;
 
-        include( ID_APP_DIR . $this->header );
-        include( ID_APP_DIR . $oModuleData->view );
-        include( ID_APP_DIR . $this->footer );
+        include( IKE_APP_DIR . $this->header );
+        include( IKE_APP_DIR . $oModuleData->view );
+        include( IKE_APP_DIR . $this->footer );
 
         exit();
     }

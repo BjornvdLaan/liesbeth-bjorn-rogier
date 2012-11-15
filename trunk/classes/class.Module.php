@@ -5,21 +5,19 @@
  * It defines some properties that will be required anyway
  * @author Rogier Slag
  * @version 1
- * @package Shop
+ * @package Environment
  */
 abstract class Module {
 
     protected $conn = NULL;
-    protected $data = NULL;
     
     /**
      * Construct the module and set the data and database connection delegates
      * @param PDO $conn
      * @param Array $data
      */
-    final public function __construct($conn, $data) {
+    final public function __construct($conn) {
         $this->conn = $conn;
-        $this->data = $data;
     }
     
     /**
