@@ -18,6 +18,7 @@
  */
 class Render {
 
+    private static $instance = NULL;
     private $header = '/views/client/general/header.inc.php';
     private $footer = '/views/client/general/footer.inc.php';
     private $views = array('general', 'plain', /*'iframe' */);
@@ -32,6 +33,15 @@ class Render {
         return sprintf('%s<span style="display:none;">%d</span><!--%d-->%s', $username, mt_rand(0, 9999), mt_rand(0, 9999), $domain);
     }
 
+    public static function getInstance() {
+        if (self::$instance !== NULL) {
+            return self::$instance;
+        }
+
+        self::$instance = new Render();
+        return self::$instance;
+    }
+    
     /**
      * The constructor for the class. It prepares
      * all neccesary variables and constants

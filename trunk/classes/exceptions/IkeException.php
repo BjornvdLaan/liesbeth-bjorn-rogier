@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package Exceptions
+ */
+
 class IkeException extends Exception {
     
     protected $renderError;

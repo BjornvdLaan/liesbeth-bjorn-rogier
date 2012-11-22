@@ -3,7 +3,7 @@
 /**
  * @author Rogier Slag
  * @version 1
- * @package IkeExceptions
+ * @package Exceptions
  * This exception is thrown if the system could not successfully connect to 
  * the central database system
  */

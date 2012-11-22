@@ -22,7 +22,7 @@ include ( '../modules/config.php');
 include ( '../modules/sources.php');
 
 try {
-    $render = new Render();
+    $render = Render::getInstance();
     
     $handler = new Handler();
     $handler->fire();

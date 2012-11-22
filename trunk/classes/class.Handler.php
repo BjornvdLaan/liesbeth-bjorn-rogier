@@ -12,13 +12,12 @@
  */
 class Handler {
 
-    private $dAction = '1';
+    private $dAction = 'login';
     private $module;
     private $db = NULL;
     
     /**
      * Constructs the Handler
-     * @global Render $render
      */
     public function __construct() {
         define('ACTION', isset($_GET['action']) ? $_GET['action'] : $this->dAction);
@@ -31,7 +30,7 @@ class Handler {
             $this->module = new $m($this->db);
         } catch (Exception $e) {
             # By the time the exception arrived here, there's litte we can do
-            global $render;
+            $render = Render::getInstance();
             $render->renderError($e->renderError());
             die();
         }
@@ -44,7 +43,7 @@ class Handler {
         try {
             $this->module->fire(ACTION);
         } catch (InventIDException $e) {
-            global $render;
+            $render = Render::getInstance();
             $render->renderError($e->renderError());
             die();
         } catch (Exception $e) {

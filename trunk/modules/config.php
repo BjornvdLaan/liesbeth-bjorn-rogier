@@ -16,6 +16,10 @@ define('IKE_APP_TYPE', getenv('APPLICATION_TYPE') ? getenv('APPLICATION_TYPE') :
 
 define('IKE_APP_PROTOCOL', 'http' . (IKE_APP_SSL ? 's' : ''));
 
+define('IKE_FB_APP_ID','404370416302248');
+define('IKE_FB_APP_SECRET','9bc86e973421959f4ca4274cb1312102');
+
+
 define('HASH_ALGO', 'sha512');
 
 define('IKE_MAIL_TECH','rogier@in-ventid.nl');
