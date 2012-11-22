@@ -1,4 +1,5 @@
-<p>Don't have an account yet? <a href="/register">Create one</a>!</p>
+<h1>Welcome by the Awesomo 4000</h1>
+<p>Login or <a href="/register">create a new account</a>!</p>
 
 <form action="/handle-login" method="POST">
     <table>
