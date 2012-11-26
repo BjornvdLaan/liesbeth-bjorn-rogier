@@ -2,12 +2,24 @@
 
 class Sparql {
 
+    public function checkStatus() {
+        return true;
+    }
+
     public function getAbstractFromArtist($artist) {
         $query = "SELECT ?abstract WHERE { ?id foaf:name \"" . $artist . "\"@en ; <http://dbpedia.org/ontology/abstract> ?abstract . FILTER ( langMatches( lang(?abstract), 'en') || ! langMatches(lang(?abstract),'*')) }";
 
         $endpoint = "dbpedia.org/sparql";
         $abstract = $this->execQuerySingle($query, $endpoint);
         return $abstract;
+    }
+
+    public function getSpouseFromArtist($artist) {
+        $query = "SELECT ?artist2_name WHERE { ?artist1 a mo:MusicArtist; foaf:name \"" . $artist . "\" . ?artist2 a mo:MusicArtist; foaf:name ?artist2_name . ?artist1 rel:spouseOf ?artist2 . }";
+        $endpoint = "dbtune.org/musicbrainz/sparql";
+        $extraNS = array("rel,http://purl.org/vocab/relationship/", "mo,http://purl.org/ontology/mo/");
+        $partner = $this->execQuerySingle($query, $endpoint, $extraNS);
+        return $partner;
     }
 
     private function execQuerySingle($query, $endpoint, $nsarray = array()) {

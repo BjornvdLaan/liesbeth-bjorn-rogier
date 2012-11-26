@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(-1);
+ini_set('display_errors','on');
+
 require_once 'Zend/Loader.php'; // the Zend dir must be in your include_path
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
 $yt = new Zend_Gdata_YouTube();
@@ -40,8 +43,14 @@ function printVideoEntry($videoEntry) {
         echo ' height=' . $videoThumbnail['height'];
         echo ' width=' . $videoThumbnail['width'] . "\n";
     }
-    var_dump($videoEntry);
 }
+
+$y = $yt->getVideoFeed('https://gdata.youtube.com/feeds/api/videos/gYiWJPZX2i8/related');
+foreach ($y as $playlistEntry) { 
+    echo '------------ NEW ENTRY-------------'.CHAR_NL.CHAR_NL.CHAR_NL;
+    printVideoEntry($playlistEntry);
+}
+die();
 
 $x = $yt->getVideoEntry('xVpe2DyHJr0');
 printVideoEntry($x);
