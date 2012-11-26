@@ -1,0 +1,12 @@
+http://dbtune.org/musicbrainz/sparql
+http://musicontology.com/ <----
+id van artist query:
+SELECT ?id WHERE{
+?id foaf:name "Carly Rae Jepsen" .
+}
+limit 1
+
+voor performance
+SELECT * WHERE {
+?a a mo:Performance .
+}

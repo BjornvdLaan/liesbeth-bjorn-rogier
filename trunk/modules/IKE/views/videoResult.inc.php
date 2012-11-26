@@ -52,8 +52,22 @@
     google.setOnLoadCallback(_run);
 </script>
 
+<p>Copy your music link here:</p>
 <?php include('videoInput.inc.php'); ?>
 
-<div id="videoDiv">Loading...</div>
+<div id="videoDiv">Loading video. Please wait...</div>
 
-<p>More info here!</p>
+<table>
+    <tr>
+        <th style="width:150px;text-align:left;">Video Title</th>
+        <td><?=$oModuleData->data->video->title?></td>
+    </tr>
+    <tr style="width:150px;text-align:left;">
+        <th>Video Artist</th>
+        <td><?=$oModuleData->data->video->artist?></td>
+    </tr>
+    <tr style="width:150px;text-align:left;vertical-align:top;">
+        <th>About the artist</th>
+        <td><?=$oModuleData->data->sparql?></td>
+    </tr>
+</table>

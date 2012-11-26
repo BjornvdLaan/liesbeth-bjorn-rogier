@@ -21,7 +21,10 @@ include(IKE_APP_DIR . '/classes/class.Module.php');
 include(IKE_APP_DIR . '/classes/class.PhpMailer.php');
 include(IKE_APP_DIR . '/classes/class.PreState.php');
 include(IKE_APP_DIR . '/classes/class.Render.php');
+include(IKE_APP_DIR . '/classes/class.Sparql.php');
+include(IKE_APP_DIR . '/classes/class.sparqllib.php');
 include(IKE_APP_DIR . '/classes/class.User.php');
+include(IKE_APP_DIR . '/classes/class.Youtube.php');
 include(IKE_APP_DIR . '/classes/FacebookSDK/facebook.php');
 
 new PreState();

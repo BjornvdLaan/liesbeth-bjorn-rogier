@@ -86,24 +86,35 @@ class IKE extends Module {
 
 
         $oModuleData->data->user = $user;
+        $oModuleData->data->URL = 'e.g. http://www.youtube.com/.......';
         $oModuleData->view = '/modules/IKE/views/welcome.inc.php';
     }
 
     public function videoDisplay() {
         global $oModuleData;
+        $youtube = new Youtube;
+        $sparql = new Sparql;
 
         $postLink = parse_url($_POST['link']);
         $gets = explode('&', $postLink['query'] );
         foreach ($gets as $get) {
             list($key, $value) = explode('=', $get);
-            var_dump($key,$value);
             if ($key == 'v') {
                 $link = $value;
                 break;
             }
         }
         
+        if ( !isset ( $link ) ) {
+            throw new Exception;
+        }
+        
+        $videoData = $youtube->getDataForVideo($link);
+        
         $oModuleData->data->link = $link;
+        $oModuleData->data->video = $youtube->extractData();
+        $oModuleData->data->sparql = $sparql->getAbstractFromArtist($oModuleData->data->video->artist);
+        $oModuleData->data->URL = htmlspecialchars($_POST['link']);
 
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
     }
