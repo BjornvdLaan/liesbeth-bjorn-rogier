@@ -1,21 +1,18 @@
-<h1>Welcome by the Awesomo 4000.</h1>
-<p>Login or <a href="/register">create a new account</a>!</p>
+<div class="container-fluid">
+    <h1>Welcome by the Awesomo 4000.</h1>
+    
+    <div class="container">
+        <form class="form-signin" action="/handle-login" method="POST">
+            <h3 class="form-signin-heading">Login or <a href="/register">create a new account</a>!</h2>
+                <input class="input-block-level" type="text" name="username" placeholder="Username" id="username">
 
-<form action="/handle-login" method="POST">
-    <table>
-        <tr>
-            <td><input type="text" name="username" value="username" id="username"></td>
-        </tr>
+                <input class="input-block-level" type="password" name="password" placeholder="Password">
 
-        <tr>
-            <td><input type="password" name="password"></td>
-        </tr>
+                <input type="submit" name="Inloggen" value="Log in" label="Inloggen">
 
-        <tr>
-            <td><input type="submit" name="Inloggen" value="Inloggen" label="Inloggen"></td>
-        </tr>
-    </table>
-</form>
+        </form>
+    </div>
+</div>
 
 <script>
     $('#username').click( function() { if($(this).val() == 'username') { $(this).val(''); }});
