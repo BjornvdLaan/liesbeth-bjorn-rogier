@@ -5,7 +5,7 @@
 </form>
 
 <script>
-    $('#link').click( function() { alert($(this).val() == '<?=$oModuleData->data->URL?>'); if($(this).val() == '<?=$oModuleData->data->URL?>') { $(this).val(''); }});
+    $('#link').click( function() { if($(this).val() == '<?=$oModuleData->data->URL?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?=$oModuleData->data->URL?>'); }});
  
 </script>

@@ -75,7 +75,7 @@
         <td><?= $oModuleData->data->sparqlspouse ?></td>
     </tr>
     <tr style="width:150px;text-align:left;">
-        <th>Partner</th>
-        <td><?= $oModuleData->data->sparqlspouse ?></td>
+        <th>Related</th>
+        <td><?php foreach($oModuleData->data->youtube->related as $entry) { echo $entry->getVideoTitle().'<br>'; } ?></td>
     </tr>
 </table>

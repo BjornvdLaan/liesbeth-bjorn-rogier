@@ -96,7 +96,7 @@ class IKE extends Module {
         $sparql = new Sparql;
 
         $postLink = parse_url($_POST['link']);
-        $gets = explode('&', $postLink['query'] );
+        $gets = explode('&', $postLink['query']);
         foreach ($gets as $get) {
             list($key, $value) = explode('=', $get);
             if ($key == 'v') {
@@ -104,20 +104,25 @@ class IKE extends Module {
                 break;
             }
         }
-        
-        if ( !isset ( $link ) ) {
+
+        if (!isset($link)) {
             throw new Exception;
         }
-        
+
         $videoData = $youtube->getDataForVideo($link);
-        
+
         $oModuleData->data->link = $link;
         $oModuleData->data->video = $youtube->extractData();
-        if ( $sparql->checkStatus() ) {
+        
+        $oModuleData->data->sparql = 'Some data could not be fetched at this time';
+        $oModuleData->data->sparqlspouse = 'Some data could not be fetched at this time';
+
+        if ($sparql->checkStatus()) {
             $oModuleData->data->sparql = $sparql->getAbstractFromArtist($oModuleData->data->video->artist);
-        } else {
-            $oModuleData->data->sparql = 'Some data could not be fetched at this time';
+            //$oModuleData->data->sparqlspouse = $sparql->getSpouseFromArtist($oModuleData->data->video->artist);
         }
+        $oModuleData->data->youtube = new stdClass();
+        $oModuleData->data->youtube->related = $youtube->getRelatedVideos();
         $oModuleData->data->URL = htmlspecialchars($_POST['link']);
 
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
