@@ -1,6 +1,10 @@
 <?php
 
 class Sparql {
+    
+    public function checkStatus() {
+        return false;
+    }
 
     public function getAbstractFromArtist($artist) {
         $query = "SELECT ?abstract WHERE { ?id foaf:name \"" . $artist . "\"@en ; <http://dbpedia.org/ontology/abstract> ?abstract . FILTER ( langMatches( lang(?abstract), 'en') || ! langMatches(lang(?abstract),'*')) }";

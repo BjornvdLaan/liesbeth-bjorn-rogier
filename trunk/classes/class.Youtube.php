@@ -28,5 +28,12 @@ class Youtube {
         
         return $result;
     }
+    
+    public function getRelatedVideos() {
+        $videoId = $this->video->getVideoId();
+        $url = sprintf('https://gdata.youtube.com/feeds/api/videos/%s/related',$videoId);
+        
+        return $yt->getVideoFeed($url);
+    }
 
 }

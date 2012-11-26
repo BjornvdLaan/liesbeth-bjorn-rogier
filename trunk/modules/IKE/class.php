@@ -113,7 +113,11 @@ class IKE extends Module {
         
         $oModuleData->data->link = $link;
         $oModuleData->data->video = $youtube->extractData();
-        $oModuleData->data->sparql = $sparql->getAbstractFromArtist($oModuleData->data->video->artist);
+        if ( $sparql->checkStatus() ) {
+            $oModuleData->data->sparql = $sparql->getAbstractFromArtist($oModuleData->data->video->artist);
+        } else {
+            $oModuleData->data->sparql = 'Some data could not be fetched at this time';
+        }
         $oModuleData->data->URL = htmlspecialchars($_POST['link']);
 
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';

@@ -36,7 +36,7 @@
     // The "main method" of this sample. Called when someone clicks "Run".
     function loadPlayer() {
         // The video to load
-        var videoID = "<?=$oModuleData->data->link?>"
+        var videoID = "<?= $oModuleData->data->link ?>"
         // Lets Flash from another domain call JavaScript
         var params = { allowScriptAccess: "always" };
         // The element id of the Flash embed
@@ -60,14 +60,22 @@
 <table>
     <tr>
         <th style="width:150px;text-align:left;">Video Title</th>
-        <td><?=$oModuleData->data->video->title?></td>
+        <td><?= $oModuleData->data->video->title ?></td>
     </tr>
     <tr style="width:150px;text-align:left;">
         <th>Video Artist</th>
-        <td><?=$oModuleData->data->video->artist?></td>
+        <td><?= $oModuleData->data->video->artist ?></td>
     </tr>
     <tr style="width:150px;text-align:left;vertical-align:top;">
         <th>About the artist</th>
-        <td><?=$oModuleData->data->sparql?></td>
+        <td><?= $oModuleData->data->sparql ?></td>
+    </tr>
+    <tr style="width:150px;text-align:left;">
+        <th>Partner</th>
+        <td><?= $oModuleData->data->sparqlspouse ?></td>
+    </tr>
+    <tr style="width:150px;text-align:left;">
+        <th>Partner</th>
+        <td><?= $oModuleData->data->sparqlspouse ?></td>
     </tr>
 </table>
