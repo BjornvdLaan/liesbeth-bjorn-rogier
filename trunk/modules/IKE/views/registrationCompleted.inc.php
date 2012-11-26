@@ -1,1 +1,1 @@
-<p>Your registration completed successfully. You may login <a href="/login">here</a>.
+<p>Your registration completed successfully. You may login <a href="/login">here</a>.</p>
