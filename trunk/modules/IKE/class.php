@@ -95,6 +95,9 @@ class IKE extends Module {
         $youtube = new Youtube;
         $sparql = new Sparql;
 
+        $oModuleData->data->spotify = new stdClass();
+        $oModuleData->data->youtube = new stdClass();
+        
         $postLink = parse_url($_POST['link']);
         $gets = explode('&', $postLink['query']);
         foreach ($gets as $get) {
@@ -121,7 +124,7 @@ class IKE extends Module {
             $oModuleData->data->sparql = $sparql->getAbstractFromArtist($oModuleData->data->video->artist);
             //$oModuleData->data->sparqlspouse = $sparql->getSpouseFromArtist($oModuleData->data->video->artist);
         }
-        $oModuleData->data->youtube = new stdClass();
+        $oModuleData->data->spotify->artist = Spotify::getArtist($oModuleData->data->video->artist);
         $oModuleData->data->youtube->related = $youtube->getRelatedVideos();
         $oModuleData->data->URL = htmlspecialchars($_POST['link']);
 

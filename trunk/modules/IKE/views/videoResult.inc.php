@@ -52,30 +52,50 @@
     google.setOnLoadCallback(_run);
 </script>
 
-<p>Copy your music link here:</p>
-<?php include('videoInput.inc.php'); ?>
+<div class="hero-unit">
+    <div class="span6">
+        <div id="videoDiv">Loading video. Please wait...</div>
+    </div>
 
-<div id="videoDiv">Loading video. Please wait...</div>
+    <div class="span5" >
 
-<table>
-    <tr>
-        <th style="width:150px;text-align:left;">Video Title</th>
-        <td><?= $oModuleData->data->video->title ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;">
-        <th>Video Artist</th>
-        <td><?= $oModuleData->data->video->artist ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;vertical-align:top;">
-        <th>About the artist</th>
-        <td><?= $oModuleData->data->sparql ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;">
-        <th>Partner</th>
-        <td><?= $oModuleData->data->sparqlspouse ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;">
-        <th>Related</th>
-        <td><?php foreach($oModuleData->data->youtube->related as $entry) { echo $entry->getVideoTitle().'<br>'; } ?></td>
-    </tr>
-</table>
+        <?php include('videoInput.inc.php'); ?>
+    </div>
+    <div>&nbsp;</div>
+</div>
+<div class="row">
+    <div class="span6">
+
+        <h2>About the artist</h2>
+        <p><?= $oModuleData->data->sparql ?></p>
+
+    </div>
+    <table>
+        <tr>
+            <th style="width:150px;text-align:left;">Video Title</th>
+            <td><?= $oModuleData->data->video->title ?></td>
+        </tr>
+        <tr style="width:150px;text-align:left;">
+            <th>Video Artist</th>
+            <td><?= $oModuleData->data->video->artist ?></td>
+        </tr>
+
+        <tr style="width:150px;text-align:left;">
+            <th>Partner</th>
+            <td><?= $oModuleData->data->sparqlspouse ?></td>
+        </tr>
+        <tr>
+            <th style="width:150px;text-align:left;">Spotify</th>
+            <td>Spotify ID: <?= $oModuleData->data->spotify->artist->href ?><br>
+                Spotify populariteit: <?= $oModuleData->data->spotify->artist->popularity ?></td>
+        </tr>
+        <tr style="width:150px;text-align:left;vertical-align:top;">
+            <th>Related</th>
+            <td><?php
+        foreach ($oModuleData->data->youtube->related as $entry) {
+            echo $entry->getVideoTitle() . '<br>';
+        }
+        ?></td>
+        </tr>
+    </table>
+</div>
