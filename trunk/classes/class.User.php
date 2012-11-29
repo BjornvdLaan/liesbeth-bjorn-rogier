@@ -30,6 +30,7 @@ class User implements DbComm {
             ");
         
         $password = hash(HASH_ALGO, $username . $password);
+        var_dump($password);
         $st->bindValue(':username', $username);
         $st->bindValue(':password', $password);
         
