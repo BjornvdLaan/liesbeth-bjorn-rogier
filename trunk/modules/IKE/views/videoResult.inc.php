@@ -52,30 +52,59 @@
     google.setOnLoadCallback(_run);
 </script>
 
-<p>Copy your music link here:</p>
-<?php include('videoInput.inc.php'); ?>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="hero-unit" style="min-height: 250px">
+            <div class="span6">
+                <div id="videoDiv">Loading video. Please wait...</div>
+            </div>
 
-<div id="videoDiv">Loading video. Please wait...</div>
+            <div class="span5" >
+                <div class="row-fluid">
+                    <div class="span4">
+                        <div class="row-fluid"><h4>Video artist:</h4></div>
+                        <div class="row-fluid"><h4>Video Title:</h4></div>
+                    </div>
+                    <div class="span6">
+                        <div class="row-fluid"><h4><?= $oModuleData->data->video->artist ?></h4></div>
+                        <div class="row-fluid"><h4><?= $oModuleData->data->video->title ?></h4></div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <?php include('videoInput.inc.php'); ?>
+                </div>
+                
+            </div>
+            <div>&nbsp;</div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
 
-<table>
-    <tr>
-        <th style="width:150px;text-align:left;">Video Title</th>
-        <td><?= $oModuleData->data->video->title ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;">
-        <th>Video Artist</th>
-        <td><?= $oModuleData->data->video->artist ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;vertical-align:top;">
-        <th>About the artist</th>
-        <td><?= $oModuleData->data->sparql ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;">
-        <th>Partner</th>
-        <td><?= $oModuleData->data->sparqlspouse ?></td>
-    </tr>
-    <tr style="width:150px;text-align:left;">
-        <th>Related</th>
-        <td><?php foreach($oModuleData->data->youtube->related as $entry) { echo $entry->getVideoTitle().'<br>'; } ?></td>
-    </tr>
-</table>
+            <h2>About the artist</h2>
+            <p><?= $oModuleData->data->sparql ?></p>
+
+        </div>
+        <table>
+            
+
+            <tr style="width:150px;text-align:left;">
+                <th>Partner</th>
+                <td><?= $oModuleData->data->sparqlspouse ?></td>
+            </tr>
+            <tr>
+                <th style="width:150px;text-align:left;">Spotify</th>
+                <td>Spotify ID: <?= $oModuleData->data->spotify->artist->href ?><br>
+                    Spotify populariteit: <?= $oModuleData->data->spotify->artist->popularity ?></td>
+            </tr>
+            <tr style="width:150px;text-align:left;vertical-align:top;">
+                <th>Related</th>
+                <td><?php
+                foreach ($oModuleData->data->youtube->related as $entry) {
+                    echo $entry->getVideoTitle() . '<br>';
+                }
+                ?></td>
+            </tr>
+        </table>
+    </div>
+</div>
