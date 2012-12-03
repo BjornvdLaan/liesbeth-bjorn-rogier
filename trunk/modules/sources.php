@@ -13,6 +13,8 @@ include(IKE_APP_DIR . '/classes/interface.DbComm.php');
 
 # Load general classes
 include(IKE_APP_DIR . '/classes/class.Constants.php');
+include(IKE_APP_DIR . '/classes/class.Database.php');
+include(IKE_APP_DIR . '/classes/class.Echonest.php');
 include(IKE_APP_DIR . '/classes/class.ErrorHandling.php');
 include(IKE_APP_DIR . '/classes/class.GETData.php');
 include(IKE_APP_DIR . '/classes/class.HTMLDom.php');

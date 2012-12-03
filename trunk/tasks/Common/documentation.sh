@@ -15,7 +15,7 @@
     --exclude /home/ike/public_html/classes/class.HTMLDom.php \
     --exclude /home/ike/public_html/classes/class.PhpMailer.php \
     --exclude /home/ike/public_html/classes/exceptions \
-    --exclude /home/ike/public_html/development_user
+    --exclude /home/ike/public_html/development_user/*
     
 
 /usr/bin/php /home/ike/public_html/tasks/Common/processDocumentationErrors.php
