@@ -138,7 +138,5 @@ class IKE extends Module {
                 break;
             }
         }
-        throw new Exception;
     }
-    
 }
