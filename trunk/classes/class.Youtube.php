@@ -19,14 +19,46 @@ class Youtube {
         $result = new stdClass();
 
         $title = $this->video->getVideoTitle();
-        $aTitle = explode('-', $title);
-        if (count($aTitle) <= 1) {
-            throw new Exception('Cannot get title and artist. Sorry dude!');
-        }
+        $aTitle = $this->splitSongTitle($title);
+
         $result->artist = ucwords(trim($aTitle[0]));
-        $result->title = trim($aTitle[1]);
+        $result->title = ucwords(trim($aTitle[1]));
 
         return $result;
+    }
+
+    public function splitSongTitle($input) {
+        $title = explode('-', $input);
+        if (count($title) != 2) {
+            $title = explode(':', $input);
+            if (count($title) != 2) {
+                $title = explode(',', $input);
+                if (count($title) != 2) {
+                    $title = explode('|', $input);
+                    if (count($title) != 2) {
+                        $title = explode('/', $input);
+                        if (count($title) != 2) {
+                            throw new Exception('Cannot get title and artist. Sorry dude!');
+                        }
+                    }
+                }
+            }
+        }
+        foreach ($title as $key => $elem) {
+            $title[$key] = strtolower($elem);
+        }
+        $stripCharacters = array('(','[','{',')',']','}','ft.');
+        $max = strlen($title[1]);
+        $strip = array($max);
+        foreach ( $stripCharacters as $char ) {
+            $x=strpos($title[1], $char);
+            if ( $x !== FALSE ) {
+                $strip[] = $x;
+            }
+        } 
+        $title[1] = substr($title[1],0,min($strip));
+            
+        return $title;
     }
 
     public function getRelatedVideos() {

@@ -93,42 +93,52 @@ class IKE extends Module {
     public function videoDisplay() {
         global $oModuleData;
         $youtube = new Youtube;
-        $sparql = new Sparql;
+        $database  = new Database($this->conn);
+        //$sparql = new Sparql;
+
+        $link = $this->getLinkFromURL($_POST['link']);
 
         $oModuleData->data->spotify = new stdClass();
         $oModuleData->data->youtube = new stdClass();
+        $videoData = $youtube->getDataForVideo($link);
+        $oModuleData->data->video = $youtube->extractData();
+        $oModuleData->data->youtube->related = $youtube->getRelatedVideos();
         
-        $postLink = parse_url($_POST['link']);
+        $oModuleData->data->spotify->artist = Spotify::getArtist($oModuleData->data->video->artist);
+        $spotifyID = $oModuleData->data->spotify->artist->href;
+        $oModuleData->data->spotify->track = Spotify::getTrack($oModuleData->data->video->title, $spotifyID);
+        
+        
+        $oModuleData->data->link = $link;
+        $oModuleData->data->URL = htmlspecialchars($_POST['link']);
+        Echonest::getBiography($spotifyID);
+        
+        $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
+        
+        $song = new stdClass();
+        $song->spotifyID = $oModuleData->data->spotify->track;
+        $song->artist = $oModuleData->data->video->artist;
+        $song->name = $oModuleData->data->video->title;
+        $song->genre = Echonest::getGenre($spotifyID);
+        $song->bpm = '';
+        $song->rating = '';
+        $song->popularity = $oModuleData->data->spotify->artist->popularity;
+        $database->addSongToDatabase($song);
+        $database->addSongToUser($song->spotifyID,$_SESSION['user_id']);
+        //var_dump($videoData);
+    }
+
+    protected function getLinkFromURL($link) {
+        $postLink = parse_url($link);
         $gets = explode('&', $postLink['query']);
         foreach ($gets as $get) {
             list($key, $value) = explode('=', $get);
             if ($key == 'v') {
-                $link = $value;
+                return $value;
                 break;
             }
         }
-
-        if (!isset($link)) {
-            throw new Exception;
-        }
-
-        $videoData = $youtube->getDataForVideo($link);
-
-        $oModuleData->data->link = $link;
-        $oModuleData->data->video = $youtube->extractData();
-        
-        $oModuleData->data->sparql = 'Some data could not be fetched at this time';
-        $oModuleData->data->sparqlspouse = 'Some data could not be fetched at this time';
-
-        if ($sparql->checkStatus()) {
-            $oModuleData->data->sparql = $sparql->getAbstractFromArtist($oModuleData->data->video->artist);
-            //$oModuleData->data->sparqlspouse = $sparql->getSpouseFromArtist($oModuleData->data->video->artist);
-        }
-        $oModuleData->data->spotify->artist = Spotify::getArtist($oModuleData->data->video->artist);
-        $oModuleData->data->youtube->related = $youtube->getRelatedVideos();
-        $oModuleData->data->URL = htmlspecialchars($_POST['link']);
-
-        $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
+        throw new Exception;
     }
-
+    
 }

@@ -67,7 +67,7 @@
                     </div>
                     <div class="span6">
                         <div class="row-fluid"><h4><?= $oModuleData->data->video->artist ?></h4></div>
-                        <div class="row-fluid"><h4><?= $oModuleData->data->video->title ?></h4></div>
+                        <div class="row-fluid"><h4><?= ucwords($oModuleData->data->video->title) ?></h4></div>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -82,20 +82,24 @@
         <div class="span6">
 
             <h2>About the artist</h2>
-            <p><?= $oModuleData->data->sparql ?></p>
+            <p><?= nl2br(Echonest::$wikipedia->text) ?></p>
 
         </div>
         <table>
             
 
-            <tr style="width:150px;text-align:left;">
-                <th>Partner</th>
-                <td><?= $oModuleData->data->sparqlspouse ?></td>
-            </tr>
             <tr>
                 <th style="width:150px;text-align:left;">Spotify</th>
-                <td>Spotify ID: <?= $oModuleData->data->spotify->artist->href ?><br>
+                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track ?><br>
+                    Spotify artist-ID: <?= $oModuleData->data->spotify->artist->href ?><br>
                     Spotify populariteit: <?= $oModuleData->data->spotify->artist->popularity ?></td>
+            </tr>
+            <tr>
+                <th style="width:150px;text-align:left;">Buy this track</th>
+                <td>
+                    <?php if ( !empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>">Buy on Amazon</a><br><?php } ?>
+                    <?php if ( !empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>">Buy on iTunes</a><br><?php } ?>
+                </td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Related</th>
