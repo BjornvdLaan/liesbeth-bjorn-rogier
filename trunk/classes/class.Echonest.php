@@ -52,6 +52,30 @@ class Echonest {
 
         return $data->response->terms;
     }
+    
+    public static function getDiscography($artist) {
+
+
+        if (empty($artist)) {
+            return;
+        }
+
+        $artistSpotifyId = str_replace('spotify', 'spotify-WW', $artistSpotifyId);
+
+        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&results=100";
+        $url = sprintf($url, rawurlencode($artist));
+
+        $data = json_decode(file_get_contents($url));
+
+        $songs = array();
+        foreach ($data->response->songs as $item) {
+            $songs[] = $item->title;
+        }
+
+        return $songs;
+    }
+    
+    
 
     public static function getChristmas($artist) {
 
