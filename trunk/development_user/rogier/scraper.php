@@ -33,7 +33,7 @@ for ($i = 0; isset($toScrape[$i]) && $j < 1000; $i++) {
             if ( in_array($match,$visited) ) {
                 continue;
             }
-            echo CHAR_NL . $match ;
+            echo CHAR_NL . $match . ' #' .$j;
             $args = array('link' => $match);
             doPost('http://ike.rogierslag.nl/video', $args, 80);
             usleep(200);
