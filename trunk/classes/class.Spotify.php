@@ -21,11 +21,10 @@ class Spotify {
         $result = json_decode(file_get_contents($url));
         foreach($result->tracks as $track) {
             foreach ( $track->artists as $artist) {
-                if ( $artist->href == $artistID ) {
+                if ( isset($artist->href) && $artist->href == $artistID ) {
                     return $track->href;
                 }
             }
-            
         }
         return '';
     }

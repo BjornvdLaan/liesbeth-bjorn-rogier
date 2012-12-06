@@ -65,9 +65,7 @@ class Handler {
             $this->db = new PDO('mysql:dbname=' . IKE_DB_NAME . ';host=' . IKE_DB_HOST, IKE_DB_USER, IKE_DB_PASS);
         } catch (PDOException $e) {
             $errCode = $e->getCode();
-            if ($errCode == 1049) {
-                throw new ShopNotFoundException();
-            } elseif ($errCode == 1045) {
+            if ($errCode == 1045) {
                 throw new DatabaseAccessException();
             } else {
                 var_dump($e);

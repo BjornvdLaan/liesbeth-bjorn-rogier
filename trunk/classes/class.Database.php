@@ -45,7 +45,7 @@ class Database {
                 :popularity
             )
             ");
-        $st->bindValue(':spotify', $song->spotifyID);
+        $st->bindValue(':spotify', !empty($song->spotifyID)?$song->spotifyID:NULL);
         $st->bindValue(':name', $song->name);
         $st->bindValue(':artist', $song->artist);
         $st->bindValue(':bpm', $song->bpm);

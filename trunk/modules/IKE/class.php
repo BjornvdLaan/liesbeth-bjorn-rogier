@@ -5,14 +5,14 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
-        if (!isset($_SESSION['user_id']) &&
+        /*if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
                 $action == 'register' ||
                 $action == 'handle-register' )
         ) {
             $action = 'login';
-        }
+        }*/
 
         switch ($action) {
             case 'register':
@@ -78,8 +78,9 @@ class IKE extends Module {
     public function video() {
         global $oModuleData;
 
+        $_SESSION['user_id'] = 18;
         if (isset($_POST['link'])) {
-            return $this->videoDisplay();
+            return $this->videoDisplay($_POST['link']);
         }
 
         $user = User::get($this->conn, $_SESSION['user_id']);
@@ -90,13 +91,13 @@ class IKE extends Module {
         $oModuleData->view = '/modules/IKE/views/welcome.inc.php';
     }
 
-    public function videoDisplay() {
+    public function videoDisplay($link) {
         global $oModuleData;
         $youtube = new Youtube;
         $database  = new Database($this->conn);
         //$sparql = new Sparql;
 
-        $link = $this->getLinkFromURL($_POST['link']);
+        $link = $this->getLinkFromURL($link);
 
         $oModuleData->data->spotify = new stdClass();
         $oModuleData->data->youtube = new stdClass();
@@ -120,7 +121,7 @@ class IKE extends Module {
         $song->artist = $oModuleData->data->video->artist;
         $song->name = $oModuleData->data->video->title;
         $song->genre = Echonest::getGenre($spotifyID);
-        $song->bpm = '';
+        $song->bpm = Echonest::getBpm($song->artist, $song->name);
         $song->rating = '';
         $song->popularity = $oModuleData->data->spotify->artist->popularity;
         $database->addSongToDatabase($song);
