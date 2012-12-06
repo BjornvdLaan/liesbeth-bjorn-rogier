@@ -114,6 +114,7 @@ class IKE extends Module {
         $oModuleData->data->URL = htmlspecialchars($_POST['link']);
         Echonest::getBiography($spotifyID);
         $oModuleData->data->xmas = Echonest::getChristmas($oModuleData->data->video->artist);
+        $oModuleData->data->allsongs = Echonest::getDiscography($oModuleData->data->video->artist);
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
         
         $song = new stdClass();
