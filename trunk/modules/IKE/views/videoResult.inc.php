@@ -73,7 +73,7 @@
                 <div class="row-fluid">
                     <?php include('videoInput.inc.php'); ?>
                 </div>
-                
+
             </div>
             <div>&nbsp;</div>
         </div>
@@ -86,7 +86,7 @@
 
         </div>
         <table>
-            
+
 
             <tr>
                 <th style="width:150px;text-align:left;">Spotify</th>
@@ -97,17 +97,25 @@
             <tr>
                 <th style="width:150px;text-align:left;">Buy this track</th>
                 <td>
-                    <?php if ( !empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>">Buy on Amazon</a><br><?php } ?>
-                    <?php if ( !empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>">Buy on iTunes</a><br><?php } ?>
+                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>">Buy on Amazon</a><br><?php } ?>
+                    <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>">Buy on iTunes</a><br><?php } ?>
                 </td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Related</th>
                 <td><?php
-                foreach ($oModuleData->data->youtube->related as $entry) {
-                    echo $entry->getVideoTitle() . '<br>';
-                }
-                ?></td>
+                    foreach ($oModuleData->data->youtube->related as $entry) {
+                        echo $entry->getVideoTitle() . '<br>';
+                    }
+                    ?></td>
+            </tr>
+            <tr style="width:150px;text-align:left;vertical-align:top;">
+                <th>xmas</th>
+                <td><?php
+                    foreach ($oModuleData->data->xmas as $entry) {
+                       echo $entry . '<br>';
+                    }
+                    ?></td>
             </tr>
         </table>
     </div>

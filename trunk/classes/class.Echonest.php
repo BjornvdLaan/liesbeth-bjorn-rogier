@@ -53,15 +53,35 @@ class Echonest {
         return $data->response->terms;
     }
 
+    public static function getChristmas($artist) {
+
+
+        if (empty($artist)) {
+            return;
+        }
+
+        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&format=json&artist=%s&song_type=christmas&bucket=song_type";
+        $url = sprintf($url, rawurlencode($artist));
+
+        $data = json_decode(file_get_contents($url));
+
+        //return $data->response->songs;
+
+        $xmas = array();
+        foreach ($data->response->songs as $item) {
+            $xmas[] = $item->title;
+        }
+
+        return $xmas;
+    }
+
     public static function getBpm($artist, $song) {
-
-
-        if (empty($artist) || empty($song) ) {
+        if (empty($artist) || empty($song)) {
             return;
         }
 
         $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
-        $url = sprintf($url, rawurlencode($artist),  rawurlencode($song));
+        $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
 
         $data = json_decode(file_get_contents($url));
 
@@ -69,7 +89,6 @@ class Echonest {
     }
 
 }
-
 
 class EchonestInfo {
 

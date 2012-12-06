@@ -68,6 +68,7 @@ class Weights {
                 case 'bpm':
                     break;
             }
+            $st->execute();
         }
     }
 

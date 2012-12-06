@@ -6,12 +6,9 @@ include ( '../../modules/config.php');
 include ( '../../modules/sources.php');
 include ( '../../modules/IKE/class.php');
 $toScrape = array(
-    'http://www.youtube.com/watch?v=AcpicphRd_Q',
-    'http://www.youtube.com/watch?v=zAP3hqAayDk',
-    'http://www.youtube.com/watch?v=fWNaR-rxAic',
-    'http://www.youtube.com/watch?v=q04_ClDxRsk',
-    'http://www.youtube.com/watch?v=gJLIiF15wjQ',
-    'http://www.youtube.com/watch?v=kffacxfA7G4'
+    'http://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'http://www.youtube.com/watch?v=Faf1ch7Q9XE',
+    'http://www.youtube.com/watch?v=llyiQ4I-mcQ'
 );
 $visited = array();
 
