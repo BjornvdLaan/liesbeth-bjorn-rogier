@@ -117,6 +117,14 @@
                     }
                     ?></td>
             </tr>
+            <tr style="width:150px;text-align:left;vertical-align:top;">
+                <th>Discography</th>
+                <td><?php
+                    foreach ($oModuleData->data->allsongs as $entry) {
+                       echo var_dump($entry) . '<br>';
+                    }
+                    ?></td>
+            </tr>
         </table>
     </div>
 </div>
