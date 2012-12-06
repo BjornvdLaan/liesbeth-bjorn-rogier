@@ -121,7 +121,7 @@
                 <th>Discography</th>
                 <td><?php
                     foreach ($oModuleData->data->allsongs as $entry) {
-                       echo var_dump($entry) . '<br>';
+                       echo $entry . '<br>';
                     }
                     ?></td>
             </tr>
