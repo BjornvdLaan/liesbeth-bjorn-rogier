@@ -20,7 +20,7 @@ class Echonest {
 
         $data = json_decode(file_get_contents($url));
 
-//header('content-type: text/plain');
+        //header('content-type: text/plain');
         Echonest::$wikipedia = new EchonestInfo();
         Echonest::$amazon = new EchonestInfo();
         Echonest::$itunes = new EchonestInfo();
@@ -69,6 +69,7 @@ class Echonest {
     }
 
 }
+
 
 class EchonestInfo {
 
