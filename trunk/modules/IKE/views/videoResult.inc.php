@@ -53,6 +53,15 @@
     
     $(document).ready(function(){
         $("#abstract").click(function(){
+            //var i = $(this).find("i");
+            //var cl = $(img).attr("class");
+            
+            //if(cl.endsWith("plus-sign"))
+           //     cl = cl.replace('plus', 'minus');
+           // else
+           //     cl = cl.replace('minus', 'plus');
+           // $(i).attr("class", cl);
+            
             $("#abstractreadmore").toggle();
         })
     })
@@ -88,7 +97,7 @@
     </div>
     <div class="row-fluid">
         <div class="span6">
-            <h2 id="abstract">About the artist</h2>
+            <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
 
             <p><?php
                 $abstract = Echonest::$wikipedia->text;
