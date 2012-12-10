@@ -49,6 +49,13 @@
     function _run() {
         loadPlayer();
     }
+    
+    $(document).ready(function(){
+        $("#abstract").click(function(){
+            $("#abstracttext").toggle();
+        })
+    })
+    
     google.setOnLoadCallback(_run);
 </script>
 
@@ -80,10 +87,16 @@
     </div>
     <div class="row-fluid">
         <div class="span6">
+            <h2 id="abstract">About the artist</h2>
 
-            <h2>About the artist</h2>
-            <p><?= nl2br(Echonest::$wikipedia->text) ?></p>
-
+            <div id="abstracttext">
+                <p><?=
+                    $abstract = Echonest::$wikipedia->text;
+                    $intro = substr($abstract, 0, 2);
+                    $readmore = nl2br(substr($abstract, 101));
+                    print $intro; ?>
+                </p>
+            </div>
         </div>
         <table>
 
@@ -97,33 +110,33 @@
             <tr>
                 <th style="width:150px;text-align:left;">Buy this track</th>
                 <td>
-                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>">Buy on Amazon</a><br><?php } ?>
-                    <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>">Buy on iTunes</a><br><?php } ?>
+<?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>">Buy on Amazon</a><br><?php } ?>
+<?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>">Buy on iTunes</a><br><?php } ?>
                 </td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Related</th>
                 <td><?php
-                    foreach ($oModuleData->data->youtube->related as $entry) {
-                        echo $entry->getVideoTitle() . '<br>';
-                    }
-                    ?></td>
+foreach ($oModuleData->data->youtube->related as $entry) {
+    echo $entry->getVideoTitle() . '<br>';
+}
+?></td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>xmas</th>
+                <th>CHristmas</th>
                 <td><?php
-                    foreach ($oModuleData->data->xmas as $entry) {
-                       echo $entry . '<br>';
-                    }
-                    ?></td>
+foreach ($oModuleData->data->xmas as $entry) {
+    echo $entry . '<br>';
+}
+?></td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
-                    foreach ($oModuleData->data->allsongs as $entry) {
-                       echo $entry . '<br>';
-                    }
-                    ?></td>
+foreach ($oModuleData->data->allsongs as $entry) {
+    echo $entry . '<br>';
+}
+?></td>
             </tr>
         </table>
     </div>
