@@ -20,6 +20,9 @@ class Weights {
         $this->comparePopularity($songinfo['popularity']);
         $this->compareGenre($songinfo['genre']);
         $this->compareRating($songinfo['rating']);
+        $this->compareDuration($songinfo['duration']);
+        $this->compareDanceability($songinfo['danceability']);
+        $this->compareReleaseYear($songinfo['releaseyear']);
     }
 
     protected function compareArtist($artist) {
@@ -48,7 +51,7 @@ class Weights {
     }
 
     protected function comparePopularity($pop) {
-        $this->alike['popularity'] = $pop;
+        $this->alike['popularity'] = (4 * $pop);
     }
 
     protected function compareGenre($genres) {
@@ -60,16 +63,52 @@ class Weights {
         }
     }
 
+    protected function compareDuration($duration) {
+        $compare = abs($this->songX['duration'] - $duration);
+        if($compare < 15){
+            $this->alike['duration'] = 2;
+        }
+        elseif($compare < 25){
+            $this->alike['duration'] = 1;
+        }
+        else{
+            $this->alike['duration'] = 0;
+        } 
+    }
+
+    protected function compareDanceability($dance) {
+        if($dance > ($this->songX['danceability']-0.05) && $dance < ($this->songX['danceability']+0.05)){
+            $this->alike['danceability'] = 3;
+        }
+        elseif($dance > ($this->songX['danceability']-0.1) && $dance < ($this->songX['danceability']+0.1)){
+            $this->alike['danceability'] = 2;
+        }
+        else{
+            $this->alike['danceability'] = 0;
+        }
+    }
+
+    protected function compareReleaseYear($year) {
+        $compare = abs($this->songX['releaseyear'] - $year);
+        if ($compare < 3) {
+            $this->alike['releaseyear'] = 3;
+        } elseif ($compare < 6) {
+            $this->alike['releaseyear'] = 1;
+        } else {
+            $this->alike['releaseyear'] = 0;
+        }
+    }
+
     public function saveToDatabase(PDO $db) {
         $v = 0;
 
-        /*$stValue = $db->prepare("
-                        INSERT INTO
-                            similarities_value
-                        (`x`,`y`,`key`,points)
-                        VALUES
-                        (:x,:y,:key,:points)
-                        ");*/
+        /* $stValue = $db->prepare("
+          INSERT INTO
+          similarities_value
+          (`x`,`y`,`key`,points)
+          VALUES
+          (:x,:y,:key,:points)
+          "); */
         $stMatrix = $db->prepare("
                         INSERT INTO
                             similarities_matrix
@@ -80,17 +119,17 @@ class Weights {
 
         foreach ($this->alike as $key => $comparison) {
             $v += $comparison;
-            /*$stValue->bindValue(':x', $this->songX['id']);
-            $stValue->bindValue(':y', $this->songY['id']);
-            $stValue->bindValue(':key', $key);
-            $stValue->bindValue(':points', $comparison);
-            $stValue->execute();
+            /* $stValue->bindValue(':x', $this->songX['id']);
+              $stValue->bindValue(':y', $this->songY['id']);
+              $stValue->bindValue(':key', $key);
+              $stValue->bindValue(':points', $comparison);
+              $stValue->execute();
 
-            $stValue->bindValue(':y', $this->songX['id']);
-            $stValue->bindValue(':x', $this->songY['id']);
-            $stValue->bindValue(':key', $key);
-            $stValue->bindValue(':points', $comparison);
-            $stValue->execute();*/
+              $stValue->bindValue(':y', $this->songX['id']);
+              $stValue->bindValue(':x', $this->songY['id']);
+              $stValue->bindValue(':key', $key);
+              $stValue->bindValue(':points', $comparison);
+              $stValue->execute(); */
         }
         $stMatrix->bindValue(':x', $this->songX['id']);
         $stMatrix->bindValue(':y', $this->songY['id']);
@@ -103,9 +142,9 @@ class Weights {
         $stMatrix->bindValue(':value', $v);
         //$stMatrix->bindValue(':v', $db->lastInsertId());
         $stMatrix->execute();
-        
-        /*var_dump($stMatrix->errorInfo());
-        die();*/
+
+        /* var_dump($stMatrix->errorInfo());
+          die(); */
     }
 
     public static function goGadget(PDO $db) {
