@@ -36,6 +36,7 @@ class Handler {
         }
     }
 
+    
     /**
      * Fires the adequate portion based on the ACTION constant
      */
