@@ -28,17 +28,22 @@ class Youtube {
     }
 
     public function splitSongTitle($input) {
-        $title = explode('-', $input);
-        if (count($title) != 2) {
-            $title = explode(':', $input);
-            if (count($title) != 2) {
-                $title = explode(',', $input);
-                if (count($title) != 2) {
-                    $title = explode('|', $input);
-                    if (count($title) != 2) {
-                        $title = explode('/', $input);
-                        if (count($title) != 2) {
-                            throw new Exception('Cannot get title and artist. Sorry dude!');
+        
+        $title = explode("~", str_replace(' - ','~',$input));
+        if (count($title) < 2) {
+            var_dump($title);
+            $title = explode('-', $input);
+            if (count($title) < 2) {
+                $title = explode(':', $input);
+                if (count($title) < 2) {
+                    $title = explode(',', $input);
+                    if (count($title) < 2) {
+                        $title = explode('|', $input);
+                        if (count($title) < 2) {
+                            $title = explode('/', $input);
+                            if (count($title) < 2) {
+                                throw new Exception('Cannot get title and artist. Sorry dude!');
+                            }
                         }
                     }
                 }
@@ -47,17 +52,17 @@ class Youtube {
         foreach ($title as $key => $elem) {
             $title[$key] = strtolower($elem);
         }
-        $stripCharacters = array('(','[','{',')',']','}','ft.');
+        $stripCharacters = array('(', '[', '{', ')', ']', '}', 'ft.');
         $max = strlen($title[1]);
         $strip = array($max);
-        foreach ( $stripCharacters as $char ) {
-            $x=strpos($title[1], $char);
-            if ( $x !== FALSE ) {
+        foreach ($stripCharacters as $char) {
+            $x = strpos($title[1], $char);
+            if ($x !== FALSE) {
                 $strip[] = $x;
             }
-        } 
-        $title[1] = substr($title[1],0,min($strip));
-        $title = str_replace('"','',$title);
+        }
+        $title[1] = substr($title[1], 0, min($strip));
+        $title = str_replace('"', '', $title);
         return $title;
     }
 
