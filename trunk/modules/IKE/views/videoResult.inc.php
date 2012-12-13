@@ -1,4 +1,5 @@
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/content/css/hide.css">
 <script type="text/javascript">
     google.load("swfobject", "2.1");
 </script>    
@@ -49,6 +50,22 @@
     function _run() {
         loadPlayer();
     }
+    
+    $(document).ready(function(){
+        $("#abstract").click(function(){
+            //var i = $(this).find("i");
+            //var cl = $(img).attr("class");
+            
+            //if(cl.endsWith("plus-sign"))
+           //     cl = cl.replace('plus', 'minus');
+           // else
+           //     cl = cl.replace('minus', 'plus');
+           // $(i).attr("class", cl);
+            
+            $("#abstractreadmore").toggle();
+        })
+    })
+    
     google.setOnLoadCallback(_run);
 </script>
 
@@ -80,10 +97,18 @@
     </div>
     <div class="row-fluid">
         <div class="span6">
+            <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
 
-            <h2>About the artist</h2>
-            <p><?= nl2br(Echonest::$wikipedia->text) ?></p>
-
+            <p><?php
+                $abstract = Echonest::$wikipedia->text;
+                $first = strpos($abstract, CHAR_NL);
+                $intro = nl2br(substr($abstract, 0, $first));
+                $readmore = nl2br(substr($abstract, $first));
+                echo $intro; ?>
+                <span id="abstractreadmore" class="hide">
+                 <?= $readmore ?>
+                </span>
+            </p>    
         </div>
         <table>
 
@@ -97,25 +122,25 @@
             <tr>
                 <th style="width:150px;text-align:left;">Buy this track</th>
                 <td>
-                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>">Buy on Amazon</a><br><?php } ?>
-                    <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>">Buy on iTunes</a><br><?php } ?>
+                    <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
+                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
                 </td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Related</th>
                 <td><?php
-                    foreach ($oModuleData->data->youtube->related as $entry) {
-                        echo $entry->getVideoTitle() . '<br>';
-                    }
-                    ?></td>
+foreach ($oModuleData->data->youtube->related as $entry) {
+    echo $entry->getVideoTitle() . '<br>';
+}
+?></td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>xmas</th>
+                <th>CHristmas</th>
                 <td><?php
-                    foreach ($oModuleData->data->xmas as $entry) {
-                       echo $entry . '<br>';
-                    }
-                    ?></td>
+foreach ($oModuleData->data->xmas as $entry) {
+    echo $entry . '<br>';
+}
+?></td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>

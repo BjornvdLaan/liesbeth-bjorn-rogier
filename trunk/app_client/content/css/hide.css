@@ -1,0 +1,12 @@
+/* 
+    Document   : hide
+    Created on : 10-dec-2012, 16:21:42
+    Author     : Bjorn
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.hide { 
+    display: none;
+}
+
