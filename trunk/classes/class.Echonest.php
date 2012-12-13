@@ -36,6 +36,21 @@ class Echonest {
         }
     }
 
+     public static function getHotttnesss($artist) {
+
+
+        if (empty($artist)) {
+            return;
+        }
+        
+        $url = "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=YWOBBQGLJNR0XO3RG&name=%s&format=json";
+        $url = sprintf($url, rawurlencode($artist));
+
+        $data = json_decode(file_get_contents($url));
+        
+        return $data->response->artist->hotttnesss;
+    }
+    
     public static function getGenre($artistSpotifyId) {
 
 

@@ -83,7 +83,7 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><?= $oModuleData->data->video->artist ?></h4></div>
+                        <div class="row-fluid"><h4><?= $oModuleData->data->video->artist ?> <?= $oModuleData->data->hotttnesss ?></h4></div>
                         <div class="row-fluid"><h4><?= ucwords($oModuleData->data->video->title) ?></h4></div>
                     </div>
                 </div>
@@ -115,9 +115,9 @@
 
             <tr>
                 <th style="width:150px;text-align:left;">Spotify</th>
-                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track ?><br>
+                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track->getTrack() ?><br>
                     Spotify artist-ID: <?= $oModuleData->data->spotify->artist->href ?><br>
-                    Spotify populariteit: <?= $oModuleData->data->spotify->artist->popularity ?></td>
+                    Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?></td>
             </tr>
             <tr>
                 <th style="width:150px;text-align:left;">Buy this track</th>
