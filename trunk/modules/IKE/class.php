@@ -107,24 +107,28 @@ class IKE extends Module {
         
         $oModuleData->data->spotify->artist = Spotify::getArtist($oModuleData->data->video->artist);
         $spotifyID = $oModuleData->data->spotify->artist->href;
-        $oModuleData->data->spotify->track = Spotify::getTrack($oModuleData->data->video->title, $spotifyID);
-        
-        
+        $spotify = new Spotify($oModuleData->data->video->title, $spotifyID);
+        $oModuleData->data->spotify->track = $spotify;
+                
         $oModuleData->data->link = $link;
         $oModuleData->data->URL = htmlspecialchars($_POST['link']);
         Echonest::getBiography($spotifyID);
         $oModuleData->data->xmas = Echonest::getChristmas($oModuleData->data->video->artist);
         $oModuleData->data->allsongs = Echonest::getDiscography($oModuleData->data->video->artist);
+        $oModuleData->data->hotttnesss = Echonest::getHotttnesss($oModuleData->data->video->artist);
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
         
         $song = new stdClass();
-        $song->spotifyID = $oModuleData->data->spotify->track;
+        $song->spotifyID = $spotify->getTrack();
         $song->artist = $oModuleData->data->video->artist;
         $song->name = $oModuleData->data->video->title;
         $song->genre = Echonest::getGenre($spotifyID);
         $song->bpm = Echonest::getBpm($song->artist, $song->name);
         $song->rating = '';
-        $song->popularity = $oModuleData->data->spotify->artist->popularity;
+        $song->popularity = $spotify->getPopularity();
+        $song->releaseYear = $spotify->getReleaseYear();
+        $song->length = $spotify->getLength();
+        $song->youtube = $link;
         $database->addSongToDatabase($song);
         $database->addSongToUser($song->spotifyID,$_SESSION['user_id']);
         //var_dump($videoData);

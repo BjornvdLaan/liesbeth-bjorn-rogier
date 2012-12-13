@@ -115,9 +115,9 @@
 
             <tr>
                 <th style="width:150px;text-align:left;">Spotify</th>
-                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track ?><br>
+                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track->getTrack() ?><br>
                     Spotify artist-ID: <?= $oModuleData->data->spotify->artist->href ?><br>
-                    Spotify populariteit: <?= $oModuleData->data->spotify->artist->popularity ?></td>
+                    Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?></td>
             </tr>
             <tr>
                 <th style="width:150px;text-align:left;">Buy this track</th>

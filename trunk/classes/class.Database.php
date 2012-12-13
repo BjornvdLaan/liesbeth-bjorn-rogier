@@ -33,7 +33,10 @@ class Database {
                 artist,
                 bpm,
                 rating,
-                popularity
+                popularity,
+                length,
+                releaseYear,
+                youtube_id
             )
             VALUES
             (
@@ -42,7 +45,10 @@ class Database {
                 :artist,
                 :bpm,
                 :rating,
-                :popularity
+                :popularity,
+                :length,
+                :releaseYear,
+                :youtube
             )
             ");
         $st->bindValue(':spotify', !empty($song->spotifyID)?$song->spotifyID:NULL);
@@ -51,6 +57,10 @@ class Database {
         $st->bindValue(':bpm', $song->bpm);
         $st->bindValue(':rating', $song->rating);
         $st->bindValue(':popularity', $song->popularity);
+        $st->bindValue(':length', $song->length);
+        $st->bindValue(':releaseYear', $song->releaseYear);
+        $st->bindValue(':youtube', $song->youtube);
+        
         $st->execute();
         
         $id = $this->db->lastInsertId();
