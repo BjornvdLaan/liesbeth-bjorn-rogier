@@ -16,6 +16,7 @@ include(IKE_APP_DIR . '/classes/class.Constants.php');
 include(IKE_APP_DIR . '/classes/class.Database.php');
 include(IKE_APP_DIR . '/classes/class.Echonest.php');
 include(IKE_APP_DIR . '/classes/class.ErrorHandling.php');
+include(IKE_APP_DIR . '/classes/class.GeneralRecommendations.php');
 include(IKE_APP_DIR . '/classes/class.GETData.php');
 include(IKE_APP_DIR . '/classes/class.HTMLDom.php');
 include(IKE_APP_DIR . '/classes/class.Handler.php');
@@ -27,6 +28,7 @@ include(IKE_APP_DIR . '/classes/class.Sparql.php');
 include(IKE_APP_DIR . '/classes/class.sparqllib.php');
 include(IKE_APP_DIR . '/classes/class.Spotify.php');
 include(IKE_APP_DIR . '/classes/class.User.php');
+include(IKE_APP_DIR . '/classes/class.Weights.php');
 include(IKE_APP_DIR . '/classes/class.Youtube.php');
 include(IKE_APP_DIR . '/classes/FacebookSDK/facebook.php');
 

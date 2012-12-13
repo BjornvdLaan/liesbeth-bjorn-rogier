@@ -57,7 +57,7 @@ class Youtube {
             }
         } 
         $title[1] = substr($title[1],0,min($strip));
-            
+        $title = str_replace('"','',$title);
         return $title;
     }
 
