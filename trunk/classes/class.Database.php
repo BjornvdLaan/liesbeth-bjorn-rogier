@@ -36,6 +36,7 @@ class Database {
                 popularity,
                 length,
                 releaseYear,
+                danceability,
                 youtube_id
             )
             VALUES
@@ -48,6 +49,7 @@ class Database {
                 :popularity,
                 :length,
                 :releaseYear,
+                :danceability,
                 :youtube
             )
             ");
@@ -59,6 +61,7 @@ class Database {
         $st->bindValue(':popularity', $song->popularity);
         $st->bindValue(':length', $song->length);
         $st->bindValue(':releaseYear', $song->releaseYear);
+        $st->bindValue(':danceability', $song->danceability);
         $st->bindValue(':youtube', $song->youtube);
         
         $st->execute();

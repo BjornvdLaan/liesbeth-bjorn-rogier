@@ -6,7 +6,7 @@ include ( '../../modules/config.php');
 include ( '../../modules/sources.php');
 include ( '../../modules/IKE/class.php');
 $toScrape = array(
-    /* 'http://www.youtube.com/watch?v=TIy3n2b7V9k',
+     'http://www.youtube.com/watch?v=TIy3n2b7V9k',
       'http://www.youtube.com/watch?v=_aARooQAfy8',
       'http://www.youtube.com/watch?v=7kVNl-9cS9c',
       'http://www.youtube.com/watch?v=5OoihTVlcUY',
@@ -24,8 +24,9 @@ $toScrape = array(
       'http://www.youtube.com/watch?v=BJ-CmHZrKHU',
       'http://www.youtube.com/watch?v=KlyXNRrsk4A',
       'http://www.youtube.com/watch?v=bW6PowAIAxg',
-      'http://www.youtube.com/watch?v=oABEGc8Dus0' */
-    'http://www.youtube.com/watch?v=2Z4m4lnjxkY',
+      'http://www.youtube.com/watch?v=oABEGc8Dus0',
+    'http://www.youtube.com/watch?v=fWNaR-rxAic'
+    /*'http://www.youtube.com/watch?v=2Z4m4lnjxkY',
     'http://www.youtube.com/watch?v=uE-1RPDqJAY',
     'http://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'http://www.youtube.com/watch?v=GKeXHCOEZ1k',
@@ -34,7 +35,7 @@ $toScrape = array(
     'http://www.youtube.com/watch?v=dVPCYr3XDPg',
     'http://www.youtube.com/watch?v=XHEFbX81XWQ',
     'http://www.youtube.com/watch?v=0w6c9zHFfCg',
-    'http://www.youtube.com/watch?v=6FgDXAUYqHg'
+    'http://www.youtube.com/watch?v=6FgDXAUYqHg'*/
 );
 $visited = array();
 

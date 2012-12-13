@@ -7,6 +7,10 @@ class Echonest {
     public static $itunes = '';
     public static $facebook = '';
     protected static $datasources = array('wikipedia', 'amazon', 'itunes', 'facebook');
+    
+    private static $artist;
+    private static $song;
+    private static $json;
 
     public static function getBiography($spotifyID) {
         if (empty($spotifyID)) {
@@ -126,15 +130,41 @@ class Echonest {
         if (empty($artist) || empty($song)) {
             return;
         }
+        
+        if ( self::$artist == $artist && self::$song == $song) {
+            return self::$json->response->songs[0]->audio_summary->tempo;
+        }
 
         $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
         $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
 
         $data = json_decode(file_get_contents($url));
 
+        self::$json = $data;
+        self::$artist = $artist;
+        self::$song = $song;
         return $data->response->songs[0]->audio_summary->tempo;
     }
+    
+    public static function getDanceability($artist,$song) {
+        if (empty($artist) || empty($song)) {
+            return;
+        }
+        
+        if ( self::$artist == $artist && self::$song == $song) {
+            return self::$json->response->songs[0]->audio_summary->danceability;
+        }
 
+        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
+        $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
+
+        $data = json_decode(file_get_contents($url));
+
+        self::$json = $data;
+        self::$artist = $artist;
+        self::$song = $song;
+        return $data->response->songs[0]->audio_summary->danceability;
+    }
 }
 
 
