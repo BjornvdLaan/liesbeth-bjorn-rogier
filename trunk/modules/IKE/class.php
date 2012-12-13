@@ -5,6 +5,7 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
+        $_SESSION['user_id'] = 18;
         if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
@@ -128,6 +129,7 @@ class IKE extends Module {
         $song->popularity = $spotify->getPopularity();
         $song->releaseYear = $spotify->getReleaseYear();
         $song->length = $spotify->getLength();
+        $song->danceability = Echonest::getDanceability($song->artist, $song->name);
         $song->youtube = $link;
         $database->addSongToDatabase($song);
         $database->addSongToUser($song->spotifyID,$_SESSION['user_id']);

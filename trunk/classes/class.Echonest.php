@@ -152,7 +152,7 @@ class Echonest {
         }
         
         if ( self::$artist == $artist && self::$song == $song) {
-            return self::$json->response->songs[0]->audio_summary->tempo;
+            return self::$json->response->songs[0]->audio_summary->danceability;
         }
 
         $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";

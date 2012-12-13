@@ -149,7 +149,7 @@ class Weights {
 
     public static function goGadget(PDO $db) {
         $st = $db->prepare("
-            SELECT id,name,artist,bpm,rating,popularity FROM hitjes");
+            SELECT id,name,artist,bpm,rating,popularity,danceability,length as duration,releaseYear as releaseyear FROM hitjes");
         $st->execute();
 
         $stGenre = $db->prepare("SELECT genre FROM hitjes_genre WHERE hitje_id=:id");
