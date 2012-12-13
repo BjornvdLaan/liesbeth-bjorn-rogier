@@ -57,10 +57,10 @@
             //var cl = $(img).attr("class");
             
             //if(cl.endsWith("plus-sign"))
-           //     cl = cl.replace('plus', 'minus');
-           // else
-           //     cl = cl.replace('minus', 'plus');
-           // $(i).attr("class", cl);
+            //     cl = cl.replace('plus', 'minus');
+            // else
+            //     cl = cl.replace('minus', 'plus');
+            // $(i).attr("class", cl);
             
             $("#abstractreadmore").toggle();
         })
@@ -68,6 +68,24 @@
     
     google.setOnLoadCallback(_run);
 </script>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <span class="span6">
+                <form class="navbar-form pull-left" action="/video" method="POST">
+                    <input class="span4" type="text" name="link" value="<?= $oModuleData->data->URL ?>" id="link" style="width:350px;">
+                    <button class="btn" name="Go Go Gadget!" type="submit">play</button>
+                </form>
+            </span>
+            <span class="span4">
+                <a class="brand pull-right">
+                    You are currently logged in as: <?= $oModuleData->data->user->getUsername() ?>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid">
     <div class="row-fluid">
@@ -83,30 +101,34 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><?php echo $oModuleData->data->video->artist." <img src='".$oModuleData->data->hotttnesss."' alt='Hotttnesss' height='40' width='30'>"?> </h4></div>
+                        <div class="row-fluid"><h4><?php echo $oModuleData->data->video->artist . " <img src='" . $oModuleData->data->hotttnesss . "' alt='Hotttnesss' height='40' width='30'>" ?> </h4></div>
                         <div class="row-fluid"><h4><?= ucwords($oModuleData->data->video->title) ?></h4></div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <?php include('videoInput.inc.php'); ?>
-                </div>
+
 
             </div>
             <div>&nbsp;</div>
         </div>
     </div>
     <div class="row-fluid">
+        <row>
+            testje 
+        </row>
+    </div>
+    <div class="row-fluid">
         <div class="span6">
             <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
 
             <p><?php
-                $abstract = Echonest::$wikipedia->text;
-                $first = strpos($abstract, CHAR_NL);
-                $intro = nl2br(substr($abstract, 0, $first));
-                $readmore = nl2br(substr($abstract, $first));
-                echo $intro; ?>
+$abstract = Echonest::$wikipedia->text;
+$first = strpos($abstract, CHAR_NL);
+$intro = nl2br(substr($abstract, 0, $first));
+$readmore = nl2br(substr($abstract, $first));
+echo $intro;
+?>
                 <span id="abstractreadmore" class="hide">
-                 <?= $readmore ?>
+                    <?= $readmore ?>
                 </span>
             </p>    
         </div>
@@ -129,27 +151,32 @@
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Related</th>
                 <td><?php
-foreach ($oModuleData->data->youtube->related as $entry) {
-    echo $entry->getVideoTitle() . '<br>';
-}
-?></td>
+                    foreach ($oModuleData->data->youtube->related as $entry) {
+                        echo $entry->getVideoTitle() . '<br>';
+                    }
+                    ?></td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>CHristmas</th>
                 <td><?php
-foreach ($oModuleData->data->xmas as $entry) {
-    echo $entry . '<br>';
-}
-?></td>
+                    foreach ($oModuleData->data->xmas as $entry) {
+                        echo $entry . '<br>';
+                    }
+                    ?></td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
                     foreach ($oModuleData->data->allsongs as $entry) {
-                       echo $entry . '<br>';
+                        echo $entry . '<br>';
                     }
                     ?></td>
             </tr>
         </table>
     </div>
 </div>
+<script type="text/javascript">
+    $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
+    $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});
+ 
+</script>
