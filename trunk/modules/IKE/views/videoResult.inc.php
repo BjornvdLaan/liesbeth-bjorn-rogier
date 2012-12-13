@@ -145,10 +145,10 @@ foreach ($oModuleData->data->xmas as $entry) {
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
-foreach ($oModuleData->data->allsongs as $entry) {
-    echo $entry . '<br>';
-}
-?></td>
+                    foreach ($oModuleData->data->allsongs as $entry) {
+                       echo $entry . '<br>';
+                    }
+                    ?></td>
             </tr>
         </table>
     </div>
