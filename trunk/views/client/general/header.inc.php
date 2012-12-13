@@ -8,6 +8,10 @@
         <script src="http://ike.rogierslag.nl/liesbeth/bootstrap/js/bootstrap.js" type="application/javascript"></script>
 
         <style type="text/css">
+            body {
+                padding-top: 45px;
+                padding-bottom: 25px;
+            }
             p { 
                 font-family: Tahoma, sans-serif;
                 color: black;
