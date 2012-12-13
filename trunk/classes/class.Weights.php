@@ -131,6 +131,10 @@ class Weights {
               $stValue->bindValue(':points', $comparison);
               $stValue->execute(); */
         }
+        
+        if ( $v < 8 ) {
+            return;
+        }
         $stMatrix->bindValue(':x', $this->songX['id']);
         $stMatrix->bindValue(':y', $this->songY['id']);
         $stMatrix->bindValue(':value', $v);

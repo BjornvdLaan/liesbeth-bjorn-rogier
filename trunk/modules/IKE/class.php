@@ -5,7 +5,7 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
-        $_SESSION['user_id'] = 18;
+        //$_SESSION['user_id'] = 18;
         if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
@@ -79,15 +79,13 @@ class IKE extends Module {
     public function video() {
         global $oModuleData;
 
-        //$_SESSION['user_id'] = 18;
+        $user = User::get($this->conn, $_SESSION['user_id']);
+        $oModuleData->data->user = $user;
+        
         if (isset($_POST['link'])) {
             return $this->videoDisplay($_POST['link']);
         }
 
-        $user = User::get($this->conn, $_SESSION['user_id']);
-
-
-        $oModuleData->data->user = $user;
         $oModuleData->data->URL = 'e.g. http://www.youtube.com/.......';
         $oModuleData->view = '/modules/IKE/views/welcome.inc.php';
     }
