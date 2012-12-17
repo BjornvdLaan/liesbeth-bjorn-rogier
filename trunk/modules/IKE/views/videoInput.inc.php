@@ -1,4 +1,4 @@
-<form class="form-actions" action="/video" method="POST">
+<form class="form-actions" action="/video" method="GET">
     <p>Copy your music link here:</p>
     <input class="input-block-level" type="text" name="link" value="<?= $oModuleData->data->URL ?>" id="link" style="width:350px;">
     <br>

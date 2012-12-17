@@ -82,8 +82,9 @@ class IKE extends Module {
         $user = User::get($this->conn, $_SESSION['user_id']);
         $oModuleData->data->user = $user;
         
-        if (isset($_POST['link'])) {
-            return $this->videoDisplay($_POST['link']);
+        $get = GETData::getInstance();
+        if ($get->get('link') !== NULL) {
+            return $this->videoDisplay($get->get('link'));
         }
 
         $oModuleData->data->URL = 'e.g. http://www.youtube.com/.......';
@@ -110,7 +111,8 @@ class IKE extends Module {
         $oModuleData->data->spotify->track = $spotify;
                 
         $oModuleData->data->link = $link;
-        $oModuleData->data->URL = htmlspecialchars($_POST['link']);
+        $get = GETData::getInstance();
+        $oModuleData->data->URL = htmlspecialchars($get->get('link'));
         Echonest::getBiography($spotifyID);
         $oModuleData->data->xmas = Echonest::getChristmas($oModuleData->data->video->artist);
         $oModuleData->data->allsongs = Echonest::getDiscography($oModuleData->data->video->artist);

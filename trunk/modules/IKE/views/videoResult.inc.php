@@ -179,7 +179,7 @@ echo $intro;
 <?php for($i = 0; $i < 5; $i++) {
     $HITJE = $oModuleData->data->related[$i]; ?>
 <li class="span2">
-    <a href ="http://www.youtube.com/watch?v=<?= $HITJE['youtube_id']?>" class="thumbnail">
+    <a href ="http://<?=IKE_APP_URI?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id']?>" class="thumbnail">
         <img data-src="holder.js/160x120" alt="160x120" style="width: 260px; height: 120px;" src="http://img.youtube.com/vi/<?= $HITJE['youtube_id']?>/0.jpg">
     </a></li>
 <?php } ?>
