@@ -123,11 +123,11 @@
                         <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id'] ?>" class="thumbnail">
                             <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="http://img.youtube.com/vi/<?= $HITJE['youtube_id'] ?>/0.jpg">
                             <div class="caption">
-                                <p><?=$HITJE['artist']?> - <?= $HITJE['name']?></p>
-                                
+                                <p><?= $HITJE['artist'] ?> - <?= $HITJE['name'] ?></p>
+
                             </div>
                         </a></li>
-<?php } ?>
+                <?php } ?>
             </ul>
 
         </div>
@@ -137,14 +137,14 @@
             <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
 
             <p><?php
-$abstract = Echonest::$wikipedia->text;
-$first = strpos($abstract, CHAR_NL);
-$intro = nl2br(substr($abstract, 0, $first));
-$readmore = nl2br(substr($abstract, $first));
-echo $intro;
-?>
+                $abstract = Echonest::$wikipedia->text;
+                $first = strpos($abstract, CHAR_NL);
+                $intro = nl2br(substr($abstract, 0, $first));
+                $readmore = nl2br(substr($abstract, $first));
+                echo $intro;
+                ?>
                 <span id="abstractreadmore" class="hide">
-<?= $readmore ?>
+                    <?= $readmore ?>
                 </span>
             </p>    
         </div>
@@ -161,32 +161,33 @@ echo $intro;
                 <th style="width:150px;text-align:left;">Buy this track</th>
                 <td>
                     <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
-<?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
+                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
                 </td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Related</th>
                 <td><?php
-foreach ($oModuleData->data->youtube->related as $entry) {
-    echo $entry->getVideoTitle() . '<br>';
-}
-?></td>
+                    foreach ($oModuleData->data->youtube->related as $entry) {
+                        echo $entry->getVideoTitle() . '<br>';
+                    }
+                    ?></td>
             </tr>
-            <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>CHristmas</th>
-                <td><?php
-foreach ($oModuleData->data->xmas as $entry) {
-    echo $entry . '<br>';
-}
-?></td>
+            <?php if (!empty($oModuleData->data->xmas)) { ?>
+                <tr style="width:150px;text-align:left;vertical-align:top;">
+                    <th>CHristmas</th>
+                    <td><?php
+            foreach ($oModuleData->data->xmas as $entry) {
+                echo $entry . '<br>';
+            }
+                ?></td><?php } ?>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
-foreach ($oModuleData->data->allsongs as $entry) {
-    echo $entry . '<br>';
-}
-?></td>
+                    foreach ($oModuleData->data->allsongs as $entry) {
+                        echo $entry . '<br>';
+                    }
+            ?></td>
             </tr>
         </table>
     </div>
