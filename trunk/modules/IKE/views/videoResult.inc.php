@@ -116,7 +116,7 @@
 
             <ul class="thumbnails">
                 <?php
-                for ($i = 0; $i < 5; $i++) {
+                for ($i = 0; $i < 5 && isset($oModuleData->data->related[$i]); $i++) {
                     $HITJE = $oModuleData->data->related[$i];
                     ?>
                     <li class="span2" style="background-color:white">
