@@ -101,7 +101,7 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><?php echo $oModuleData->data->video->artist . " <img src='" . $oModuleData->data->hotttnesssIcon . "' alt='" . $oModuleData->data->hotttnesss . "'>" ?> </h4></div>
+                        <div class="row-fluid"><h4><?= $oModuleData->data->video->artist ?> <?= $oModuleData->data->hotttnesssIcon ?> </h4></div>
                         <div class="row-fluid"><h4><?= ucwords($oModuleData->data->video->title) ?></h4></div>
                     </div>
                 </div>
