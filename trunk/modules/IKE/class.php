@@ -5,7 +5,7 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
-        //$_SESSION['user_id'] = 18;
+        $_SESSION['user_id'] = 18;
         if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
@@ -110,9 +110,9 @@ class IKE extends Module {
         $spotify = new Spotify($oModuleData->data->video->title, $spotifyID);
         $oModuleData->data->spotify->track = $spotify;
                 
-        $oModuleData->data->link = rawurldecode($link);
+        $oModuleData->data->link = $link;
         $get = GETData::getInstance();
-        $oModuleData->data->URL = htmlspecialchars($get->get('link'));
+        $oModuleData->data->URL = rawurldecode(htmlspecialchars($get->get('link')));
         Echonest::getBiography($spotifyID);
         $oModuleData->data->xmas = Echonest::getChristmas($oModuleData->data->video->artist);
         $oModuleData->data->allsongs = Echonest::getDiscography($oModuleData->data->video->artist);
@@ -141,6 +141,11 @@ class IKE extends Module {
         
         $related = new GeneralRecommendations($song);
         $oModuleData->data->related = $related->get($this->conn);
+        if ( empty ( $oModuleData->data->related) ) {
+            # Geen gerelateerde bestanden gevonden. Opbouwen!
+            Weights::addSong($this->conn, $song);
+            $oModuleData->data->related = $related->get($this->conn);
+        }
     }
 
     protected function getLinkFromURL($link) {

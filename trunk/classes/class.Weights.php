@@ -113,7 +113,7 @@ class Weights {
         if ($v < 8) {
             return;
         }
-        
+
         $stMatrix->bindValue(':x', $this->songX['id']);
         $stMatrix->bindValue(':y', $this->songY['id']);
         $stMatrix->bindValue(':value', $v);
@@ -156,6 +156,30 @@ class Weights {
             echo $i . ' Compared a song' . CHAR_NL;
             $db->commit();
         }
+    }
+
+    public static function addSong(PDO $db, $song) {
+        $st = $db->prepare("
+            SELECT id,name,artist,bpm,rating,popularity,danceability,length as duration,releaseYear as releaseyear FROM hitjes");
+        $st->execute();
+
+        $stGenre = $db->prepare("SELECT genre FROM hitjes_genre WHERE hitje_id=:id");
+        $results = array();
+
+        foreach ($st->fetchAll() as $hitje) {
+            $stGenre->bindValue(':id', $hitje['id']);
+            $stGenre->execute();
+            $hitje['genre'] = $stGenre->fetchAll();
+            $results[] = $hitje;
+        }
+        
+        $db->beginTransaction();
+        $create = new Weights($song);
+        foreach ($results as $songY) {
+            $create->compareSongs($songY);
+            $create->saveToDatabase($db);
+        }
+        $db->commit();
     }
 
 }

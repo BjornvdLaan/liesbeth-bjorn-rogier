@@ -7,7 +7,6 @@ class Echonest {
     public static $itunes = '';
     public static $facebook = '';
     protected static $datasources = array('wikipedia', 'amazon', 'itunes', 'facebook');
-    
     private static $artist;
     private static $song;
     private static $json;
@@ -40,36 +39,31 @@ class Echonest {
         }
     }
 
-     public static function getHotttnesss($artist) {
+    public static function getHotttnesss($artist) {
 
 
         if (empty($artist)) {
             return;
         }
-        
+
         $url = "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=YWOBBQGLJNR0XO3RG&name=%s&format=json";
         $url = sprintf($url, rawurlencode($artist));
 
         $data = json_decode(file_get_contents($url));
-        
+
         return $data->response->artist->hotttnesss;
-        
-     }
-     
-     public static function getHotttnesssIcon($hotttnesss) {
-         if($hotttnesss < 0.3)  {
+    }
+
+    public static function getHotttnesssIcon($hotttnesss) {
+        if ($hotttnesss < 0.3) {
             return "/content/img/thermo_cold.png";
-        }
-        else if($hotttnesss > 0.7) {
+        } else if ($hotttnesss > 0.7) {
             return "/content/img/thermo_hot.png";
-        }
-        else {
+        } else {
             return "/content/img/thermo_med.png";
         }
-         
-  
-     }
-    
+    }
+
     public static function getGenre($artistSpotifyId) {
 
 
@@ -86,7 +80,7 @@ class Echonest {
 
         return $data->response->terms;
     }
-    
+
     public static function getDiscography($artist) {
 
 
@@ -106,8 +100,6 @@ class Echonest {
 
         return $songs;
     }
-    
-    
 
     public static function getChristmas($artist) {
 
@@ -135,8 +127,8 @@ class Echonest {
         if (empty($artist) || empty($song)) {
             return;
         }
-        
-        if ( self::$artist == $artist && self::$song == $song) {
+
+        if (self::$artist == $artist && self::$song == $song) {
             return self::$json->response->songs[0]->audio_summary->tempo;
         }
 
@@ -144,19 +136,22 @@ class Echonest {
         $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
 
         $data = json_decode(file_get_contents($url));
+        if (!isset($data->response->songs[0])) {
+            return NULL;
+        }
 
         self::$json = $data;
         self::$artist = $artist;
         self::$song = $song;
         return $data->response->songs[0]->audio_summary->tempo;
     }
-    
-    public static function getDanceability($artist,$song) {
+
+    public static function getDanceability($artist, $song) {
         if (empty($artist) || empty($song)) {
             return;
         }
-        
-        if ( self::$artist == $artist && self::$song == $song) {
+
+        if (self::$artist == $artist && self::$song == $song) {
             return self::$json->response->songs[0]->audio_summary->danceability;
         }
 
@@ -164,14 +159,17 @@ class Echonest {
         $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
 
         $data = json_decode(file_get_contents($url));
+        if (!isset($data->response->songs[0])) {
+            return NULL;
+        }
 
         self::$json = $data;
         self::$artist = $artist;
         self::$song = $song;
         return $data->response->songs[0]->audio_summary->danceability;
     }
-}
 
+}
 
 class EchonestInfo {
 

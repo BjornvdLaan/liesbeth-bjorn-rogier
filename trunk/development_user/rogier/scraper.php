@@ -6,7 +6,7 @@ include ( '../../modules/config.php');
 include ( '../../modules/sources.php');
 include ( '../../modules/IKE/class.php');
 $toScrape = array(
-     'http://www.youtube.com/watch?v=TIy3n2b7V9k',
+     /*'http://www.youtube.com/watch?v=TIy3n2b7V9k',
       'http://www.youtube.com/watch?v=_aARooQAfy8',
       'http://www.youtube.com/watch?v=7kVNl-9cS9c',
       'http://www.youtube.com/watch?v=5OoihTVlcUY',
@@ -25,9 +25,9 @@ $toScrape = array(
       'http://www.youtube.com/watch?v=KlyXNRrsk4A',
       'http://www.youtube.com/watch?v=bW6PowAIAxg',
       'http://www.youtube.com/watch?v=oABEGc8Dus0',
-    'http://www.youtube.com/watch?v=fWNaR-rxAic'
+    'http://www.youtube.com/watch?v=fWNaR-rxAic'*/
     /*'http://www.youtube.com/watch?v=2Z4m4lnjxkY',
-    'http://www.youtube.com/watch?v=uE-1RPDqJAY',
+    /*'http://www.youtube.com/watch?v=uE-1RPDqJAY',
     'http://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'http://www.youtube.com/watch?v=GKeXHCOEZ1k',
     'http://www.youtube.com/watch?v=kNPcxp2sMQQ',
@@ -35,7 +35,18 @@ $toScrape = array(
     'http://www.youtube.com/watch?v=dVPCYr3XDPg',
     'http://www.youtube.com/watch?v=XHEFbX81XWQ',
     'http://www.youtube.com/watch?v=0w6c9zHFfCg',
-    'http://www.youtube.com/watch?v=6FgDXAUYqHg'*/
+    'http://www.youtube.com/watch?v=6FgDXAUYqHg'
+    'http://www.youtube.com/watch?v=UculXjdcSYs',
+    'http://www.youtube.com/watch?v=SeIJmciN8mo',
+    'http://www.youtube.com/watch?v=6FgDXAUYqHg',
+    'http://www.youtube.com/watch?v=BJ-CmHZrKHU',
+    'http://www.youtube.com/watch?v=s4rzYABlH5o',
+    'http://www.youtube.com/watch?v=j0lSpNtjPM8',
+    'http://www.youtube.com/watch?v=tAp9BKosZXs',
+    'http://www.youtube.com/watch?v=1usGCnVqIqA',
+    'http://www.youtube.com/watch?v=w8KQmps-Sog',
+    'http://www.youtube.com/watch?v=w15oWDh02K4',*/
+    'http://www.youtube.com/watch?v=sL5Mz-H7_w8'
 );
 $visited = array();
 
@@ -59,7 +70,7 @@ for ($i = 0; isset($toScrape[$i]) && $j < 10000; $i++) {
             }
             echo CHAR_NL . $match . ' #' . $j;
             $args = array('link' => $match);
-            doPost('http://ike.rogierslag.nl/video', $args, 80);
+            file_get_contents(sprintf('http://ike.rogierslag.nl/video?link=%s',$match));
             usleep(200);
             $toScrape[] = $match;
             $visited[] = $match;
