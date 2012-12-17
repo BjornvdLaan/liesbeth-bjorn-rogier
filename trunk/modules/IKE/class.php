@@ -146,7 +146,7 @@ class IKE extends Module {
             $songTmp = get_object_vars($song);
             $songTmp['duration'] = $song->length;
             $songTmp['releaseyear'] = $song->releaseYear;
-            Weights::addSong($this->conn, $songTmp);
+            Weights::addSong($this->conn, $songTmp); 
             $related = new GeneralRecommendations($song);
             $oModuleData->data->related = $related->get($this->conn);
         }

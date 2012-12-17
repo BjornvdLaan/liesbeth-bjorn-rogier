@@ -116,8 +116,8 @@
 
             <ul class="thumbnails">
                 <?php
-                for ($i = 0; $i < 5 && isset($oModuleData->data->related[$i]); $i++) {
-                    $HITJE = $oModuleData->data->related[$i];
+                for ($i = 0; $i < 5 && isset($oModuleData->rogierisgaaf[$i]); $i++) {
+                    $HITJE = $oModuleData->rogierisgaaf[$i];
                     ?>
                     <li class="span2" style="background-color:white">
                         <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id'] ?>" class="thumbnail">

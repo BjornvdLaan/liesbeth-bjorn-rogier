@@ -24,13 +24,15 @@ class UserRecommendations {
         }
         $query = sprintf("
             SELECT
-                hitje_id,POW(1.04,count)*value as score
+                name, artist, youtube_id, hitjes.id,POW(1.04,count)*value as score
             FROM
                 `user_hitje`
             LEFT JOIN
                 similarities_matrix
                 ON
                 user_hitje.hitje_id = x
+            LEFT JOIN hitjes
+                ON hitjes.id = hitje_id
             WHERE
                 user_id=18
                 AND
@@ -42,6 +44,7 @@ class UserRecommendations {
         $st->bindValue(':id', $user_id);
         $st->execute();
 
+        //var_dump($st->errorInfo());
         $this->userSongs = $st->fetchAll();
     }
 
@@ -49,8 +52,8 @@ class UserRecommendations {
         //usort($this->songs, array('UserRecommendations', 'cmp'));
 
         $result = array();
-        for ($i = 0; $i < $limit && isset($this->songs[$i]); $i++) {
-            $result[] = $this->songs[$i];
+        for ($i = 0; $i < $limit && isset($this->userSongs[$i]); $i++) {
+            $result[] = $this->userSongs[$i];
         }
         return $result;
     }
