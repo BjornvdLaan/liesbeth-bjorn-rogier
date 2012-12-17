@@ -181,6 +181,16 @@
             }
                 ?></td><?php } ?>
             </tr>
+            <?php //if (!empty($oModuleData->data->events)) { ?>
+                <tr style="width:150px;text-align:left;vertical-align:top;">
+                    <th>Upcoming events</th>
+                    <td><?php var_dump($oModuleData->data->events); 
+           // foreach ($oModuleData->data->events as $entry) {
+                //echo $entry . '<br>';
+           // }
+                ?></td><?php //} ?>
+            </tr>
+            </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
