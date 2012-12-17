@@ -118,6 +118,7 @@ class IKE extends Module {
         $oModuleData->data->allsongs = Echonest::getDiscography($oModuleData->data->video->artist);
         $oModuleData->data->hotttnesss = Echonest::getHotttnesss($oModuleData->data->video->artist);
         $oModuleData->data->hotttnesssIcon = Echonest::getHotttnesssIcon($oModuleData->data->hotttnesss);
+        $oModuleData->data->events = Echonest::getEvent($oModuleData->data->video->artist); 
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
         
         $song = new stdClass();
