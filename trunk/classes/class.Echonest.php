@@ -49,12 +49,15 @@ $url = "http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=%s&api_
 $url = sprintf($url, rawurlencode($artist));
 
 $data = json_decode(file_get_contents($url));
+return $data->events->event;
 if(!isset($data->events->event)) {
     return null;
 }
 
 return $data->events->event;
 }
+
+
 
 public static function getHotttnesss($artist) {
 
