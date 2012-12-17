@@ -39,6 +39,23 @@ Echonest::$$site->text = $item->text;
 }
 }
 
+public static function getEvent($artist) {
+
+if (empty($artist)) {
+return;
+}
+
+$url = "http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=%s&api_key=82483b62640fc8a01bfde8be06a4e1c7&format=json";
+$url = sprintf($url, rawurlencode($artist));
+
+$data = json_decode(file_get_contents($url));
+if(!isset($data->events->event)) {
+    return null;
+}
+
+return $data->events->event;
+}
+
 public static function getHotttnesss($artist) {
 
 
