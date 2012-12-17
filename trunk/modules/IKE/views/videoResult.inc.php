@@ -101,7 +101,7 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><?php echo $oModuleData->data->video->artist." <img src='".$oModuleData->data->hotttnesssIcon."' alt='".$oModuleData->data->hotttnesss."'>" ?> </h4></div>
+                        <div class="row-fluid"><h4><?php echo $oModuleData->data->video->artist . " <img src='" . $oModuleData->data->hotttnesssIcon . "' alt='" . $oModuleData->data->hotttnesss . "'>" ?> </h4></div>
                         <div class="row-fluid"><h4><?= ucwords($oModuleData->data->video->title) ?></h4></div>
                     </div>
                 </div>
@@ -111,78 +111,79 @@
             <div>&nbsp;</div>
         </div>
     </div>
-    <div class="row-fluid">
+    <div class="hero-unit">
         <row>
-            testje 
-        </row>
-    </div>
-    <div class="row-fluid">
-        <div class="span6">
-            <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
-
-            <p><?php
-$abstract = Echonest::$wikipedia->text;
-$first = strpos($abstract, CHAR_NL);
-$intro = nl2br(substr($abstract, 0, $first));
-$readmore = nl2br(substr($abstract, $first));
-echo $intro;
-?>
-                <span id="abstractreadmore" class="hide">
-                    <?= $readmore ?>
-                </span>
-            </p>    
+            <ul class="thumbnails">
+                <?php for ($i = 0; $i < 5; $i++) {
+                    $HITJE = $oModuleData->data->related[$i];
+                    ?>
+                    <li class="span2">
+                        <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id'] ?>" class="thumbnail">
+                            <img data-src="holder.js/160x120" alt="160x120" style="width: 260px; height: 120px;" src="http://img.youtube.com/vi/<?= $HITJE['youtube_id'] ?>/0.jpg">
+                        </a></li>
+                        <?php } ?>
+                </ul>
+            </row>
         </div>
-        <table>
+        <div class="row-fluid">
+            <div class="span6">
+                <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
+
+                <p><?php
+                $abstract = Echonest::$wikipedia->text;
+                $first = strpos($abstract, CHAR_NL);
+                $intro = nl2br(substr($abstract, 0, $first));
+                $readmore = nl2br(substr($abstract, $first));
+                echo $intro;
+                ?>
+                    <span id="abstractreadmore" class="hide">
+    <?= $readmore ?>
+                    </span>
+                </p>    
+            </div>
+            <table>
 
 
-            <tr>
-                <th style="width:150px;text-align:left;">Spotify</th>
-                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track->getTrack() ?><br>
-                    Spotify artist-ID: <?= $oModuleData->data->spotify->artist->href ?><br>
-                    Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?></td>
-            </tr>
-            <tr>
-                <th style="width:150px;text-align:left;">Buy this track</th>
-                <td>
-                    <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
-                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
-                </td>
-            </tr>
-            <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>Related</th>
-                <td><?php
-                    foreach ($oModuleData->data->youtube->related as $entry) {
-                        echo $entry->getVideoTitle() . '<br>';
-                    }
-                    ?></td>
-            </tr>
-            <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>CHristmas</th>
-                <td><?php
-                    foreach ($oModuleData->data->xmas as $entry) {
-                        echo $entry . '<br>';
-                    }
-                    ?></td>
-            </tr>
-            <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>Discography</th>
-                <td><?php
-                    foreach ($oModuleData->data->allsongs as $entry) {
-                        echo $entry . '<br>';
-                    }
-                    ?></td>
-            </tr>
-        </table>
-    </div>
+                <tr>
+                    <th style="width:150px;text-align:left;">Spotify</th>
+                    <td>Spotify track-ID: <?= $oModuleData->data->spotify->track->getTrack() ?><br>
+                        Spotify artist-ID: <?= $oModuleData->data->spotify->artist->href ?><br>
+                        Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?></td>
+                </tr>
+                <tr>
+                    <th style="width:150px;text-align:left;">Buy this track</th>
+                    <td>
+                        <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
+    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
+                    </td>
+                </tr>
+                <tr style="width:150px;text-align:left;vertical-align:top;">
+                    <th>Related</th>
+                    <td><?php
+    foreach ($oModuleData->data->youtube->related as $entry) {
+        echo $entry->getVideoTitle() . '<br>';
+    }
+    ?></td>
+                </tr>
+                <tr style="width:150px;text-align:left;vertical-align:top;">
+                    <th>CHristmas</th>
+                    <td><?php
+    foreach ($oModuleData->data->xmas as $entry) {
+        echo $entry . '<br>';
+    }
+    ?></td>
+                </tr>
+                <tr style="width:150px;text-align:left;vertical-align:top;">
+                    <th>Discography</th>
+                    <td><?php
+    foreach ($oModuleData->data->allsongs as $entry) {
+        echo $entry . '<br>';
+    }
+    ?></td>
+                </tr>
+            </table>
+        </div>
 </div>
-<ul class="thumbnails">
-<?php for($i = 0; $i < 5; $i++) {
-    $HITJE = $oModuleData->data->related[$i]; ?>
-<li class="span2">
-    <a href ="http://<?=IKE_APP_URI?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id']?>" class="thumbnail">
-        <img data-src="holder.js/160x120" alt="160x120" style="width: 260px; height: 120px;" src="http://img.youtube.com/vi/<?= $HITJE['youtube_id']?>/0.jpg">
-    </a></li>
-<?php } ?>
 <script type="text/javascript">
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});

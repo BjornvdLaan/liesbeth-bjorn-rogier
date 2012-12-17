@@ -110,7 +110,7 @@ class IKE extends Module {
         $spotify = new Spotify($oModuleData->data->video->title, $spotifyID);
         $oModuleData->data->spotify->track = $spotify;
                 
-        $oModuleData->data->link = $link;
+        $oModuleData->data->link = rawurldecode($link);
         $get = GETData::getInstance();
         $oModuleData->data->URL = htmlspecialchars($get->get('link'));
         Echonest::getBiography($spotifyID);
@@ -144,7 +144,7 @@ class IKE extends Module {
     }
 
     protected function getLinkFromURL($link) {
-        $postLink = parse_url($link);
+        $postLink = parse_url(rawurldecode($link));
         $gets = explode('&', $postLink['query']);
         foreach ($gets as $get) {
             list($key, $value) = explode('=', $get);
