@@ -131,7 +131,13 @@ class IKE extends Module {
         $song->youtube = $link;
         $database->addSongToDatabase($song);
         $database->addSongToUser($song->spotifyID,$_SESSION['user_id']);
+        
+        $id = $database->getIdFromYoutube($link);
+        $song->id = $id;
         //var_dump($videoData);
+        
+        $related = new GeneralRecommendations($song);
+        $oModuleData->data->related = $related->get($this->conn);
     }
 
     protected function getLinkFromURL($link) {

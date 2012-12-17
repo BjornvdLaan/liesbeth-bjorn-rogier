@@ -175,6 +175,9 @@ echo $intro;
         </table>
     </div>
 </div>
+<?php foreach($oModuleData->data->related as $HITJE ) { ?>
+<p><?= $HITJE['artist']?> - <?=$HITJE['name']?></p>
+<?php } ?>
 <script type="text/javascript">
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});

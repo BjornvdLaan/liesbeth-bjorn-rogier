@@ -150,4 +150,14 @@ class Database {
         }
         $st->execute();
     }
+    
+    public function getIdFromYoutube($youtube) {
+        $st = $this->db->prepare("
+            SELECT id FROM hitjes WHERE youtube_id=:youtube");
+        $st->bindValue(':youtube', $youtube);
+        $st->execute();
+        
+        $data = $st->fetch();
+        return $data['id'];
+    }
 }

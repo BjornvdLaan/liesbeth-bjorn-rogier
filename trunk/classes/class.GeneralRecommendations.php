@@ -15,16 +15,20 @@ class GeneralRecommendations {
         }
         $st = $db->prepare("
             SELECT
-                y
+                name, artist, youtube_id
             FROM
                 similarities_matrix
+            LEFT JOIN
+                hitjes
+            ON
+            	hitjes.id = y
             WHERE
                 x=:x
             ORDER BY 
                 value DESC
             LIMIT
                 0,50");
-        $st->bindValue(':x',$this->song['id']);
+        $st->bindValue(':x',$this->song->id);
         $st->execute();
         
         $this->resultSet = $st->fetchAll();

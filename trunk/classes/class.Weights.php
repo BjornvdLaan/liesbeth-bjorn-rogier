@@ -65,25 +65,21 @@ class Weights {
 
     protected function compareDuration($duration) {
         $compare = abs($this->songX['duration'] - $duration);
-        if($compare < 15){
+        if ($compare < 15) {
             $this->alike['duration'] = 2;
-        }
-        elseif($compare < 25){
+        } elseif ($compare < 25) {
             $this->alike['duration'] = 1;
-        }
-        else{
+        } else {
             $this->alike['duration'] = 0;
-        } 
+        }
     }
 
     protected function compareDanceability($dance) {
-        if($dance > ($this->songX['danceability']-0.05) && $dance < ($this->songX['danceability']+0.05)){
+        if ($dance > ($this->songX['danceability'] - 0.05) && $dance < ($this->songX['danceability'] + 0.05)) {
             $this->alike['danceability'] = 3;
-        }
-        elseif($dance > ($this->songX['danceability']-0.1) && $dance < ($this->songX['danceability']+0.1)){
+        } elseif ($dance > ($this->songX['danceability'] - 0.1) && $dance < ($this->songX['danceability'] + 0.1)) {
             $this->alike['danceability'] = 2;
-        }
-        else{
+        } else {
             $this->alike['danceability'] = 0;
         }
     }
@@ -102,13 +98,6 @@ class Weights {
     public function saveToDatabase(PDO $db) {
         $v = 0;
 
-        /* $stValue = $db->prepare("
-          INSERT INTO
-          similarities_value
-          (`x`,`y`,`key`,points)
-          VALUES
-          (:x,:y,:key,:points)
-          "); */
         $stMatrix = $db->prepare("
                         INSERT INTO
                             similarities_matrix
@@ -117,38 +106,23 @@ class Weights {
                         (:x,:y,:value)
                         ");
 
-        foreach ($this->alike as $key => $comparison) {
+        foreach ($this->alike as $comparison) {
             $v += $comparison;
-            /* $stValue->bindValue(':x', $this->songX['id']);
-              $stValue->bindValue(':y', $this->songY['id']);
-              $stValue->bindValue(':key', $key);
-              $stValue->bindValue(':points', $comparison);
-              $stValue->execute();
-
-              $stValue->bindValue(':y', $this->songX['id']);
-              $stValue->bindValue(':x', $this->songY['id']);
-              $stValue->bindValue(':key', $key);
-              $stValue->bindValue(':points', $comparison);
-              $stValue->execute(); */
         }
-        
-        if ( $v < 8 ) {
+
+        if ($v < 8) {
             return;
         }
+        
         $stMatrix->bindValue(':x', $this->songX['id']);
         $stMatrix->bindValue(':y', $this->songY['id']);
         $stMatrix->bindValue(':value', $v);
-        //$stMatrix->bindValue(':v', $db->lastInsertId());
         $stMatrix->execute();
 
         $stMatrix->bindValue(':y', $this->songX['id']);
         $stMatrix->bindValue(':x', $this->songY['id']);
         $stMatrix->bindValue(':value', $v);
-        //$stMatrix->bindValue(':v', $db->lastInsertId());
         $stMatrix->execute();
-
-        /* var_dump($stMatrix->errorInfo());
-          die(); */
     }
 
     public static function goGadget(PDO $db) {
@@ -177,7 +151,6 @@ class Weights {
                 }
                 $create->compareSongs($songY);
                 $create->saveToDatabase($db);
-                //echo $i . ' Compared a sub song'.CHAR_NL;
             }
             $i++;
             echo $i . ' Compared a song' . CHAR_NL;
