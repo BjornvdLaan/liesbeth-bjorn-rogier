@@ -150,6 +150,10 @@ class IKE extends Module {
             $related = new GeneralRecommendations($song);
             $oModuleData->data->related = $related->get($this->conn);
         }
+        
+        $x = new UserRecommendations($this->conn,$oModuleData->data->related);
+        $x->getUserHistory($_SESSION['user_id']);
+        $oModuleData->rogierisgaaf = $x->get();
     }
 
     protected function getLinkFromURL($link) {

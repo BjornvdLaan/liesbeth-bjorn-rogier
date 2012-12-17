@@ -23,6 +23,12 @@ class Weights {
         $this->compareDuration($songinfo['duration']);
         $this->compareDanceability($songinfo['danceability']);
         $this->compareReleaseYear($songinfo['releaseyear']);
+        
+        $v = 0;
+        foreach($this->alike as $c) {
+            $v += $c;
+        }
+        return $v;
     }
 
     protected function compareArtist($artist) {

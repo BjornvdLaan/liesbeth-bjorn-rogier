@@ -15,7 +15,7 @@ class GeneralRecommendations {
         }
         $st = $db->prepare("
             SELECT
-                name, artist, youtube_id
+                name, artist, youtube_id, hitjes.id
             FROM
                 similarities_matrix
             LEFT JOIN
