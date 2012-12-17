@@ -52,17 +52,22 @@ class Echonest {
 
         $data = json_decode(file_get_contents($url));
         
-        $hotttnesss = $data->response->artist->hotttnesss;
+        return $data->response->artist->hotttnesss;
         
-        if($hotttnesss < 0.3) {
+     }
+     
+     public static function getHotttnesssIcon($hotttnesss) {
+         if($hotttnesss < 0.3)  {
             return "/content/img/thermo_cold.png";
         }
-        else if($hotttnesss > 0.8) {
+        else if($hotttnesss > 0.7) {
             return "/content/img/thermo_hot.png";
         }
         else {
             return "/content/img/thermo_med.png";
         }
+         
+  
      }
     
     public static function getGenre($artistSpotifyId) {
