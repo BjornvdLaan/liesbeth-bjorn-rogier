@@ -5,7 +5,7 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
-        $_SESSION['user_id'] = 18;
+        //$_SESSION['user_id'] = 18;
         if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
@@ -144,9 +144,17 @@ class IKE extends Module {
         $oModuleData->data->related = $related->get($this->conn);
         if ( empty ( $oModuleData->data->related) ) {
             # Geen gerelateerde bestanden gevonden. Opbouwen!
-            Weights::addSong($this->conn, $song);
+            $songTmp = get_object_vars($song);
+            $songTmp['duration'] = $song->length;
+            $songTmp['releaseyear'] = $song->releaseYear;
+            Weights::addSong($this->conn, $songTmp); 
+            $related = new GeneralRecommendations($song);
             $oModuleData->data->related = $related->get($this->conn);
         }
+        
+        $x = new UserRecommendations($this->conn,$oModuleData->data->related);
+        $x->getUserHistory($_SESSION['user_id']);
+        $oModuleData->rogierisgaaf = $x->get();
     }
 
     protected function getLinkFromURL($link) {

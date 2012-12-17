@@ -116,8 +116,8 @@
 
             <ul class="thumbnails">
                 <?php
-                for ($i = 0; $i < 5; $i++) {
-                    $HITJE = $oModuleData->data->related[$i];
+                for ($i = 0; $i < 5 && isset($oModuleData->rogierisgaaf[$i]); $i++) {
+                    $HITJE = $oModuleData->rogierisgaaf[$i];
                     ?>
                     <li class="span2" style="background-color:white">
                         <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id'] ?>" class="thumbnail">
@@ -203,6 +203,8 @@
         </table>
     </div>
 </div>
+<?php
+var_dump($oModuleData->rogierisgaaf) ?>
 <script type="text/javascript">
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});

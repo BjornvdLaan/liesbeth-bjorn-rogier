@@ -23,6 +23,12 @@ class Weights {
         $this->compareDuration($songinfo['duration']);
         $this->compareDanceability($songinfo['danceability']);
         $this->compareReleaseYear($songinfo['releaseyear']);
+        
+        $v = 0;
+        foreach($this->alike as $c) {
+            $v += $c;
+        }
+        return $v;
     }
 
     protected function compareArtist($artist) {
@@ -57,6 +63,9 @@ class Weights {
     protected function compareGenre($genres) {
         $this->alike['genre'] = 0;
         foreach ($genres as $genre) {
+            if (!is_array($this->songX['genre'])) {
+                break;
+            }
             if (in_array($genre, $this->songX['genre'])) {
                 $this->alike['genre'] += 2;
             }
@@ -159,6 +168,7 @@ class Weights {
     }
 
     public static function addSong(PDO $db, $song) {
+        //var_dump($song);die();
         $st = $db->prepare("
             SELECT id,name,artist,bpm,rating,popularity,danceability,length as duration,releaseYear as releaseyear FROM hitjes");
         $st->execute();
@@ -172,7 +182,7 @@ class Weights {
             $hitje['genre'] = $stGenre->fetchAll();
             $results[] = $hitje;
         }
-        
+
         $db->beginTransaction();
         $create = new Weights($song);
         foreach ($results as $songY) {
