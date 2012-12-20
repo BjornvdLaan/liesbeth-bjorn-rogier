@@ -184,11 +184,12 @@
             <?php //if (!empty($oModuleData->data->events)) { ?>
                 <tr style="width:150px;text-align:left;vertical-align:top;">
                     <th>Upcoming events</th>
-                    <td><?php var_dump($oModuleData->data->events); 
-           // foreach ($oModuleData->data->events as $entry) {
+                    <td><?php //var_dump($oModuleData->data->events); 
+           foreach ($oModuleData->data->events as $entry) {
+                echo '<a href="'.$entry->website.'">'.$entry->title."</a><br>";
                 //var_dump($entry); // . '<br>';
-                //echo "<br><br>";
-          //  }
+                //echo '<a href="'.$entry->website.'">'.$entry->title."</a><br>";
+            }
                 ?></td><?php //} ?>
             </tr>
             </tr>
