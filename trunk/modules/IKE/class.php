@@ -155,6 +155,11 @@ class IKE extends Module {
         $x = new UserRecommendations($this->conn,$oModuleData->data->related);
         $x->getUserHistory($_SESSION['user_id']);
         $oModuleData->rogierisgaaf = $x->get();
+        if ( count($oModuleData->rogierisgaaf) < 5) {
+            for ( $i = count($oModuleData->rogierisgaaf),$j=0; $i <= 5; $i++,$j++ ) {
+                $oModuleData->rogierisgaaf[] = $oModuleData->data->related[$j];
+            }
+        }
     }
 
     protected function getLinkFromURL($link) {

@@ -5,6 +5,8 @@
 
         <link rel="stylesheet" href="http://ike.rogierslag.nl/liesbeth/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="http://ike.rogierslag.nl/liesbeth/bootstrap/css/bootstrap-responsive.css">
+        <link rel="stylesheet" type="text/css" href="/content/css/hide.css">
+
         <script src="http://ike.rogierslag.nl/liesbeth/bootstrap/js/bootstrap.js" type="application/javascript"></script>
 
         <style type="text/css">

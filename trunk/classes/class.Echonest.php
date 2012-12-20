@@ -50,11 +50,25 @@ class Echonest {
         $url = sprintf($url, rawurlencode($artist));
 
         $data = json_decode(file_get_contents($url));
-        if (!isset($data->events->event)) {
-            return null;
+        if (!isset($data->events)||!isset($data->events->event)) {
+            $tmp = array();
+        } elseif (is_object($data->events->event)) {
+            $tmp = array($data->events->event);
+        } else {
+
+            $tmp = $data->events->event;
         }
 
-        return $data->events->event;
+        $res = array();
+        $visited = array();
+        foreach ($tmp as $event) {
+            if (isset($event->website) && !in_array($event->title, $visited)) {
+                $res[] = $event;
+                $visited[] = $event->title;
+            }
+        }
+
+        return $res;
     }
 
     public static function getHotttnesss($artist) {

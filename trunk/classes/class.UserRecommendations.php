@@ -34,7 +34,7 @@ class UserRecommendations {
             LEFT JOIN hitjes
                 ON hitjes.id = hitje_id
             WHERE
-                user_id=18
+                user_id=:id
                 AND
                 x IN (%s)
             GROUP BY x

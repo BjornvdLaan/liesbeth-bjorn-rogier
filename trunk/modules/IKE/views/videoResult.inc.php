@@ -1,5 +1,4 @@
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="/content/css/hide.css">
 <script type="text/javascript">
     google.load("swfobject", "2.1");
 </script>    
@@ -79,9 +78,7 @@
                 </form>
             </span>
             <span class="span4">
-                <a class="brand pull-right">
-                    You are currently logged in as: <?= $oModuleData->data->user->getUsername() ?>
-                </a>
+                <a class="brand pull-right">You are currently logged in as: <?= ucfirst($oModuleData->data->user->getUsername()) ?></a>
             </span>
         </div>
     </div>
@@ -139,8 +136,8 @@
             <p><?php
                 $abstract = Echonest::$wikipedia->text;
                 $first = strpos($abstract, CHAR_NL);
-                $intro = nl2br(substr($abstract, 0, $first));
-                $readmore = nl2br(substr($abstract, $first));
+                $intro = nl2br(htmlentities(substr($abstract, 0, $first)), false);
+                $readmore = nl2br(htmlentities(substr($abstract, $first)), false);
                 echo $intro;
                 ?>
                 <span id="abstractreadmore" class="hide">
@@ -149,8 +146,6 @@
             </p>    
         </div>
         <table>
-
-
             <tr>
                 <th style="width:150px;text-align:left;">Spotify</th>
                 <td>Spotify track-ID: <?= $oModuleData->data->spotify->track->getTrack() ?><br>
@@ -181,30 +176,27 @@
             }
                 ?></td><?php } ?>
             </tr>
-            <?php //if (!empty($oModuleData->data->events)) { ?>
+            <?php if (!empty($oModuleData->data->events)) { ?>
                 <tr style="width:150px;text-align:left;vertical-align:top;">
                     <th>Upcoming events</th>
-                    <td><?php var_dump($oModuleData->data->events); 
-           // foreach ($oModuleData->data->events as $entry) {
-                //var_dump($entry); // . '<br>';
-                //echo "<br><br>";
-          //  }
-                ?></td><?php //} ?>
-            </tr>
-            </tr>
+                    <td><?php
+            foreach ($oModuleData->data->events as $entry) {
+                echo '<a href="' . $entry->website . '">' . $entry->title . "</a><br>";
+            }
+                ?></td>
+                </tr>
+            <?php } ?>
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
-                    foreach ($oModuleData->data->allsongs as $entry) {
-                        echo $entry . '<br>';
-                    }
+            foreach ($oModuleData->data->allsongs as $entry) {
+                echo $entry . '<br>';
+            }
             ?></td>
             </tr>
         </table>
     </div>
 </div>
-<?php
-var_dump($oModuleData->rogierisgaaf) ?>
 <script type="text/javascript">
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});
