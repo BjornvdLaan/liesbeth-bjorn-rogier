@@ -80,7 +80,7 @@
             </span>
             <span class="span4">
                 <a class="brand pull-right">
-                    You are currently logged in as: <?= ucfirst($oModuleData->data->user->getUsername()) ?>
+                    You are currently logged in as: <?= $oModuleData->data->user->getUsername() ?>
                 </a>
             </span>
         </div>
@@ -184,11 +184,11 @@
             <?php //if (!empty($oModuleData->data->events)) { ?>
                 <tr style="width:150px;text-align:left;vertical-align:top;">
                     <th>Upcoming events</th>
-                    <td><?php //var_dump($oModuleData->data->events); 
-            foreach ($oModuleData->data->events as $entry) {
-                echo "<a href='$entry->url'>$entry->title </a><br>";
+                    <td><?php var_dump($oModuleData->data->events); 
+           // foreach ($oModuleData->data->events as $entry) {
+                //var_dump($entry); // . '<br>';
                 //echo "<br><br>";
-            }
+          //  }
                 ?></td><?php //} ?>
             </tr>
             </tr>
