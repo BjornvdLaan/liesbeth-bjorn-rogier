@@ -16,6 +16,11 @@ class Spotify {
         }
         return $result->artists[0];
     }
+    
+    public static function getLink($artist_id) {
+        $url = sprintf('http://open.spotify.com/track/%s', $artist_id);
+        return $url;
+    }
 
     public static function getAlbums($artist_id) {
         if ($artist_id === '') {
