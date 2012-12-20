@@ -119,7 +119,7 @@ class IKE extends Module {
         $oModuleData->data->hotttnesss = Echonest::getHotttnesss($oModuleData->data->video->artist);
         $oModuleData->data->hotttnesssIcon = Echonest::getHotttnesssIcon($oModuleData->data->hotttnesss);
         $oModuleData->data->events = Echonest::getEvent($oModuleData->data->video->artist);  
-        $oModuleData->data->spotifyLink = Spotify::getLink($spotifyID);
+        $oModuleData->data->spotifyLinkArtist = Spotify::getLinkArtist($spotifyID);
         $oModuleData->view = '/modules/IKE/views/videoResult.inc.php';
         
         $song = new stdClass();

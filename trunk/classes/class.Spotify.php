@@ -17,8 +17,9 @@ class Spotify {
         return $result->artists[0];
     }
     
-    public static function getLink($artist_id) {
-        $url = sprintf('http://open.spotify.com/track/%s', $artist_id);
+    public static function getLinkArtist($artist_id) {
+        $id = substr($artist_id, 15);
+        $url = sprintf('http://open.spotify.com/track/%s', $id);
         return $url;
     }
     
