@@ -157,6 +157,7 @@
                 <td>
                     <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
                     <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
+                    <?php if (!empty($oModuleData->data->spotifyLink)) { ?><a href="<?= $oModuleData->data->spotifyLink ?>"><img src="/content/img/spotify.png"></a> <?php } ?>
                 </td>
             </tr>
             <tr style="width:150px;text-align:left;vertical-align:top;">
