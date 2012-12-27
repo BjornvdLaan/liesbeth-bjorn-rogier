@@ -144,8 +144,8 @@
         <table>
             <tr>
                 <th style="width:150px;text-align:left;">Spotify</th>
-                <td>Spotify track-ID: <?= $oModuleData->data->spotify->track->getTrack() ?><br>
-                    Spotify artist-ID: <?= $oModuleData->data->spotify->artist->href ?><br>
+                <td><a href="<?= $oModuleData->data->spotify->track->getTrack() ?>">Vind <?= ucwords($oModuleData->data->video->title) ?> op Spotify!</a><br>
+                    <a href="<?= $oModuleData->data->spotify->artist->href ?>">Vind <?= $oModuleData->data->video->artist ?> op Spotify!</a><br>
                     Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?></td>
             </tr>
             <tr>
