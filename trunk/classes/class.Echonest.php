@@ -46,6 +46,25 @@ class Echonest {
             return;
         }
 
+        $url = "http://api.songkick.com/api/3.0/search/artists.json?query=%s&apikey=UD5BEug9mJxNqSob ";
+        $url = sprintf($url, rawurlencode($artist));
+        $data = json_decode(file_get_contents($url));
+        $id = $data->resultsPage->results->artist[0]->id;
+
+        $url2 = "http://api.songkick.com/api/3.0/artists/%s/calendar.json?apikey=UD5BEug9mJxNqSob";
+        $url2 = sprintf($url2, $id);
+        $data2 = json_decode(file_get_contents($url2));
+        $events = $data2->resultsPage->results->event;
+
+        return $events;
+    }
+
+    public static function getEventOld($artist) {
+
+        if (empty($artist)) {
+            return;
+        }
+
         $url = "http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=%s&api_key=82483b62640fc8a01bfde8be06a4e1c7&format=json";
         $url = sprintf($url, rawurlencode($artist));
 

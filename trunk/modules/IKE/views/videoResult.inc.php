@@ -52,18 +52,14 @@
     
     $(document).ready(function(){
         $("#abstract").click(function(){
-            //var i = $(this).find("i");
-            //var cl = $(img).attr("class");
-            
-            //if(cl.endsWith("plus-sign"))
-            //     cl = cl.replace('plus', 'minus');
-            // else
-            //     cl = cl.replace('minus', 'plus');
-            // $(i).attr("class", cl);
-            
             $("#abstractreadmore").toggle();
         })
-    })
+    
+        $("#events").click(function(){
+            $("#eventsCollapse").toggle();
+        })
+    }
+    )
     
     google.setOnLoadCallback(_run);
 </script>
@@ -179,10 +175,10 @@
             </tr>
             <?php if (!empty($oModuleData->data->events)) { ?>
                 <tr style="width:150px;text-align:left;vertical-align:top;">
-                    <th>Upcoming events</th>
-                    <td><?php
+                    <th id="events">Upcoming events</th>
+                    <td id="eventsCollapse"><?php
             foreach ($oModuleData->data->events as $entry) {
-                echo '<a href="' . $entry->website . '">' . $entry->title . "</a><br>";
+                echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
             }
                 ?></td>
                 </tr>
