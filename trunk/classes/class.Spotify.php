@@ -19,7 +19,7 @@ class Spotify {
     
     public static function getLinkArtist($artist_id) {
         $id = substr($artist_id, 15);
-        $url = sprintf('http://open.spotify.com/track/%s', $id);
+        $url = sprintf('http://open.spotify.com/artist/%s', $id);
         return $url;
     }
     
@@ -54,7 +54,13 @@ class Spotify {
         }
         return NULL;
     }
-
+    
+    public static function getLinkTrack($track_id) {
+        $id = substr($track_id, 14);
+        $url = sprintf('http://open.spotify.com/track/%s', $id);
+        return $url;
+    }
+    
     public function getReleaseYear() {
         if (isset($this->json->album->released)) {
             return $this->json->album->released;
