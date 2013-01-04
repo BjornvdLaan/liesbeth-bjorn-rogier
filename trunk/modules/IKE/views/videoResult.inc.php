@@ -59,7 +59,7 @@
             $("#eventsCollapse").toggle();
         })
     }
-    )
+)
     
     google.setOnLoadCallback(_run);
 </script>
@@ -94,7 +94,7 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><?= $oModuleData->data->video->artist ?></a> <?= $oModuleData->data->hotttnesssIcon ?> </h4></div>
+                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><?= $oModuleData->data->video->artist ?></a> </h4></div>
                         <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkTrack ?>"><?= ucwords($oModuleData->data->video->title) ?></a></h4></div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
     </div>
     <div class="row-fluid">
         <div class="hero-unit" style="padding-top:20px; padding-bottom:0">
-
+            <h4>Recommended songs:</h4>
             <ul class="thumbnails">
                 <?php
                 for ($i = 0; $i < 5 && isset($oModuleData->rogierisgaaf[$i]); $i++) {
@@ -126,8 +126,19 @@
         </div>
     </div>
     <div class="row-fluid">
+
+        <div class="span3">
+            <h3>Upcoming events</h3>
+            <?php
+            if (!empty($oModuleData->data->events)) {
+                foreach ($oModuleData->data->events as $entry) {
+                    echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
+                }
+            }
+            ?>
+        </div>
         <div class="span6">
-            <h2 id="abstract"><a class="btn"><i class="icon-text-height"></i></a> About the artist</h2>
+            <h2 > About the artist</h2>
 
             <p><?php
                 $abstract = Echonest::$wikipedia->text;
@@ -136,51 +147,37 @@
                 $readmore = nl2br(htmlentities(substr($abstract, $first)), false);
                 echo $intro;
                 ?>
-                <span id="abstractreadmore" class="hide">
-                    <?= $readmore ?>
-                </span>
+                    <span id="abstractreadmore" class="hide">
+                        <?= $readmore ?>
+                    </span>
+                <br>
+                <a id="abstract" class="btn">Read more</a>
             </p>    
         </div>
-        <div class="span6">
+        <div class="span3">
             <div class="row-fluid">
-                <div class="span6">
-                    <h3>On Spotify:</h3>
-                        <a href="<?= $oModuleData->data->spotify->track->getTrack() ?>">Find <?= ucwords($oModuleData->data->video->title) ?></a><br>
-                        <a href="<?= $oModuleData->data->spotify->artist->href ?>">Find <?= $oModuleData->data->video->artist ?></a><br>
-                        Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?>
-                </div>
-                <div class="span6">
-                    <h3>Buy this track:</h3>
-                        <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
-                        <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
-                        <?php if (!empty($oModuleData->data->spotifyLink)) { ?><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><img src="/content/img/spotify.png"></a> <?php } ?>
-                </div>
+                <h3>On Spotify</h3>
+                <a href="<?= $oModuleData->data->spotify->track->getTrack() ?>">Find <?= ucwords($oModuleData->data->video->title) ?></a><br>
+                <a href="<?= $oModuleData->data->spotify->artist->href ?>">Find <?= $oModuleData->data->video->artist ?></a><br>
+                Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?>
             </div>
             <div class="row-fluid">
-                <h3>Upcoming events:</h3>
-                <?php if (!empty($oModuleData->data->events)) { 
-                        foreach ($oModuleData->data->events as $entry) {
-                        echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
-                    }
+                <h3>Buy this track</h3>
+                <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
+                <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
+                <?php if (!empty($oModuleData->data->spotifyLink)) { ?><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><img src="/content/img/spotify.png"></a> <?php } ?>
+            </div>
+            <div class="row-fluid">
+                <h3>Discography</h3>
+                <?php
+                foreach ($oModuleData->data->allsongs as $entry) {
+                    echo $entry . '<br>';
                 } ?>
             </div>
         </div>
-        <table>
-            
-            
-           
-           
-            <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>Discography</th>
-                <td><?php
-            foreach ($oModuleData->data->allsongs as $entry) {
-                echo $entry . '<br>';
-            }
-            ?></td>
-            </tr>
-        </table>
     </div>
 </div>
+
 <script type="text/javascript">
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});
