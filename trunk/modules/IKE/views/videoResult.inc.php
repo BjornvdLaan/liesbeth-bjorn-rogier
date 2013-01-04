@@ -141,48 +141,35 @@
                 </span>
             </p>    
         </div>
-        <table>
-            <tr>
-                <th style="width:150px;text-align:left;">Spotify</th>
-                <td><a href="<?= $oModuleData->data->spotify->track->getTrack() ?>">Vind <?= ucwords($oModuleData->data->video->title) ?> op Spotify!</a><br>
-                    <a href="<?= $oModuleData->data->spotify->artist->href ?>">Vind <?= $oModuleData->data->video->artist ?> op Spotify!</a><br>
-                    Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?></td>
-            </tr>
-            <tr>
-                <th style="width:150px;text-align:left;">Buy this track</th>
-                <td>
-                    <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
-                    <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
-                    <?php if (!empty($oModuleData->data->spotifyLink)) { ?><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><img src="/content/img/spotify.png"></a> <?php } ?>
-                </td>
-            </tr>
-            <tr style="width:150px;text-align:left;vertical-align:top;">
-                <th>Related</th>
-                <td><?php
-                    foreach ($oModuleData->data->youtube->related as $entry) {
-                        echo $entry->getVideoTitle() . '<br>';
+        <div class="span6">
+            <div class="row-fluid">
+                <div class="span6">
+                    <h3>On Spotify:</h3>
+                        <a href="<?= $oModuleData->data->spotify->track->getTrack() ?>">Find <?= ucwords($oModuleData->data->video->title) ?></a><br>
+                        <a href="<?= $oModuleData->data->spotify->artist->href ?>">Find <?= $oModuleData->data->video->artist ?></a><br>
+                        Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?>
+                </div>
+                <div class="span6">
+                    <h3>Buy this track:</h3>
+                        <?php if (!empty(Echonest::$itunes->url)) { ?><a href="<?= Echonest::$itunes->url ?>"><img src="/content/img/itunes.png"></a> <?php } ?>
+                        <?php if (!empty(Echonest::$amazon->url)) { ?><a href="<?= Echonest::$amazon->url ?>"><img src="/content/img/amazon.gif"></a><br><?php } ?>
+                        <?php if (!empty($oModuleData->data->spotifyLink)) { ?><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><img src="/content/img/spotify.png"></a> <?php } ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <h3>Upcoming events:</h3>
+                <?php if (!empty($oModuleData->data->events)) { 
+                        foreach ($oModuleData->data->events as $entry) {
+                        echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
                     }
-                    ?></td>
-            </tr>
-            <?php if (!empty($oModuleData->data->xmas)) { ?>
-                <tr style="width:150px;text-align:left;vertical-align:top;">
-                    <th>CHristmas</th>
-                    <td><?php
-            foreach ($oModuleData->data->xmas as $entry) {
-                echo $entry . '<br>';
-            }
-                ?></td><?php } ?>
-            </tr>
-            <?php if (!empty($oModuleData->data->events)) { ?>
-                <tr style="width:150px;text-align:left;vertical-align:top;">
-                    <th id="events">Upcoming events</th>
-                    <td id="eventsCollapse"><?php
-            foreach ($oModuleData->data->events as $entry) {
-                echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
-            }
-                ?></td>
-                </tr>
-            <?php } ?>
+                } ?>
+            </div>
+        </div>
+        <table>
+            
+            
+           
+           
             <tr style="width:150px;text-align:left;vertical-align:top;">
                 <th>Discography</th>
                 <td><?php
