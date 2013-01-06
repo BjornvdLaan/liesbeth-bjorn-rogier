@@ -1,38 +1,54 @@
 <?php
 
+define('MONTH',60*60*24*30);
+
 class Echonest {
 
+    private $artistId;
+    private $trackId;
+    private $artist;
+    private $track;
     public static $wikipedia = '';
     public static $amazon = '';
     public static $itunes = '';
     public static $facebook = '';
-    protected static $datasources = array('wikipedia', 'amazon', 'itunes', 'facebook');
-    private static $artist;
-    private static $song;
-    private static $json;
+    protected $datasources = array('wikipedia', 'amazon', 'itunes', 'facebook');
 
-    public static function getBiography($spotifyID) {
-        if (empty($spotifyID)) {
+    public function __construct($artistId, $artist, $trackId, $track) {
+        $this->artist = $artist;
+        $this->artistId = $artistId;
+        $this->track = $track;
+        $this->trackId = $trackId;
+    }
+
+    public function getBiography() {
+        if (empty($this->artistId)) {
             return;
         }
 
-        $spotifyID = str_replace('spotify', 'spotify-WW', $spotifyID);
+        $cache = Cached::getInstance();
+        if (($data = $cache->get('biography-' . $this->artistId)) === FALSE) {
+            $spotifyID = str_replace('spotify', 'spotify-WW', $this->artistId);
 
-        $url = "http://developer.echonest.com/api/v4/artist/biographies?api_key=FILDTEOIK2HBORODV&id=%s";
-        $url = sprintf($url, $spotifyID);
+            $url = "http://developer.echonest.com/api/v4/artist/biographies?api_key=FILDTEOIK2HBORODV&id=%s";
+            $url = sprintf($url, $spotifyID);
 
-        $data = json_decode(file_get_contents($url));
+            $data = json_decode(file_get_contents($url));
+            $data = $data->response->biographies;
+            $cache->set('biography-' . $this->artistId, serialize($data));
+        } else {
+            var_dump('Cache hit! biography');
+            $data = unserialize($data);
+        }
 
-//header('content-type: text/plain');
         Echonest::$wikipedia = new EchonestInfo();
         Echonest::$amazon = new EchonestInfo();
         Echonest::$itunes = new EchonestInfo();
         Echonest::$facebook = new EchonestInfo();
 
-        //var_dump($data->response);
-        foreach ($data->response->biographies as $item) {
+        foreach ($data as $item) {
             $site = $item->site;
-            if (!in_array($site, Echonest::$datasources)) {
+            if (!in_array($site, $this->datasources)) {
                 continue;
             }
             Echonest::$$site->url = $item->url;
@@ -40,72 +56,153 @@ class Echonest {
         }
     }
 
-    public static function getEvent($artist) {
-
-        if (empty($artist)) {
+    public function getEvent() {
+        if (empty($this->artist)) {
             return;
         }
 
-        $url = "http://api.songkick.com/api/3.0/search/artists.json?query=%s&apikey=UD5BEug9mJxNqSob ";
-        $url = sprintf($url, rawurlencode($artist));
-        $data = json_decode(file_get_contents($url));
-        $id = $data->resultsPage->results->artist[0]->id;
+        $cache = Cached::getInstance();
+        if (($data = $cache->get('events-' . $this->artist)) === FALSE) {
+            $url = "http://api.songkick.com/api/3.0/search/artists.json?query=%s&apikey=UD5BEug9mJxNqSob ";
+            $url = sprintf($url, rawurlencode($this->artist));
+            $data = json_decode(file_get_contents($url));
+            $id = $data->resultsPage->results->artist[0]->id;
 
-        $url2 = "http://api.songkick.com/api/3.0/artists/%s/calendar.json?apikey=UD5BEug9mJxNqSob";
-        $url2 = sprintf($url2, $id);
-        $data2 = json_decode(file_get_contents($url2));
-        $events = $data2->resultsPage->results->event;
+            $url2 = "http://api.songkick.com/api/3.0/artists/%s/calendar.json?apikey=UD5BEug9mJxNqSob";
+            $url2 = sprintf($url2, $id);
+            $data2 = json_decode(file_get_contents($url2));
+            $events = isset($data2->resultsPage->results->event)?$data2->resultsPage->results->event:array();
 
+            $cache->set('events-' . $this->artist, serialize($events),0,MONTH);
+        } else {
+            var_dump('Cache hit! event ');
+            $events = unserialize($data);
+        }
         return $events;
     }
 
-    public static function getEventOld($artist) {
-
-        if (empty($artist)) {
+    public function getHotttnesss() {
+        if (empty($this->artist)) {
             return;
         }
 
-        $url = "http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=%s&api_key=82483b62640fc8a01bfde8be06a4e1c7&format=json";
-        $url = sprintf($url, rawurlencode($artist));
+        $cache = Cached::getInstance();
+        if (($data = $cache->get('hotttnesss-' . $this->artist)) === FALSE) {
+            $url = "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=YWOBBQGLJNR0XO3RG&name=%s&format=json";
+            $url = sprintf($url, rawurlencode($this->artist));
 
-        $data = json_decode(file_get_contents($url));
-        if (!isset($data->events)||!isset($data->events->event)) {
-            $tmp = array();
-        } elseif (is_object($data->events->event)) {
-            $tmp = array($data->events->event);
+            $data = json_decode(file_get_contents($url));
+            $hotttnesss = isset($data->response->artist->hotttnesss) ? $data->response->artist->hotttnesss : NULL;
+
+
+            $cache->set('hotttnesss-' . $this->artist, serialize($hotttnesss),0,MONTH);
         } else {
-
-            $tmp = $data->events->event;
+            var_dump('Cache hit! hotttnesss');
+            $hotttnesss = unserialize($data);
         }
 
-        $res = array();
-        $visited = array();
-        foreach ($tmp as $event) {
-            if (isset($event->website) && !in_array($event->title, $visited)) {
-                $res[] = $event;
-                $visited[] = $event->title;
-            }
-        }
-
-        return $res;
+        return $hotttnesss;
     }
 
-    public static function getHotttnesss($artist) {
-
-
-        if (empty($artist)) {
+    public function getGenre() {
+        if (empty($this->artistId)) {
             return;
         }
 
-        $url = "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=YWOBBQGLJNR0XO3RG&name=%s&format=json";
-        $url = sprintf($url, rawurlencode($artist));
+        $artistSpotifyId = str_replace('spotify', 'spotify-WW', $this->artistId);
+
+        $url = "http://developer.echonest.com/api/v4/artist/terms?api_key=YWOBBQGLJNR0XO3RG&id=%s&format=json&sort=frequency";
+        $url = sprintf($url, $artistSpotifyId);
 
         $data = json_decode(file_get_contents($url));
-        if (!isset($data->response->artist->hotttnesss)) {
-            return null;
+        if (empty($data->response->terms) || $data->response->terms === NULL) {
+            return array();
+        }
+        return $data->response->terms;
+    }
+
+    public function getDiscography() {
+        if (empty($this->artist)) {
+            return;
         }
 
-        return $data->response->artist->hotttnesss;
+        $cache = Cached::getInstance();
+        if (($data = $cache->get('songs-' . $this->artist)) === FALSE) {
+            $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&results=100";
+            $url = sprintf($url, rawurlencode($this->artist));
+
+            $data = json_decode(file_get_contents($url));
+
+            $songs = array();
+            foreach ($data->response->songs as $item) {
+                $songs[] = $item->title;
+            }
+            
+            $cache->set('songs-' . $this->artist, serialize($songs),0,MONTH);
+        } else {
+            var_dump('Cache hit! songs');
+            $songs = unserialize($data);
+        }
+
+        return $songs;
+    }
+
+    public function getChristmas() {
+        if (empty($this->artist)) {
+            return;
+        }
+
+        $cache = Cached::getInstance();
+        if (($data = $cache->get('xmas-' . $this->artist)) === FALSE) {
+            $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&format=json&artist=%s&song_type=christmas&bucket=song_type";
+        $url = sprintf($url, rawurlencode($this->artist));
+
+            $data = json_decode(file_get_contents($url));
+
+            $songs = array();
+            foreach ($data->response->songs as $item) {
+                $songs[] = $item->title;
+            }
+            
+            $cache->set('xmas-' . $this->artist, serialize($songs),0,MONTH);
+        } else {
+            var_dump('Cache hit! xmas');
+            $songs = unserialize($data);
+        }
+
+        return $songs;
+    }
+
+    public function getBpm() {
+        if (empty($this->artist) || empty($this->track)) {
+            return;
+        }
+
+        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
+        $url = sprintf($url, rawurlencode($this->artist), rawurlencode($this->track));
+
+        $data = json_decode(file_get_contents($url));
+        if (!isset($data->response->songs[0])) {
+            return NULL;
+        }
+
+        return $data->response->songs[0]->audio_summary->tempo;
+    }
+
+    public function getDanceability() {
+        if (empty($this->artist) || empty($this->track)) {
+            return;
+        }
+
+        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
+        $url = sprintf($url, rawurlencode($this->artist), rawurlencode($this->track));
+
+        $data = json_decode(file_get_contents($url));
+        if (!isset($data->response->songs[0])) {
+            return NULL;
+        }
+
+        return $data->response->songs[0]->audio_summary->danceability;
     }
 
     public static function getHotttnesssIcon($hotttnesss) {
@@ -122,113 +219,6 @@ class Echonest {
         } else {
             return "<button class='btn'><i class='fam-weather-sun'></i></button>";
         }
-    }
-
-    public static function getGenre($artistSpotifyId) {
-
-
-        if (empty($artistSpotifyId)) {
-            return;
-        }
-
-        $artistSpotifyId = str_replace('spotify', 'spotify-WW', $artistSpotifyId);
-
-        $url = "http://developer.echonest.com/api/v4/artist/terms?api_key=YWOBBQGLJNR0XO3RG&id=%s&format=json&sort=frequency";
-        $url = sprintf($url, $artistSpotifyId);
-
-        $data = json_decode(file_get_contents($url));
-        if (empty($data->response->terms) || $data->response->terms === NULL) {
-            return array();
-        }
-        return $data->response->terms;
-    }
-
-    public static function getDiscography($artist) {
-
-
-        if (empty($artist)) {
-            return;
-        }
-
-        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&results=100";
-        $url = sprintf($url, rawurlencode($artist));
-
-        $data = json_decode(file_get_contents($url));
-
-        $songs = array();
-        foreach ($data->response->songs as $item) {
-            $songs[] = $item->title;
-        }
-
-        return $songs;
-    }
-
-    public static function getChristmas($artist) {
-
-
-        if (empty($artist)) {
-            return;
-        }
-
-        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&format=json&artist=%s&song_type=christmas&bucket=song_type";
-        $url = sprintf($url, rawurlencode($artist));
-
-        $data = json_decode(file_get_contents($url));
-
-//return $data->response->songs;
-
-        $xmas = array();
-        foreach ($data->response->songs as $item) {
-            $xmas[] = $item->title;
-        }
-
-        return $xmas;
-    }
-
-    public static function getBpm($artist, $song) {
-        if (empty($artist) || empty($song)) {
-            return;
-        }
-
-        if (self::$artist == $artist && self::$song == $song) {
-            return self::$json->response->songs[0]->audio_summary->tempo;
-        }
-
-        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
-        $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
-
-        $data = json_decode(file_get_contents($url));
-        if (!isset($data->response->songs[0])) {
-            return NULL;
-        }
-
-        self::$json = $data;
-        self::$artist = $artist;
-        self::$song = $song;
-        return $data->response->songs[0]->audio_summary->tempo;
-    }
-
-    public static function getDanceability($artist, $song) {
-        if (empty($artist) || empty($song)) {
-            return;
-        }
-
-        if (self::$artist == $artist && self::$song == $song) {
-            return self::$json->response->songs[0]->audio_summary->danceability;
-        }
-
-        $url = "http://developer.echonest.com/api/v4/song/search?api_key=YWOBBQGLJNR0XO3RG&artist=%s&title=%s&results=5&bucket=audio_summary";
-        $url = sprintf($url, rawurlencode($artist), rawurlencode($song));
-
-        $data = json_decode(file_get_contents($url));
-        if (!isset($data->response->songs[0])) {
-            return NULL;
-        }
-
-        self::$json = $data;
-        self::$artist = $artist;
-        self::$song = $song;
-        return $data->response->songs[0]->audio_summary->danceability;
     }
 
 }

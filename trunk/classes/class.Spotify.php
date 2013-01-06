@@ -14,11 +14,11 @@ class Spotify {
             $result->popularity = '';
             return $result;
         }
-        return $result->artists[0];
+        return $result->artists[0]->href;
     }
     
     public static function getLinkArtist($artist_id) {
-        $id = substr($artist_id, 15);
+        $id = substr($artist_id, strlen('spotify-artist:'));
         $url = sprintf('http://open.spotify.com/artist/%s', $id);
         return $url;
     }

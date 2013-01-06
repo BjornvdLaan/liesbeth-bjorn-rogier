@@ -74,4 +74,17 @@ class Youtube {
         return $yt->getVideoFeed($url);
     }
 
+    public static function getIdFromLink($link) {
+        $postLink = parse_url(rawurldecode($link));
+        $gets = explode('&', $postLink['query']);
+        foreach ($gets as $get) {
+            list($key, $value) = explode('=', $get);
+            if ($key == 'v') {
+                return $value;
+                break;
+            }
+        }
+        throw new InvalidUrlException;
+    }
+    
 }

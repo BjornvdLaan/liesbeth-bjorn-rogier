@@ -18,13 +18,13 @@ class UserRecommendations {
     public function getUserHistory($user_id) {
         $orQuery = array();
         foreach ( $this->songs as $song ) {
-            /*var_dump($song);
-            die();*/
-            $orQuery[] = $song['id'];
+            //var_dump($song,$this->songs);
+            //die();
+            $orQuery[] = $song->id;
         }
         $query = sprintf("
             SELECT
-                name, artist, youtube_id, hitjes.id,POW(1.04,count)*value as score
+                youtube_id,POW(1.04,count)*value as score
             FROM
                 `user_hitje`
             LEFT JOIN
@@ -44,13 +44,13 @@ class UserRecommendations {
         $st->bindValue(':id', $user_id);
         $st->execute();
 
-        //var_dump($st->errorInfo());
-        $this->userSongs = $st->fetchAll();
+        $this->userSongs = array();
+        foreach($st->fetchAll() as $song ) {
+            $this->userSongs[] = new Song($this->db,$song['youtube_id']);
+        }
     }
 
     public function get($limit = 5) {
-        //usort($this->songs, array('UserRecommendations', 'cmp'));
-
         $result = array();
         for ($i = 0; $i < $limit && isset($this->userSongs[$i]); $i++) {
             $result[] = $this->userSongs[$i];
@@ -59,6 +59,7 @@ class UserRecommendations {
     }
 
     public function cmp($a, $b) {
+        die('deprecated');
         if ($a['weight'] == $b['weight']) {
             return 0;
         }

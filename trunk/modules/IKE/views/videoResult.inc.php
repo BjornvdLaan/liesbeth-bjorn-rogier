@@ -94,8 +94,8 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><?= $oModuleData->data->video->artist ?></a> </h4></div>
-                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkTrack ?>"><?= ucwords($oModuleData->data->video->title) ?></a></h4></div>
+                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><?= $oModuleData->data->song->artist ?></a> </h4></div>
+                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkTrack ?>"><?= ucwords($oModuleData->data->song->name) ?></a></h4></div>
                     </div>
                 </div>
 
@@ -109,14 +109,14 @@
             <h4>Recommended songs:</h4>
             <ul class="thumbnails">
                 <?php
-                for ($i = 0; $i < 5 && isset($oModuleData->rogierisgaaf[$i]); $i++) {
-                    $HITJE = $oModuleData->rogierisgaaf[$i];
+                for ($i = 0; $i < 5 && isset($oModuleData->data->recommendations[$i]); $i++) {
+                    $curr = $oModuleData->data->recommendations[$i];
                     ?>
                     <li class="span2" style="background-color:white">
-                        <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $HITJE['youtube_id'] ?>" class="thumbnail">
-                            <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="http://img.youtube.com/vi/<?= $HITJE['youtube_id'] ?>/0.jpg">
+                        <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $curr->youtube_id ?>" class="thumbnail">
+                            <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="http://img.youtube.com/vi/<?= $curr->youtube_id ?>/0.jpg">
                             <div class="caption">
-                                <p><?= $HITJE['artist'] ?> - <?= $HITJE['name'] ?></p>
+                                <p><?= $curr->artist ?> - <?= $curr->name ?></p>
 
                             </div>
                         </a></li>
@@ -157,9 +157,9 @@
         <div class="span3">
             <div class="row-fluid">
                 <h3>On Spotify</h3>
-                <a href="<?= $oModuleData->data->spotify->track->getTrack() ?>">Find <?= ucwords($oModuleData->data->video->title) ?></a><br>
-                <a href="<?= $oModuleData->data->spotify->artist->href ?>">Find <?= $oModuleData->data->video->artist ?></a><br>
-                Spotify populariteit: <?= $oModuleData->data->spotify->track->getPopularity() ?>
+                <a href="<?= $oModuleData->data->song->spotify_id ?>">Find <?= ucwords($oModuleData->data->song->name) ?></a><br>
+                <a href="<?= $oModuleData->data->spotifyArtistId ?>">Find <?= $oModuleData->data->song->artist ?></a><br>
+                Spotify populariteit: <?= $oModuleData->data->song->popularity ?>
             </div>
             <div class="row-fluid">
                 <h3>Buy this track</h3>

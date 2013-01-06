@@ -4,25 +4,25 @@ class Weights {
 
     protected $songX;
     protected $songY;
-    protected $alike;
+    protected $alike = array();
 
-    public function __construct($song) {
+    public function __construct(Song $song) {
         $this->songX = $song;
     }
 
-    public function compareSongs($songinfo) {
-        if ($this->songX['id'] == $songinfo['id']) {
+    public function compareSongs(Song $songToCompare) {
+        if ($this->songX->id == $songToCompare->id) {
             return;
         }
-        $this->songY = $songinfo;
-        $this->compareArtist($songinfo['artist']);
-        $this->compareBPM($songinfo['bpm']);
-        $this->comparePopularity($songinfo['popularity']);
-        $this->compareGenre($songinfo['genre']);
-        $this->compareRating($songinfo['rating']);
-        $this->compareDuration($songinfo['duration']);
-        $this->compareDanceability($songinfo['danceability']);
-        $this->compareReleaseYear($songinfo['releaseyear']);
+        
+        $this->songY = $songToCompare;
+        $this->compareArtist();
+        $this->compareBPM();
+        $this->comparePopularity();
+        $this->compareGenre();
+        $this->compareDuration();
+        $this->compareDanceability();
+        $this->compareReleaseYear();
         
         $v = 0;
         foreach($this->alike as $c) {
@@ -31,14 +31,14 @@ class Weights {
         return $v;
     }
 
-    protected function compareArtist($artist) {
-        if ($this->songX['artist'] != $artist) {
+    protected function compareArtist() {
+        if ($this->songX->artist != $this->songY->artist) {
             $this->alike['artist'] = 1;
         }
     }
 
-    protected function compareBPM($BPM) {
-        $compare = abs($this->songX['bpm'] - $BPM);
+    protected function compareBPM() {
+        $compare = abs($this->songX->bpm - $this->songY->bpm);
         if ($compare == 0) {
             $this->alike['bpm'] = 3;
         } elseif ($compare >= 5) {
@@ -52,28 +52,24 @@ class Weights {
         }
     }
 
-    protected function compareRating($rating) {
-        $this->alike['rating'] = 0;
+    protected function comparePopularity() {
+        $this->alike['popularity'] = (4 * $this->songY->popularity);
     }
 
-    protected function comparePopularity($pop) {
-        $this->alike['popularity'] = (4 * $pop);
-    }
-
-    protected function compareGenre($genres) {
+    protected function compareGenre() {
         $this->alike['genre'] = 0;
-        foreach ($genres as $genre) {
-            if (!is_array($this->songX['genre'])) {
+        foreach ($this->songY->genre as $genre) {
+            if (!is_array($this->songX->genre)) {
                 break;
             }
-            if (in_array($genre, $this->songX['genre'])) {
+            if (in_array($genre, $this->songX->genre)) {
                 $this->alike['genre'] += 2;
             }
         }
     }
 
-    protected function compareDuration($duration) {
-        $compare = abs($this->songX['duration'] - $duration);
+    protected function compareDuration() {
+        $compare = abs($this->songX->length - $this->songY->length);
         if ($compare < 15) {
             $this->alike['duration'] = 2;
         } elseif ($compare < 25) {
@@ -83,18 +79,24 @@ class Weights {
         }
     }
 
-    protected function compareDanceability($dance) {
-        if ($dance > ($this->songX['danceability'] - 0.05) && $dance < ($this->songX['danceability'] + 0.05)) {
+    protected function compareDanceability() {
+        if (
+                $this->songY->danceability > ($this->songX->danceability - 0.05) && 
+                $this->songY->danceability < ($this->songX->danceability + 0.05)) {
+            
             $this->alike['danceability'] = 3;
-        } elseif ($dance > ($this->songX['danceability'] - 0.1) && $dance < ($this->songX['danceability'] + 0.1)) {
+        } elseif (
+                $this->songY->danceability > ($this->songX->danceability - 0.1) && 
+                $this->songY->danceability < ($this->songX->danceability + 0.1)) {
+            
             $this->alike['danceability'] = 2;
         } else {
             $this->alike['danceability'] = 0;
         }
     }
 
-    protected function compareReleaseYear($year) {
-        $compare = abs($this->songX['releaseyear'] - $year);
+    protected function compareReleaseYear() {
+        $compare = abs($this->songX->releaseYear - $this->songY->releaseYear);
         if ($compare < 3) {
             $this->alike['releaseyear'] = 3;
         } elseif ($compare < 6) {
@@ -123,30 +125,24 @@ class Weights {
             return;
         }
 
-        $stMatrix->bindValue(':x', $this->songX['id']);
-        $stMatrix->bindValue(':y', $this->songY['id']);
+        $stMatrix->bindValue(':x', $this->songX->id);
+        $stMatrix->bindValue(':y', $this->songY->id);
         $stMatrix->bindValue(':value', $v);
         $stMatrix->execute();
 
-        $stMatrix->bindValue(':y', $this->songX['id']);
-        $stMatrix->bindValue(':x', $this->songY['id']);
+        $stMatrix->bindValue(':y', $this->songX->id);
+        $stMatrix->bindValue(':x', $this->songY->id);
         $stMatrix->bindValue(':value', $v);
         $stMatrix->execute();
     }
 
     public static function goGadget(PDO $db) {
-        $st = $db->prepare("
-            SELECT id,name,artist,bpm,rating,popularity,danceability,length as duration,releaseYear as releaseyear FROM hitjes");
+        $st = $db->prepare("SELECT youtube_id FROM hitjes");
         $st->execute();
 
-        $stGenre = $db->prepare("SELECT genre FROM hitjes_genre WHERE hitje_id=:id");
-        $results = array();
-
+        
         foreach ($st->fetchAll() as $hitje) {
-            $stGenre->bindValue(':id', $hitje['id']);
-            $stGenre->execute();
-            $hitje['genre'] = $stGenre->fetchAll();
-            $results[] = $hitje;
+            $results[] = new Song($db,$hitje_id['youtube_id']);
         }
         echo 'Loadad all data. Ready for computations' . CHAR_NL;
         $i = 0;
@@ -155,7 +151,7 @@ class Weights {
             $db->beginTransaction();
             $create = new Weights($songX);
             foreach ($results as $songY) {
-                if ($songX['id'] <= $songY['id']) {
+                if ($songX->id <= $songY->id) {
                     continue;
                 }
                 $create->compareSongs($songY);
@@ -167,20 +163,13 @@ class Weights {
         }
     }
 
-    public static function addSong(PDO $db, $song) {
-        //var_dump($song);die();
+    public static function addSong(PDO $db, Song $song) {
         $st = $db->prepare("
-            SELECT id,name,artist,bpm,rating,popularity,danceability,length as duration,releaseYear as releaseyear FROM hitjes");
+            SELECT youtube_id FROM hitjes");
         $st->execute();
 
-        $stGenre = $db->prepare("SELECT genre FROM hitjes_genre WHERE hitje_id=:id");
-        $results = array();
-
-        foreach ($st->fetchAll() as $hitje) {
-            $stGenre->bindValue(':id', $hitje['id']);
-            $stGenre->execute();
-            $hitje['genre'] = $stGenre->fetchAll();
-            $results[] = $hitje;
+        foreach ($st->fetchAll() as $hitje_id) {
+            $results[] = new Song($db,$hitje_id['youtube_id']);
         }
 
         $db->beginTransaction();

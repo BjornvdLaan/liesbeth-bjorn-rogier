@@ -15,7 +15,7 @@ class GeneralRecommendations {
         }
         $st = $db->prepare("
             SELECT
-                name, artist, youtube_id, hitjes.id
+                youtube_id
             FROM
                 similarities_matrix
             LEFT JOIN
@@ -31,8 +31,14 @@ class GeneralRecommendations {
         $st->bindValue(':x',$this->song->id);
         $st->execute();
         
-        $this->resultSet = $st->fetchAll();
-        return $this->resultSet;
+        $res = array();
+        foreach ( $st->fetchAll() as $s ) {
+            $res[] = new Song($db, $s['youtube_id']);
+        }
+        
+        $this->resultSet = $res;
+        
+        return $res;
     }
     
 }

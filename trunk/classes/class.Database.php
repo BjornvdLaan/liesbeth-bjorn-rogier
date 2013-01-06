@@ -104,55 +104,7 @@ class Database {
         return $st->fetchAll();
     }
 
-    public function addSongToUser($song, $user) {
-        $st = $this->db->prepare("
-            SELECT
-                hitje_id
-            FROM
-                user_hitje
-            WHERE
-                user_id=:user
-                AND
-                hitje_id=(SELECT id FROM hitjes WHERE spotify_id=:spotify)
-            ");
-        $st->bindValue(':user', $user);
-        $st->bindValue(':spotify', $song);
-        $st->execute();
-
-        if ($st->rowCount() == 1) {
-            # Update the playcount
-            $st = $this->db->prepare("
-                UPDATE
-                    user_hitje
-                SET
-                    count=count+1
-                WHERE
-                    hitje_id=(SELECT id FROM hitjes WHERE spotify_id=:spotify)
-                    AND
-                    user_id=:user");
-            $st->bindValue(':user', $user);
-            $st->bindValue(':spotify', $song);
-        } else {
-            # Add new
-            $st = $this->db->prepare("
-                INSERT INTO
-                    user_hitje
-                (
-                    user_id,
-                    hitje_id,
-                    count
-                )
-                VALUES
-                (
-                    :user,
-                    (SELECT id FROM hitjes WHERE spotify_id=:spotify),
-                    1
-                )");
-            $st->bindValue(':user', $user);
-            $st->bindValue(':spotify', $song);
-        }
-        $st->execute();
-    }
+    
 
     public function getIdFromYoutube($youtube) {
         $st = $this->db->prepare("
