@@ -5,7 +5,7 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
-
+        //$_SESSION['user_id'] = 18;
         if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
@@ -133,6 +133,7 @@ class IKE extends Module {
         $userRecommend = new UserRecommendations($this->conn, $related->get($this->conn));
         $userRecommend->getUserHistory($_SESSION['user_id']);
         $oModuleData->data->recommendations = $userRecommend->get();
+        var_dump(count($oModuleData->data->recommendations));
         if (count($oModuleData->data->recommendations) < 6) {
             $x = $related->get($this->conn);
             for ($i = count($oModuleData->data->recommendations), $j = 0; $i < 6 && isset($x[$i]);) {
