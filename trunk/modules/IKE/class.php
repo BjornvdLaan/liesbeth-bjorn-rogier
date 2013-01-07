@@ -135,8 +135,12 @@ class IKE extends Module {
         $oModuleData->data->recommendations = $userRecommend->get();
         if (count($oModuleData->data->recommendations) < 6) {
             $x = $related->get($this->conn);
-            for ($i = count($oModuleData->data->recommendations), $j = 0; $i < 6 && isset($x[$i]); $i++, $j++) {
-                $oModuleData->data->recommendations[] = $x[$j];
+            for ($i = count($oModuleData->data->recommendations), $j = 0; $i < 6 && isset($x[$i]);) {
+                if (!in_array($x[$j], $oModuleData->data->recommendations)) {
+                    $oModuleData->data->recommendations[] = $x[$j];
+                    $i++;
+                }
+                $j++;
             }
         }
         $oModuleData->script[] = '$(".dislike").click(function() { $.post("/dislike",{"youtube_id": $(this).attr("youtube_id")},function(data) { alert("Het nummer wordt verwijderd uit de lijst."); location.reload(); }); });';

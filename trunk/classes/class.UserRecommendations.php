@@ -18,13 +18,12 @@ class UserRecommendations {
     public function getUserHistory($user_id) {
         $orQuery = array();
         foreach ( $this->songs as $song ) {
-            //var_dump($song,$this->songs);
-            //die();
             $orQuery[] = $song->id;
         }
+        
         $query = sprintf("
             SELECT
-                youtube_id,POW(1.04,count)*value as score
+                youtube_id,POW(1.01,count)*value as score
             FROM
                 `user_hitje`
             LEFT JOIN
@@ -38,8 +37,7 @@ class UserRecommendations {
                 AND
                 x IN (%s)
             GROUP BY x
-            ORDER BY score DESC
-            LIMIT 0,5",  implode(',', $orQuery));
+            ORDER BY score DESC",  implode(',', $orQuery));
         $st = $this->db->prepare($query);
         $st->bindValue(':id', $user_id);
         $st->execute();
