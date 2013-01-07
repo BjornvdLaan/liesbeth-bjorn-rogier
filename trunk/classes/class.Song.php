@@ -14,6 +14,7 @@ class Song {
     public $danceability;
     public $youtube_id;
     public $genre;
+    public $source = 'ike';
 
     public function __construct(PDO $db, $youtube_id) {
         $this->db = $db;

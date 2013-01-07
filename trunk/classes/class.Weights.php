@@ -33,7 +33,7 @@ class Weights {
 
     protected function compareArtist() {
         if ($this->songX->artist != $this->songY->artist) {
-            $this->alike['artist'] = 1;
+            $this->alike['artist'] = 3;
         }
     }
 

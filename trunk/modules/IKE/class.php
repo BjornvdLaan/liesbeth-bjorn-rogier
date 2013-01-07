@@ -133,12 +133,18 @@ class IKE extends Module {
         $userRecommend = new UserRecommendations($this->conn, $related->get($this->conn));
         $userRecommend->getUserHistory($_SESSION['user_id']);
         $oModuleData->data->recommendations = $userRecommend->get();
-        if (count($oModuleData->data->recommendations) < 5) {
-            for ($i = count($oModuleData->data->recommendations); $i <= 5 && isset($oModuleData->data->related[$i]); $i++) {
-                $oModuleData->data->recommendations[] = $oModuleData->data->related[$i];
+        if (count($oModuleData->data->recommendations) < 6) {
+            $x = $related->get($this->conn);
+            for ($i = count($oModuleData->data->recommendations), $j = 0; $i < 6 && isset($x[$i]);) {
+                if (!in_array($x[$j], $oModuleData->data->recommendations)) {
+                    $oModuleData->data->recommendations[] = $x[$j];
+                    $i++;
+                }
+                $j++;
             }
         }
         $oModuleData->script[] = '$(".dislike").click(function() { $.post("/dislike",{"youtube_id": $(this).attr("youtube_id")},function(data) { alert("Het nummer wordt verwijderd uit de lijst."); location.reload(); }); });';
+        $oModuleData->data->test = FALSE;
     }
 
     public function test() {
@@ -148,32 +154,35 @@ class IKE extends Module {
             $yt = new Youtube();
             $yt->getDataForVideo(Youtube::getIdFromLink(GETData::getInstance()->get('link')));
             $ytvids = $yt->getRelatedVideos();
-            for($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 6; $i++) {
                 $x = $ytvids[$i];
                 $y = new StdClass();
                 $y->name = $x->getTitle()->getText();
                 $y->artist = '';
+                $y->source = 'yt';
                 $y->youtube_id = str_replace("http://gdata.youtube.com/feeds/api/videos/", "", $x->getID()->getText());
-                
+
                 $oModuleData->data->recommendations[] = $y;
             }
             shuffle($oModuleData->data->recommendations);
+            $oModuleData->data->test = TRUE;
+            $oModuleData->script[] = 'show = false; $("#youtube_show").click( function() { if(!show) { $(".yt").css("background-color","red"); show = true; } else { $(".yt").css("background-color",""); show=false; } });';
         }
     }
-    
+
     public function dislike() {
         $id = $_POST['youtube_id'];
-        
+
         $st = $this->conn->prepare("
             INSERT INTO
                 user_dislikes
             (user_id,hitje_id)
             VALUES
                 (:user,(SELECT id FROM hitjes WHERE youtube_id=:youtube))");
-        $st->bindValue(':user',$_SESSION['user_id']);
-        $st->bindValue(':youtube',$id);
+        $st->bindValue(':user', $_SESSION['user_id']);
+        $st->bindValue(':youtube', $id);
         $st->execute();
-        
+
         die('success');
     }
 
