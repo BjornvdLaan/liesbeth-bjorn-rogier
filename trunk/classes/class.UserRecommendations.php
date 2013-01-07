@@ -48,7 +48,7 @@ class UserRecommendations {
         }
     }
 
-    public function get($limit = 5) {
+    public function get($limit = 6) {
         $result = array();
         for ($i = 0; $i < $limit && isset($this->userSongs[$i]); $i++) {
             $result[] = $this->userSongs[$i];
