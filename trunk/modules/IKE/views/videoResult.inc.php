@@ -136,6 +136,9 @@
                     echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
                 }
             }
+            else{
+                echo'<p>Sorry, no upcoming events found.</p>';
+            }
             ?>
         </div>
         <div class="span6">
