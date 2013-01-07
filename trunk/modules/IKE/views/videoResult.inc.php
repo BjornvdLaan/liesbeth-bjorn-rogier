@@ -84,6 +84,7 @@
     <div class="row-fluid">
         <div class="hero-unit" style="min-height: 250px; margin-top:20px">
             <div class="span6">
+                <img style="width:50px;margin:7px;float:right;cursor:pointer" src="/content/img/dislike.png" class="dislike" youtube_id="<?= $oModuleData->data->song->youtube_id ?>">
                 <div id="videoDiv">Loading video. Please wait...</div>
             </div>
 
@@ -99,6 +100,7 @@
                     </div>
                 </div>
 
+                <?php if ($oModuleData->data->test) { ?><button id="youtube_show">Toon Youtube!</button><?php } ?>
 
             </div>
             <div>&nbsp;</div>
@@ -112,12 +114,12 @@
                 for ($i = 0; isset($oModuleData->data->recommendations[$i]); $i++) {
                     $curr = $oModuleData->data->recommendations[$i];
                     ?>
-                    <li class="span2">
+                    <li class="span2 <?= $curr->source ?>">
                         <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $curr->youtube_id ?>" class="thumbnail"  style="background-color:white">
                             <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="http://img.youtube.com/vi/<?= $curr->youtube_id ?>/0.jpg">
                             <div class="caption">
                                 <p><?= $curr->artist ?> - <?= $curr->name ?></p>
-</div>
+                            </div>
                         </a>
                         <img style="width:50px;margin:7px;float:right;cursor:pointer" src="/content/img/dislike.png" class="dislike" youtube_id="<?= $curr->youtube_id ?>">
                     </li>
@@ -135,8 +137,7 @@
                 foreach ($oModuleData->data->events as $entry) {
                     echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
                 }
-            }
-            else{
+            } else {
                 echo'<p>Sorry, no upcoming events found.</p>';
             }
             ?>
@@ -145,15 +146,15 @@
             <h2 > About the artist</h2>
 
             <p><?php
-                $abstract = Echonest::$wikipedia->text;
-                $first = strpos($abstract, CHAR_NL);
-                $intro = nl2br(htmlentities(substr($abstract, 0, $first)), false);
-                $readmore = nl2br(htmlentities(substr($abstract, $first)), false);
-                echo $intro;
-                ?>
-                    <span id="abstractreadmore" class="hide">
-                        <?= $readmore ?>
-                    </span>
+            $abstract = Echonest::$wikipedia->text;
+            $first = strpos($abstract, CHAR_NL);
+            $intro = nl2br(htmlentities(substr($abstract, 0, $first)), false);
+            $readmore = nl2br(htmlentities(substr($abstract, $first)), false);
+            echo $intro;
+            ?>
+                <span id="abstractreadmore" class="hide">
+                    <?= $readmore ?>
+                </span>
                 <br>
                 <a id="abstract" class="btn">Read more</a>
             </p>    
@@ -176,7 +177,8 @@
                 <?php
                 foreach ($oModuleData->data->allsongs as $entry) {
                     echo $entry . '<br>';
-                } ?>
+                }
+                ?>
             </div>
         </div>
     </div>
