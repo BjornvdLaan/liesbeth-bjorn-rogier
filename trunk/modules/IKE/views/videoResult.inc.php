@@ -94,8 +94,8 @@
                         <div class="row-fluid"><h4>Video Title:</h4></div>
                     </div>
                     <div class="span6">
-                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><?= $oModuleData->data->song->artist ?></a> </h4></div>
-                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkTrack ?>"><?= ucwords($oModuleData->data->song->name) ?></a></h4></div>
+                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkArtist ?>" target="_blank"><?= $oModuleData->data->song->artist ?></a> </h4></div>
+                        <div class="row-fluid"><h4><a href="<?= $oModuleData->data->spotifyLinkTrack ?>" target="_blank"><?= ucwords($oModuleData->data->song->name) ?></a></h4></div>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@
                                 <p><?= $curr->artist ?> - <?= $curr->name ?></p>
 </div>
                         </a>
-                        <img style="width:50px;margin:7px;float:right;cursor:pointer" src="/content/img/dislike.png" youtube_id="<?= $curr->youtube_id ?>">
+                        <img style="width:50px;margin:7px;float:right;cursor:pointer" src="/content/img/dislike.png" class="dislike" youtube_id="<?= $curr->youtube_id ?>">
                     </li>
                 <?php } ?>
             </ul>

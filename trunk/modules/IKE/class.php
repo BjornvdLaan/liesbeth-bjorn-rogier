@@ -35,6 +35,9 @@ class IKE extends Module {
             case 'video':
                 $this->video();
                 break;
+            case 'dislike':
+                $this->dislike();
+                break;
 
             default:
                 var_dump($action);
@@ -135,6 +138,7 @@ class IKE extends Module {
                 $oModuleData->data->recommendations[] = $oModuleData->data->related[$i];
             }
         }
+        $oModuleData->script[] = '$(".dislike").click(function() { $.post("/dislike",{"youtube_id": $(this).attr("youtube_id")},function(data) { alert("Het nummer wordt verwijderd uit de lijst."); location.reload(); }); });';
     }
 
     public function test() {
@@ -155,6 +159,22 @@ class IKE extends Module {
             }
             shuffle($oModuleData->data->recommendations);
         }
+    }
+    
+    public function dislike() {
+        $id = $_POST['youtube_id'];
+        
+        $st = $this->conn->prepare("
+            INSERT INTO
+                user_dislikes
+            (user_id,hitje_id)
+            VALUES
+                (:user,(SELECT id FROM hitjes WHERE youtube_id=:youtube))");
+        $st->bindValue(':user',$_SESSION['user_id']);
+        $st->bindValue(':youtube',$id);
+        $st->execute();
+        
+        die('success');
     }
 
 }

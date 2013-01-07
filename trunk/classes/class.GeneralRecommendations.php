@@ -24,11 +24,15 @@ class GeneralRecommendations {
             	hitjes.id = y
             WHERE
                 x=:x
+                AND
+                hitjes.id NOT IN (SELECT hitje_id FROM user_dislikes WHERE user_id=:user)
             ORDER BY 
                 value DESC
             LIMIT
                 0,50");
         $st->bindValue(':x',$this->song->id);
+        $st->bindValue(':user',$_SESSION['user_id']);
+        
         $st->execute();
         
         $res = array();
