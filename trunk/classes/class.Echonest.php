@@ -37,7 +37,6 @@ class Echonest {
             $data = $data->response->biographies;
             $cache->set('biography-' . $this->artistId, serialize($data));
         } else {
-            var_dump('Cache hit! biography');
             $data = unserialize($data);
         }
 
@@ -75,7 +74,6 @@ class Echonest {
 
             $cache->set('events-' . $this->artist, serialize($events),0,MONTH);
         } else {
-            var_dump('Cache hit! event ');
             $events = unserialize($data);
         }
         return $events;
@@ -97,7 +95,6 @@ class Echonest {
 
             $cache->set('hotttnesss-' . $this->artist, serialize($hotttnesss),0,MONTH);
         } else {
-            var_dump('Cache hit! hotttnesss');
             $hotttnesss = unserialize($data);
         }
 
@@ -140,7 +137,6 @@ class Echonest {
             
             $cache->set('songs-' . $this->artist, serialize($songs),0,MONTH);
         } else {
-            var_dump('Cache hit! songs');
             $songs = unserialize($data);
         }
 
@@ -166,7 +162,6 @@ class Echonest {
             
             $cache->set('xmas-' . $this->artist, serialize($songs),0,MONTH);
         } else {
-            var_dump('Cache hit! xmas');
             $songs = unserialize($data);
         }
 

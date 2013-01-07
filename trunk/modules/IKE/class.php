@@ -5,15 +5,14 @@ class IKE extends Module {
     public function fire($action) {
         global $oModuleData;
 
-        $_SESSION['user_id'] = 18;
-        /*if (!isset($_SESSION['user_id']) &&
+        if (!isset($_SESSION['user_id']) &&
                 !($action == 'login' ||
                 $action == 'handle-login' ||
                 $action == 'register' ||
                 $action == 'handle-register' )
         ) {
             $action = 'login';
-        }*/
+        }
 
         switch ($action) {
             case 'register':

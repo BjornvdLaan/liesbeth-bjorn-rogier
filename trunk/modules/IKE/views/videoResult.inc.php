@@ -109,17 +109,18 @@
             <h4>Recommended songs:</h4>
             <ul class="thumbnails">
                 <?php
-                for ($i = 0; $i < 5 && isset($oModuleData->data->recommendations[$i]); $i++) {
+                for ($i = 0; isset($oModuleData->data->recommendations[$i]); $i++) {
                     $curr = $oModuleData->data->recommendations[$i];
                     ?>
-                    <li class="span2" style="background-color:white">
-                        <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $curr->youtube_id ?>" class="thumbnail">
+                    <li class="span2">
+                        <a href ="http://<?= IKE_APP_URI ?>/video?link=http://www.youtube.com/watch?v=<?= $curr->youtube_id ?>" class="thumbnail"  style="background-color:white">
                             <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="http://img.youtube.com/vi/<?= $curr->youtube_id ?>/0.jpg">
                             <div class="caption">
                                 <p><?= $curr->artist ?> - <?= $curr->name ?></p>
-
-                            </div>
-                        </a></li>
+</div>
+                        </a>
+                        <img style="width:50px;margin:7px;float:right;cursor:pointer" src="/content/img/dislike.png" youtube_id="<?= $curr->youtube_id ?>">
+                    </li>
                 <?php } ?>
             </ul>
 

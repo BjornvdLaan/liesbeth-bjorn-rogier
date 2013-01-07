@@ -151,7 +151,7 @@ class User implements DbComm {
         $st->bindValue(':auth_token', $data['oauth_token']);
 
         $st->execute();
-
+        
         $id = $db->lastInsertId();
 
         $user = new User();
@@ -174,11 +174,11 @@ class User implements DbComm {
                 user
             SET
                 password = :password,
-                gender = :gender
-                email = :email
-                location = :location
-                birthday = :birthday
-                facebook_id = :facebook_id
+                gender = :gender,
+                email = :email,
+                location = :location,
+                birthday = :birthday,
+                facebook_id = :facebook_id,
                 auth_token = :auth_token
             WHERE
                 user_id = :id");
