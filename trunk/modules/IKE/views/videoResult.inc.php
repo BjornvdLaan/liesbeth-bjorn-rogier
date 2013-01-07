@@ -109,7 +109,7 @@
             <h4>Recommended songs:</h4>
             <ul class="thumbnails">
                 <?php
-                for ($i = 0; $i < 5 && isset($oModuleData->data->recommendations[$i]); $i++) {
+                for ($i = 0; isset($oModuleData->data->recommendations[$i]); $i++) {
                     $curr = $oModuleData->data->recommendations[$i];
                     ?>
                     <li class="span2" style="background-color:white">
