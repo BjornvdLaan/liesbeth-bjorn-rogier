@@ -1,3 +1,5 @@
+<!-- TEST -->
+
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
     google.load("swfobject", "2.1");
@@ -197,4 +199,4 @@
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});
  
-</script>
+</script> 
