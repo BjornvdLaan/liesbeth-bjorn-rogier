@@ -17,6 +17,7 @@ class IKE extends Module {
 
         switch ($action) {
             case 'tests':
+            case 'test':
                 $this->video();
                 $this->test();
                 break;
@@ -152,18 +153,9 @@ class IKE extends Module {
         global $oModuleData;
 
         if (GETData::getInstance()->get('link') !== NULL) {
-            $yt = new Youtube();
-            $yt->getDataForVideo(Youtube::getIdFromLink(GETData::getInstance()->get('link')));
-            $ytvids = $yt->getRelatedVideos();
+            $vids = Song::getRandom($this->conn,6);
             for ($i = 0; $i < 6; $i++) {
-                $x = $ytvids[$i];
-                $y = new StdClass();
-                $y->name = $x->getTitle()->getText();
-                $y->artist = '';
-                $y->source = 'yt';
-                $y->youtube_id = str_replace("http://gdata.youtube.com/feeds/api/videos/", "", $x->getID()->getText());
-
-                $oModuleData->data->recommendations[] = $y;
+                $oModuleData->data->recommendations[] = $vids[$i];
             }
             shuffle($oModuleData->data->recommendations);
             $oModuleData->data->test = TRUE;

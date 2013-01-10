@@ -230,5 +230,27 @@ class Song {
         }
         $st->execute();
     }
+    
+    public static function getRandom(PDO $db, $limit = 6 ) {
+        $st = $db->prepare("
+            SELECT
+                youtube_id
+            FROM
+                hitjes
+            ORDER BY RAND()
+            LIMIT 0,6
+            ");
+        $st->bindValue(':max', $limit);
+        $st->execute();
+        
+        $results = array();
+        foreach ( $st->fetchAll() as $x) {
+            $x = new Song($db,$x['youtube_id']);
+            $x->source = 'yt';
+            $results[] = $x;
+        }
+        
+        return $results;
+    }
 
 }

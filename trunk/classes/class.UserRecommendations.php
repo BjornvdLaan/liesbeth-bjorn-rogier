@@ -23,16 +23,16 @@ class UserRecommendations {
         
         $query = sprintf("
             SELECT
-                youtube_id,POW(1.01,IFNULL(count,0))*value as score
+                youtube_id,value as score
             FROM
                 hitjes
-            LEFT JOIN 
-                `user_hitje`
-                ON hitjes.id = hitje_id
             LEFT JOIN
                 similarities_matrix
                 ON
-                user_hitje.hitje_id = x
+                hitjes.id = x
+            LEFT JOIN 
+                `user_hitje`
+                ON hitjes.id = hitje_id
             WHERE
                 user_id=:id
                 AND

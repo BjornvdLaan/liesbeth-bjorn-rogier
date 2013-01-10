@@ -138,7 +138,7 @@
                 foreach ($oModuleData->data->events as $entry) {
                     $amount++;
                     echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
-                    if(amount > 10){
+                    if($amount > 10){
                         break;
                     }
                 }
