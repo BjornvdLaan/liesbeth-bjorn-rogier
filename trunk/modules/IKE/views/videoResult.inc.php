@@ -1,5 +1,3 @@
-<!-- TEST -->
-
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
     google.load("swfobject", "2.1");
@@ -140,7 +138,7 @@
                 foreach ($oModuleData->data->events as $entry) {
                     $amount++;
                     echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
-                    if($amount > 10){
+                    if(amount > 10){
                         break;
                     }
                 }
@@ -155,8 +153,8 @@
             <p><?php
             $abstract = Echonest::$wikipedia->text;
             $first = strpos($abstract, CHAR_NL);
-            $intro = nl2br(htmlspecialchars(substr($abstract, 0, $first)), false);
-            $readmore = nl2br(htmlspecialchars(substr($abstract, $first)), false);
+            $intro = nl2br(htmlentities(substr($abstract, 0, $first)), false);
+            $readmore = nl2br(htmlentities(substr($abstract, $first)), false);
             echo $intro;
             ?>
                 <span id="abstractreadmore" class="hide">
@@ -199,4 +197,4 @@
     $('#link').click( function() { if($(this).val() == '<?= $oModuleData->data->URL ?>') { $(this).val(''); }});
     $('#link').blur( function() { if($(this).val() == '') { $(this).val('<?= $oModuleData->data->URL ?>'); }});
  
-</script> 
+</script>
