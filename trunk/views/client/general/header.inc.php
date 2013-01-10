@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Awesomo 4000</title>
-
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="stylesheet" href="http://ike.rogierslag.nl/content/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="http://ike.rogierslag.nl/content/bootstrap/css/bootstrap-responsive.css">
         <link rel="stylesheet" type="text/css" href="/content/css/hide.css">

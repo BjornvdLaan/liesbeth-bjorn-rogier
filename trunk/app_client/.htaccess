@@ -2,7 +2,7 @@
 
 # Welk niveau bevindt de code zich?
 # 1 = development; 2= testing; 3=production
-SetEnv APPLICATION_ENV 1
+SetEnv APPLICATION_ENV 3
 
 # In productie nooit indexpagina's laten zien
 Options -Indexes

@@ -26,6 +26,8 @@ class GeneralRecommendations {
                 x=:x
                 AND
                 hitjes.id NOT IN (SELECT hitje_id FROM user_dislikes WHERE user_id=:user)
+                AND
+                hitjes.spotify_id IS NOT NULL
             ORDER BY 
                 value DESC
             LIMIT
