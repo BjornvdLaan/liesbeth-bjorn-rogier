@@ -153,8 +153,8 @@
             <p><?php
             $abstract = Echonest::$wikipedia->text;
             $first = strpos($abstract, CHAR_NL);
-            $intro = nl2br(htmlentities(substr($abstract, 0, $first)), false);
-            $readmore = nl2br(htmlentities(substr($abstract, $first)), false);
+            $intro = nl2br(htmlspecialchars(substr($abstract, 0, $first)), false);
+            $readmore = nl2br(htmlspecialchars(substr($abstract, $first)), false);
             echo $intro;
             ?>
                 <span id="abstractreadmore" class="hide">
