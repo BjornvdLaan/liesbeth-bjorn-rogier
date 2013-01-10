@@ -22,7 +22,7 @@ class Echonest {
     }
 
     public function getBiography() {
-        if (empty($this->artistId)) {
+        if (empty($this->artistId) || is_object($this->artistId)) {
             return;
         }
 
@@ -102,8 +102,8 @@ class Echonest {
     }
 
     public function getGenre() {
-        if (empty($this->artistId)) {
-            return;
+        if (empty($this->artistId) || is_object($this->artistId)) {
+            return array();
         }
 
         $artistSpotifyId = str_replace('spotify', 'spotify-WW', $this->artistId);

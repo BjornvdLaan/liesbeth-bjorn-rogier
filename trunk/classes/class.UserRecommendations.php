@@ -22,22 +22,17 @@ class UserRecommendations {
         }
         
         $query = sprintf("
-            SELECT
-                youtube_id,POW(1.01,count)*value as score
-            FROM
-                `user_hitje`
-            LEFT JOIN
-                similarities_matrix
-                ON
-                user_hitje.hitje_id = x
-            LEFT JOIN hitjes
-                ON hitjes.id = hitje_id
-            WHERE
-                user_id=:id
-                AND
-                x IN (%s)
-            GROUP BY x
-            ORDER BY score DESC",  implode(',', $orQuery));
+            SELECT youtube_id,(
+POW( 1.01, IFNULL( count, 0 ) ) * value
+) AS score
+FROM similarities_matrix
+LEFT JOIN  `user_hitje` ON user_hitje.hitje_id = x
+LEFT JOIN hitjes ON hitjes.id = hitje_id
+WHERE user_id =:id
+AND y
+IN ( %s ) 
+GROUP BY x
+ORDER BY value DESC",  implode(',', $orQuery));
         $st = $this->db->prepare($query);
         $st->bindValue(':id', $user_id);
         $st->execute();

@@ -52,7 +52,7 @@ class Youtube {
         foreach ($title as $key => $elem) {
             $title[$key] = strtolower($elem);
         }
-        $stripCharacters = array('(', '[', '{', ')', ']', '}', 'ft.');
+        $stripCharacters = array('(', '[', '{', ')', ']', '}', 'ft.', '~');
         $max = strlen($title[1]);
         $strip = array($max);
         foreach ($stripCharacters as $char) {

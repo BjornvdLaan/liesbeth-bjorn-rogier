@@ -134,8 +134,13 @@
             <h3>Upcoming events</h3>
             <?php
             if (!empty($oModuleData->data->events)) {
+                $amount = 0;
                 foreach ($oModuleData->data->events as $entry) {
+                    $amount++;
                     echo '<a href="' . $entry->uri . '">' . $entry->displayName . "</a><br>";
+                    if($amount > 10){
+                        break;
+                    }
                 }
             } else {
                 echo'<p>Sorry, no upcoming events found.</p>';
@@ -143,7 +148,7 @@
             ?>
         </div>
         <div class="span6">
-            <h2 > About the artist</h2>
+            <h2 > About <?= $oModuleData->data->song->artist ?></h2>
 
             <p><?php
             $abstract = Echonest::$wikipedia->text;
@@ -173,12 +178,16 @@
                 <?php if (!empty($oModuleData->data->spotifyLink)) { ?><a href="<?= $oModuleData->data->spotifyLinkArtist ?>"><img src="/content/img/spotify.png"></a> <?php } ?>
             </div>
             <div class="row-fluid">
-                <h3>Discography</h3>
+                <h3>Other songs from <?= $oModuleData->data->song->artist ?></h3>
                 <?php
+                $count = 0;
                 foreach ($oModuleData->data->allsongs as $entry) {
+                    $count++;
                     echo $entry . '<br>';
-                }
-                ?>
+                    if($count > 10){
+                        break;
+                    }
+                } ?>
             </div>
         </div>
     </div>
