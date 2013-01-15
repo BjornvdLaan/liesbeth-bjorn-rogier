@@ -31,7 +31,7 @@ class Handler {
         } catch (Exception $e) {
             # By the time the exception arrived here, there's litte we can do
             $render = Render::getInstance();
-            $render->renderError($e->renderError());
+            $render->renderError($e);
             die();
         }
     }
@@ -45,7 +45,7 @@ class Handler {
             $this->module->fire(ACTION);
         } catch (InventIDException $e) {
             $render = Render::getInstance();
-            $render->renderError($e->renderError());
+            $render->renderError($e);
             die();
         } catch (Exception $e) {
             if (IKE_APP_ENV != ENV_PRODUCTION) {
