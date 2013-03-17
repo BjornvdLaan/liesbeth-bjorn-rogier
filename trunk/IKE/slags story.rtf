@@ -1,0 +1,42 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 Slags Story\
+\
+PHP\
+\
+De keuze voor PHP is een die relatief snel is gedaan. PHP kent enkele grote voordelen op het gebied van webdevelopment, maar tegelijkertijd ook aan aantal nadelen. Na het afwegen van beide kanten is er gekozen deze taal als primaire ontwikkeltaal te gebruiken.\
+\
+Allereest de voordelen. PHP is een taal die breed wordt ondersteund op webplatformen. Het is daardoor erg eenvoudig om hosting te regelen. Door de brede ondersteuning is de gemeenschap, welke ontwikkelt en bijdraagt aan PHP, erg groot. Hierdoor is het weer eenvoudig om bestaande libraries te kunnen gebruiken, waardoor er geen code opnieuw hoeft te worden geschreven. Tijd die vrijkomt kan zo worden besteed aan het schrijven van code die daadwerkelijk functionaliteit toevoegt. Tenslotte is PHP een taal waarin de hele groep enigszins bekend is en snel valt aan te leren. Ook dit bevordert de ontwikkelsnelheid.\
+\
+Helaas heeft iedere keuze ook een aantal nadelen. PHP's voornaamste nadeel is de inconsistentie in de taal zelf en het gebrek aan afdwingen van een correcte manier van coden. De inconsistentie is eenvoudig op te lossen door gewoon regelmatig documentatie te gebruiken en zelf, waar nodig, een interface gebruiken welke wel consistent is. De correcte manier van coden is lastiger (try-catch, exceptions, classes), PHP heeft ondersteuning voor deze functionaliteiten pas sinds versie 5 in de taal opgenomen. Hierdoor is veel informatie op Internet niet geschreven voor deze features. Wat nog sterker meespeelt is dat ook binnen de TUDelft het onderwijs in PHP nog wordt gegeven op de "oude" manier. Hierdoor is het voor het team noodzakelijk te schakelen ten opzichte van wat men gewend is.\
+\
+Over het totaal genomen is de keuze voor PHP sterk verdedigbaar. Het moeten aanleren van een correcte codingstijl kan ook juist als pluspunt worden gezien.\
+\
+\
+1e sprint\
+\
+De eerste spint van het project stond voornamelijk in het teken van het ontwikkelen van basisfunctionaliteit welke het project ondersteunen. Denk hierbij vooral aan het uitzoeken van informatie over koppelingen en het opstarten van verschillende frameworks welke de ontwikkeling ondersteunen. Voorbeelden zijn het opzetten van actiepuntensystemen, documentatie, errorlogs, gebruikersaccount, gitHub en het framework zelf.\
+\
+Allereerst is het begonnen met het kiezen van de databronnen welke ingezet worden. De keuze hiervoor viel op Facebook, Youtube en DBPedia. Deze zijn vervolgens aan elkaar gelinkt in deze eerste sprint. \
+\
+Voor het inloggen is er de mogelijkheid om dit via Facebook te doen. Indien een gebruiker ingelogd is binnen Facebook wordt het registratieformulier automatisch ingevuld met de al bekende parameters. Ook krijgen we in dat geval een authenticatietoken binnen waarmee we later extra informatie kunnen ophalen over de betreffende gebruiker.\
+\
+Youtube wordt ingezet om de videokenmerken op te halen en om de video zelf af te spelen. Hiervoor biedt Youtube de gewenste functionaliteit binnen haar API's. Voor de verbindingen naar Youtube wordt gebruik gemaakt van de API van Zend Framework. \
+\
+Tenslotte wordt de naam van de artiest die wordt ontvangen via de API van Youtube via een SparQL query doorgestuurd naar DBPedia, waar een korte samenvatting over die artiest ophaalt. \
+\
+Qua layout wordt er op dit moment nog gebruik gemaakt van simpel ogende pagina's. Het is de bedoeling dit in de toekomst echter via het Twitter Framework Bootstrap te laten lopen, waarbij de data asynchroon wordt opgehaald voor de gebruiker.\
+\
+\
+\
+YouTube\
+\
+De keuze voor YouTube is redelijk eenvoudig. Gezien er gebruik wordt gemaakt van de YouTube links voor user-input is het nodig om op enige wijze met YouTube te interacteren. Bovendien is de gratis API van YouTube erg uitgebreid qua data welke deze kan opvragen. \
+\
+Ook is het bijna triviaal om de data van YouTube op te halen doordat de PHP API implementaties al gemaakt zijn en vrij beschikbaar zijn gemaakt door de makers. Het hergebruik van deze libraries is zeker aan te raden, gezien dit heel veel programmeerwerk bestaat.\
+\
+Door de grote hoeveelheid data die de API terug geeft kan er op veel verschillende kenmerken worden gematcht, wat de match en recommendation naar de gebruiker toe erg fijnmazig geregeld kan worden.}

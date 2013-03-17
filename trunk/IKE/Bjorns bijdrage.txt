@@ -1,0 +1,14 @@
+
+Facebook api
+We hebben gebruik gemaakt van de Facebook API om ons registratie formulier te maken. Daardoor wordt, als men op Facebook is ingelogd, een deel van het formulier automatisch ingevuld.
+In de volgende sprint willen we met de API ook muziek interesse en de likes van een gebruiker ophalen, om zo een beter beeld te krijgen van wat deze gebruiker leuk vindt. 
+
+
+Sparql queries
+Met sparql halen we informatie op over de artiest en het nummer. We gebruiken op dit moment alleen informatie van DBPedia.org. In de volgende sprint willen we ook andere bronnen gebruiken.
+We maken gebruik van een library voor php genaamd Sparqllib. We hebben voor Sparqllib gekozen omdat het een lichte doch krachtige library is, die alle functies bevat die we nodig hebben.
+
+
+Doelgroep
+In ons project richten wij ons vooral op jongere mensen. Bij deze doelgroep is het belangrijk dat zij zelf niet al te veel moeite hoeven te doen. Jongeren zijn snel geneigd een website te verlaten als zij teveel stappen moeten maken om de informatie te krijgen die zij zoeken. Daarom hebben we gezorgd voor een simpel interface waarbij ze ons alleen de youtube link hoeven te geven.
+

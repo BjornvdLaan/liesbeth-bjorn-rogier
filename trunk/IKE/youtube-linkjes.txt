@@ -1,0 +1,18 @@
+https://developers.google.com/youtube/2.0/developers_guide_protocol_video_entries
+
+xml-data single video
+https://developers.google.com/youtube/2.0/developers_guide_protocol_understanding_video_feeds#Understanding_Video_Entries
+https://developers.google.com/youtube/2.0/developers_guide_protocol_video_entries
+
+demographics
+https://developers.google.com/youtube/2.0/developers_guide_protocol_insight
+
+partial feed responds
+https://developers.google.com/youtube/2.0/developers_guide_protocol_partial
+
+change playing video/embedding player
+https://code.google.com/apis/ajax/playground/?exp=youtube#change_the_playing_video
+
+client libraries
+https://developers.google.com/gdata/docs/client-libraries
+

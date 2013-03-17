@@ -1,0 +1,164 @@
+%!Adobe-FontList 1.14
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GillSans
+FamilyName:Gill Sans
+StyleName:Regular
+MenuName:Gill Sans
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Gill Sans
+WritingScript:Roman
+OutlineFileName:\GillSans.ttc
+TTCOffset:48
+DataFormat:sfntData
+FileLength:603640
+FileModTime:1342930889
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GillSans-Bold
+FamilyName:Gill Sans
+StyleName:Bold
+MenuName:Gill Sans
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Gill Sans Bold
+WritingScript:Roman
+OutlineFileName:\GillSans.ttc
+TTCOffset:348
+DataFormat:sfntData
+FileLength:603640
+FileModTime:1342930889
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GillSans-BoldItalic
+FamilyName:Gill Sans
+StyleName:Bold Italic
+MenuName:Gill Sans
+StyleBits:3
+WeightClass:700
+WidthClass:5
+AngleClass:1
+FullName:Gill Sans Bold Italic
+WritingScript:Roman
+OutlineFileName:\GillSans.ttc
+TTCOffset:648
+DataFormat:sfntData
+FileLength:603640
+FileModTime:1342930889
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GillSans-Italic
+FamilyName:Gill Sans
+StyleName:Italic
+MenuName:Gill Sans
+StyleBits:1
+WeightClass:400
+WidthClass:5
+AngleClass:1
+FullName:Gill Sans Italic
+WritingScript:Roman
+OutlineFileName:\GillSans.ttc
+TTCOffset:948
+DataFormat:sfntData
+FileLength:603640
+FileModTime:1342930889
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GillSans-Light
+FamilyName:Gill Sans
+StyleName:Light
+MenuName:Gill Sans
+StyleBits:0
+WeightClass:300
+WidthClass:5
+AngleClass:0
+FullName:Gill Sans Light
+WritingScript:Roman
+OutlineFileName:\GillSans.ttc
+TTCOffset:1248
+DataFormat:sfntData
+FileLength:603640
+FileModTime:1342930889
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GillSans-LightItalic
+FamilyName:Gill Sans
+StyleName:Light Italic
+MenuName:Gill Sans
+StyleBits:1
+WeightClass:300
+WidthClass:5
+AngleClass:1
+FullName:Gill Sans Light Italic
+WritingScript:Roman
+OutlineFileName:\GillSans.ttc
+TTCOffset:1548
+DataFormat:sfntData
+FileLength:603640
+FileModTime:1342930889
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MinionPro-Regular
+FamilyName:Minion Pro
+StyleName:Regular
+MenuName:Minion Pro
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Minion Pro
+WritingScript:Roman
+OutlineFileName:\MinionPro-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:217280
+FileModTime:1346926888
+DesignSize:110
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Nyala-Regular
+FamilyName:Nyala
+StyleName:Regular
+MenuName:Nyala
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Nyala
+WritingScript:Roman
+OutlineFileName:\nyala.ttf
+DataFormat:sfntData
+FileLength:438016
+FileModTime:1358709490
+%EndFont
+

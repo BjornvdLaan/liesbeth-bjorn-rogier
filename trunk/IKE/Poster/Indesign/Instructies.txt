@@ -1,0 +1,89 @@
+ADOBE INDESIGN-AFDRUKINSTRUCTIES VOOR SERVICE PROVIDER
+
+NAAM PUBLICATIE: Naamloos-1.indd
+
+PAKKETDATUM: 20/01/2013 20:58
+Aanmaakdatum: 20/01/2013
+Wijzigingsdatum: 20/01/2013
+
+CONTACTGEGEVENS
+
+Bedrijfsnaam: 
+Contactpersoon: 
+Adres: 
+
+
+
+
+
+Telefoon: 
+Fax: 
+E-mail: 
+
+SPECIALE INSTRUCTIES EN ANDERE OPMERKINGEN
+
+
+
+
+
+
+Externe plug-ins 0
+Niet-dekkende objecten: Op pagina1
+
+LETTERTYPEN
+5 gebruikte lettertypen; 0 ontbrekend, 0 ingesloten, 0 onvolledig, 0 beveiligd
+
+Lettertypen ingesloten
+- Naam: GillSans-Bold; Type: TrueType, Status: OK
+- Naam: GillSans-Light; Type: TrueType, Status: OK
+- Naam: GillSans-LightItalic; Type: TrueType, Status: OK
+- Naam: MinionPro-Regular; Type: OpenType Type 1, Status: OK
+- Naam: Nyala-Regular; Type: OpenType TrueType, Status: OK
+
+
+KLEUREN EN INKTEN
+4 procesinkten; 0 steuninkten
+
+- Naam en type: Proceskleur Cyaan; Hoek: 0.000; Lijnen/inch: 0.000
+- Naam en type: Proceskleur Magenta; Hoek: 0.000; Lijnen/inch: 0.000
+- Naam en type: Proceskleur Geel; Hoek: 0.000; Lijnen/inch: 0.000
+- Naam en type: Proceskleur Zwart; Hoek: 0.000; Lijnen/inch: 0.000
+
+
+KOPPELINGEN EN AFBEELDINGEN
+(Alleen ontbrekende en ingesloten koppelingen)
+Koppelingen en afbeeldingen: 10 gevonden koppelingen; 0 gewijzigd, 0 ontbrekend 0 Niet toegankelijk
+Afbeeldingen: 0 ingesloten, 2 gebruiken RGB-kleurruimte
+
+
+AFDRUKINSTELLINGEN
+PPD: n.v.t., (hplaserjet3200)
+Afdrukken naar: Printer
+Aantal exemplaren: 1
+Lezer spreads: Nee
+Even/oneven pagina's: Beide
+Pagina's: Alles
+Proef: Nee
+Naast elkaar: Geen
+Schalen: 100%, 100%
+Paginapositie: Linksboven
+Lagen afdrukken: Zichtbare & afdrukbare lagen
+Drukkersmarkeringen: Geen
+Afloopgebied: 0 mm, 0 mm, 0 mm, 0 mm
+Kleur: Samengesteld RGB
+Overvulmodus: Geen
+Afbeeldingsgegevens verzenden: Geoptimaliseerde subsampling
+Vervanging OPI/DCS-afbeelding: Nee
+Paginaformaat: A3
+Papierafmetingen: 209.903 mm x 297.039 mm
+Stand: Liggend
+Negatief: Nee
+Spiegelmodus: Uit
+
+
+BESTANDSPAKKETLIJST
+
+1. Naamloos-1.indd; type: Adobe InDesign-publicatie; grootte: 1580K
+2. GillSans.ttc; type: Lettertypebestand; grootte: 589K
+3. MinionPro-Regular.otf; type: Lettertypebestand; grootte: 212K
+4. nyala.ttf; type: Lettertypebestand; grootte: 427K
